@@ -117,7 +117,7 @@ class BookingService{
         $internationalCity['continentList'] =  $continentList;
         $destinationList['international'] = $internationalCity;
 
-        dd($internationalCity);
+
         return $destinationList;
 
     }
@@ -250,10 +250,12 @@ class BookingService{
 
 
         $hotel->address = Address::where('id',$hotel->address_id)->first();
-        $hotel->province  = $this->getAdressInfo('province',$hotel->address->province_code);
-        $hotel->city  = $this->getAdressInfo('city',$hotel->address->city_code);
-        $hotel->district  = $this->getAdressInfo('district',$hotel->address->district_code);
-
+        if($hotel->address != null)
+        {
+            $hotel->province  = $this->getAdressInfo('province',$hotel->address->province_code);
+            $hotel->city  = $this->getAdressInfo('city',$hotel->address->city_code);
+            $hotel->district  = $this->getAdressInfo('district',$hotel->address->district_code);
+        }
         $hotel->policy =  HotelPolicy::where('hotel_id',$hotelId)->first();
 
 

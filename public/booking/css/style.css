@@ -1762,6 +1762,7 @@ img{
     font-size:16px;
     text-align: left;
     padding-right:10px;
+    font-weight: bold;
 }
 .area-header .p{
     display: inline-block;
@@ -3357,18 +3358,20 @@ img{
         right:10px;
         color: #ff5f76;
     }
-    .mobi-area-list h3{
+    .mobi-area-list h4{
         text-align: center;
         margin-top: 30px;
+        display: block;
+        clear:both;
     }
 
-    .mobi-area-list .province{
+    .mobi-area-list .area{
         width:33.333%;
         float:left;
         text-align: center;
         height:40px;
         line-height: 40px;
-        font-size: 18px;
+        font-size: 14px;
         margin: 0;
     }
 

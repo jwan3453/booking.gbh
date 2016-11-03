@@ -706,9 +706,9 @@
                     {
                                 var cityName = '';
                                 @if(session('lang') == 'en')
-                                    cityName = city.name_en;
+                                    cityName = city.city_name_en;
                                 @else
-                                    cityName = city.name;
+                                    cityName = city.city_name;
                                 @endif
                                 interCityHtml += '<span id="city_' + city.code + '">'+cityName+'</span>'
                     })

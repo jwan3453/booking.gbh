@@ -9,12 +9,12 @@
 
 @section('content')
 
-    <title>目的地</title>
+    <title>{{trans('destination.destination')}}</title>
 
 
 
     <div class="choose-area" id="chooseArea">
-        选择区域
+        {{trans('destination.area')}}
     </div>
 
     <!-- 国内区域-->
@@ -25,7 +25,7 @@
 
             <div class="area-header">
                 <span class="p"></span>
-                <span>国内</span>
+                <span>{{trans('destination.domestic')}}</span>
             </div>
             <div class="area" >
                 <div class="p"></div>
@@ -48,7 +48,7 @@
 
             <div class="area-header">
                 <span class="p"></span>
-                <span>国际</span>
+                <span> {{trans('destination.international')}}</span>
             </div>
             @foreach($destinationList['continent'] as $continent )
 
@@ -249,12 +249,39 @@
     <div class="mobi-area-list" id="mobiArea">
 
         <i class="icon remove  circle big" id="closeAreaMenu"></i>
-        <h3 >省份列表</h3>
+        <h4 >{{trans('destination.domestic')}}</h4>
 
-        <div class="province">直辖市</div>
+        <div class="area">{{ trans('destination.municipality') }}</div>
         @foreach($destinationList['provinceList'] as $province )
-             <div class="province" id="{{$province->code}}">{{$province->province_name}}</div>
+             <div class="area" id="{{$province->code}}">
+
+                 @if(session('lang') == 'en')
+                     {{$province->province_name_en}}
+                 @else
+
+                     {{$province->province_name}}
+                 @endif
+             </div>
         @endforeach
+
+        <h4 >{{trans('destination.international')}}</h4>
+        @foreach($destinationList['continent'] as $continent )
+
+            @if(count($continent->cityList) > 0)
+                <div class="area" id="{{$continent->id}}">
+
+                    @if(session('lang') == 'en')
+                        {{$continent->name_en}}
+                    @else
+
+                        {{$continent->name}}
+                     @endif
+
+                </div>
+            @endif
+        @endforeach
+
+
     </div>
 @stop
 
