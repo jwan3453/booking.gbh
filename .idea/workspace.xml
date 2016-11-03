@@ -22,16 +22,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BookingController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Booking/BookingController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="93" column="63" selection-start-line="93" selection-start-column="63" selection-end-line="93" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="BookingService.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Service/Booking/BookingService.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -129,8 +119,8 @@
       <file leaf-file-name="hotel.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/booking/hotel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8238342">
-              <caret line="377" column="30" selection-start-line="377" selection-start-column="30" selection-end-line="377" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.88255614">
+              <caret line="379" column="0" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
               <folding>
                 <marker date="1477476709001" expanded="true" signature="13581:17945" placeholder="..." />
                 <marker date="1477476709001" expanded="true" signature="13592:17944" placeholder="..." />
@@ -169,21 +159,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/booking/css/style.css">
+      <file leaf-file-name="HotelSection.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/HotelSection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.692307">
-              <caret line="3349" column="20" selection-start-line="3349" selection-start-column="20" selection-end-line="3349" selection-end-column="20" />
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/app.php">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/booking/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-52.307693">
-              <caret line="80" column="61" selection-start-line="80" selection-start-column="61" selection-end-line="80" selection-end-column="61" />
+            <state vertical-scroll-proportion="-10.692307">
+              <caret line="3349" column="20" selection-start-line="3349" selection-start-column="20" selection-end-line="3349" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -249,6 +239,7 @@
         <option value="$PROJECT_DIR$/public/booking/css/style.css" />
         <option value="$PROJECT_DIR$/resources/views/booking/home.blade.php" />
         <option value="$PROJECT_DIR$/app/Service/Booking/BookingService.php" />
+        <option value="$PROJECT_DIR$/app/Models/HotelPolicy.php" />
       </list>
     </option>
   </component>
@@ -784,20 +775,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Models/HotelSection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Room.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/fzaninotto/faker/src/Faker/Provider/Image.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1194,10 +1171,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/HotelSection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/booking/hotel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8238342">
-          <caret line="377" column="30" selection-start-line="377" selection-start-column="30" selection-end-line="377" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.88255614">
+          <caret line="379" column="0" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
           <folding>
             <marker date="1477476709001" expanded="true" signature="13581:17945" placeholder="..." />
             <marker date="1477476709001" expanded="true" signature="13592:17944" placeholder="..." />
