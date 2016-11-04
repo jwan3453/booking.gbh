@@ -6,8 +6,10 @@
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
 
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>
-
+    {{--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
+    <script async defer
+            src="http://ditu.google.cn/maps/api/js?key=AIzaSyCEUgksLbNA-fLYtAfvLod8MP6kgaLc9nE">
+    </script>
 
 @stop
 
@@ -102,7 +104,7 @@
                         <span class="taxi" >  {{ trans('hotel.taxi') }}: {{$surrounding->by_taxi}}  {{ trans('hotel.min') }}</span>
                         <span class="walk">  {{ trans('hotel.walk') }}: {{$surrounding->by_walk}} {{ trans('hotel.min') }}</span>
                         <span class="bus">  {{ trans('hotel.bus') }}: {{$surrounding->by_bus}} {{ trans('hotel.line') }}</span>
-                        <input class="nameInZh" type="hidden" value="{{$surrounding->name}}"/>
+                        <input class="nameInZh"   type="hidden" value="{{$surrounding->name}}"/>
                     </div>
                 @endforeach
             </div>
@@ -263,7 +265,7 @@
         </div>
 
 
-        <iframe src="http://www.google.cn/maps/embed?pb=!1m28!1m12!1m3!1d58102.462678080316!2d118.12116934441082!3d24.471457964990854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x34149a22d926c85b%3A0xcbea272712b05850!2z6KeC6Z-z5bGx5Zu96ZmF5ZWG5Yqh6JCl6L-Q5Lit5b-DOOWPt-alvCDnpo_lu7rnnIHljqbpl6jluILmgJ3mmI7ljLrloZTln5TkuJzot68xNjXlj7c!3m2!1d24.491903!2d118.193856!4m5!1s0x34149b36a642fc1b%3A0x9d977dff7b07a85!2z56aP5bu655yB5Y6m6Zeo5biC5oCd5piO5Yy654Gr6L2m56uZ6I6y5Z2C5ZWG5ZyI5Y-M5ra16Lev5a6Y6YK45aSn5Y6m77yI5YyX6Zeo77yJIOmCruaUv-e8lueggTogMzYxMDA0!3m2!1d24.472618!2d118.118349!5e0!3m2!1szh-CN!2scn!4v1477476217577" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
 
     </div>
 
@@ -321,8 +323,7 @@
                                 @endforeach
                             </div>
                         @endforeach
-                        {{--<div class="padding-80"></div>--}}
-                        {{--<div class="padding-80"></div>--}}
+
                     </div>
                 </div>
 
@@ -373,79 +374,160 @@
             }
         })
 
+
+
         $(document).ready(function(){
 
+
+
             var mapLoaded = 0;
+            var directionsDisplay;
+            var directionsService = new google.maps.DirectionsService();
+            var map;
+            directionsDisplay = new google.maps.DirectionsRenderer();
+            var china = new google.maps.LatLng(39.8563912573, 116.4027431763);
+            var mapOptions = {
+                zoom:7,
+                center: china
+            }
 
 
             function loadMap() {
+//
+//                var map = new BMap.Map("map");
+//                var myGeo = new BMap.Geocoder();
+//                // 将地址解析结果显示在地图上,并调整地图视野
+//                myGeo.getPoint($('#addressInCh').val(), function(point){
+//                    if (point) {
+//                        map.centerAndZoom(point, 20);
+//                        var marker = new BMap.Marker(point);  // 创建标注
+//                        map.addOverlay(marker);               // 将标注添加到地图中
+//                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+//
+//                        map.enableScrollWheelZoom(true);
+//                    }else{
+//                        alert("您选择地址没有解析到结果!");
+//                    }
+//                });
+//
 
-                var map = new BMap.Map("map");
-                var myGeo = new BMap.Geocoder();
-                // 将地址解析结果显示在地图上,并调整地图视野
-                myGeo.getPoint($('#addressInCh').val(), function(point){
-                    if (point) {
-                        map.centerAndZoom(point, 20);
-                        var marker = new BMap.Marker(point);  // 创建标注
-                        map.addOverlay(marker);               // 将标注添加到地图中
-                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    var geocoder;
+                    geocoder = new google.maps.Geocoder();
 
-                        map.enableScrollWheelZoom(true);
-                    }else{
-                        alert("您选择地址没有解析到结果!");
+                    var mapOptions = {
+                        zoom: 16
                     }
-                });
+                    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    google.maps.event.trigger(map, 'resize');
+                    map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+                    codeAddress();
 
+                    function codeAddress() {
+                        var address = '厦门市思明区厦禾路火车站';
+                        geocoder.geocode( { 'address': address}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                            } else {
+                                alert("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                    }
             }
 
             function findPath(surroundingItem){
-                var map = new BMap.Map("map");
-                var myGeo = new BMap.Geocoder();
+                {{--var map = new BMap.Map("map");--}}
+                {{--var myGeo = new BMap.Geocoder();--}}
+                {{--var start = $('#addressInCh').val();--}}
+                {{--var end = '{{$hotelDetail->province}}'+'{{$hotelDetail->city}}'+surroundingItem;--}}
+
+                {{--myGeo.getPoint(start, function(point){--}}
+                    {{--map.centerAndZoom( point, 12);--}}
+                {{--})--}}
+
+
+
+                {{--var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "route",  autoViewport: true}});--}}
+                {{--driving.search(start, end);--}}
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                google.maps.event.trigger(map, 'resize');
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById("directionsPanel"));
                 var start = $('#addressInCh').val();
-                var end = '{{$hotelDetail->province}}'+'{{$hotelDetail->city}}'+surroundingItem;
 
-                myGeo.getPoint(start, function(point){
-                    map.centerAndZoom( point, 12);
-                })
+                var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
+
+                var request = {
+                    origin:start,
+                    destination:end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function(response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
 
 
-
-                var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "route",  autoViewport: true}});
-                driving.search(start, end);
+                        directionsDisplay.setDirections(response);
+                    }
+                });
 
             }
 
             $('#mapIcon').click(function(){
-                $('#mapBox').fadeIn();
+
+
+
+
                 if(mapLoaded  === 0) {
                     loadMap();
                     mapLoaded = 1;
                 }
+                $('#mapBox').fadeIn();
             })
 
             $('#closeMap').click(function(){
-                $('#map').empty();
-                $('#route').empty();
+//                $('#map').empty();
+//                $('#route').empty();
                 $('#mapBox').fadeOut();
             })
 
 
             $('.surr-item').click(function(){
+                $('#mapBox').fadeIn();
                 var surroundingItem = $(this).children('.nameInZh').val();
                     findPath(surroundingItem);
-                    $('#mapBox').fadeIn();
+
             })
 
 
             $('#showAllSurr').click(function(){
-                $('#surrDetail').addClass('auto-height');
 
+                if($('#surrDetail').hasClass('auto-height'))
+                {
+                    $('#surrDetail').removeClass('auto-height');
+                }
+                else
+                {
+                    $('#surrDetail').addClass('auto-height');
+                }
             })
 
 
             $('#showAllFaci').click(function(){
-                $('#facilityList').addClass('auto-height');
+
+                if($('#facilityList').hasClass('auto-height'))
+                {
+                    $('#facilityList').removeClass('auto-height');
+                }
+                else
+                {
+                    $('#facilityList').addClass('auto-height');
+                }
 
             })
 
