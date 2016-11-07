@@ -1981,14 +1981,14 @@ img{
 .area-option{
     position: absolute;
     top:-79px;
-    width:160px;
+    width:240px;
     background: rgba(9,9,26,0.5);
     color:#f8f8f8;
 }
 
 .area-option span{
     display: inline-block;
-    width:80px;
+    width:120px;
     text-align: center;
     font-size: 14px;
     height:30px;

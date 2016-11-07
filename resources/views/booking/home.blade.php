@@ -277,7 +277,10 @@
         </div>
     </div>
 
-    <div class="home-sec white_bg">
+
+
+    @if(count($hotDestination)>= 7)
+        <div class="home-sec white_bg">
         <div class="header">{{ trans('home.hotDestination') }}
         </div>
 
@@ -286,7 +289,6 @@
 
 
             @for($i = 0; $i<4; $i++)
-
 
 
                 <a  href="/hotelByCity/{{$hotDestination[$i]->code}}">
@@ -352,8 +354,7 @@
 
 
     </div>
-
-
+    @endif
 
 
     <div class="parallax-window" data-z-index="100" data-parallax="scroll" data-image-src="booking/img/bg_comment.jpg" >
@@ -624,11 +625,24 @@
                 var $city_w_z = $(city_w_z).attr("id", "city_w_z");
 
 
-                var areaOptionHtml = '<span class="current-select" id="ds">国内</span>' +
-                                     '<span id="int">国外</span>';
+                var domesText = '';
+                var intText = '';
+                var hotText = '';
+                @if(session('lang') == 'en')
+                    domesText = 'China';
+                    intText = 'International';
+                    hotText = 'Hot'
+                @else
+                    domesText = '国内';
+                    intText = '国际';
+                    hotText = '热门';
+                @endif
+
+                var areaOptionHtml = '<span class="current-select" id="ds">' +domesText+ '</span>' +
+                                     '<span id="int">'+intText+'</span>';
                 $areaOption.append(areaOptionHtml);
 
-                var captionHtml = '<span id="cap_ds_hot" class=" d-caption">热门</span>'+
+                var captionHtml = '<span id="cap_ds_hot" class=" d-caption">'+hotText+'</span>'+
                         '<span  class="active d-caption"  id="cap_a_e">ABCDE</span>'+
                         '<span  id="cap_f_j" class=" d-caption">FGHIJ</span>'+
                         '<span  id="cap_k_p" class=" d-caption">KLMNOP</span>'+
@@ -686,11 +700,28 @@
                 captionHtml = '';
                 var interCityHtml = '';
 
-                captionHtml += '<span  class=" i-caption" id="cap_int_hot">热门</span>';
+                captionHtml += '<span  class=" i-caption" id="cap_int_hot">'+hotText+'</span>';
+
+
+
+                //添加热门城市
+                interCityHtml += '<div  class="city-section" id="'+ 'hot_int_city">';
+                cityList['international']['hotDestination'].forEach(function(city)
+                {
+                    var cityName = '';
+                    @if(session('lang') === 'en')
+                        cityName = city.city_name_en;
+                    @else
+                        cityName = city.city_name;
+                    @endif
+                    interCityHtml += '<span id="city_' + city.code + '">'+cityName+'</span>';
+                })
+                interCityHtml +='</div></div>';
+
+
                 cityList['international']['continentList'].forEach(function(continent){
 
                     var  continentIndex = continent['name_en'];
-
 
                     //默认显示亚洲城市
                     if(continentIndex == 'Asia')
@@ -705,23 +736,34 @@
                     cityList['international'][continentIndex].forEach(function(city)
                     {
                                 var cityName = '';
-                                @if(session('lang') == 'en')
+                                @if(session('lang') === 'en')
                                     cityName = city.city_name_en;
                                 @else
                                     cityName = city.city_name;
                                 @endif
-                                interCityHtml += '<span id="city_' + city.code + '">'+cityName+'</span>'
+                                interCityHtml += '<span id="city_' + city.code + '">'+cityName+'</span>';
                     })
+
+                    if(cityList['international'][continentIndex].length==0)
+                    {
+                        interCityHtml += '<span>'+"{{trans('home.noCities')}}"+'</span>';
+                    }
 
                     interCityHtml +='</div></div>';
 
                     //默认显示亚洲城市(caption)
-                    if(continentIndex == 'Asia')
+                    var contientName = '';
+                    @if(session('lang') === 'en')
+                        contientName = continent['name_en'];
+                    @else
+                        contientName = continent['name'];
+                    @endif
+                if(continentIndex == 'Asia')
                     {
-                        captionHtml += '<span  class="active i-caption" id="'+continent['name_en']+'">'+continent['name'] +'</span>';
+                        captionHtml += '<span  class="active i-caption" id="'+continent['name_en']+'">'+contientName+'</span>';
                     }
                     else{
-                        captionHtml += '<span class="i-caption"  id="'+continent['name_en']+'">'+continent['name'] +'</span>';
+                        captionHtml += '<span class="i-caption"  id="'+continent['name_en']+'">'+contientName+'</span>';
                     }
 
 
@@ -812,7 +854,14 @@
             //点击大洲切换国际城市
             $(document).on('click','.i-caption',function(){
                 $(this).addClass('active').siblings('span').removeClass('active');
-                $('#'+$(this).attr('id')+'_city').show().siblings('.city-section').hide();
+
+                if($(this).attr('id')==='cap_int_hot')
+                {
+                    $('#hot_int_city').show().siblings('.city-section').hide();
+                }
+                else{
+                    $('#'+$(this).attr('id')+'_city').show().siblings('.city-section').hide();
+                }
             })
 
             //选择国内城市
@@ -899,7 +948,7 @@
 
             $(document).bind("click",function(e){
 
-
+                //点击隐藏城市列表
                 e = e || window.event;
                 var target = $(e.target);
                 if(target.closest($container).length == 0 &&target.closest($('#hotelSearchSection')).length == 0 && target.closest($('#province')).length == 0){
@@ -930,6 +979,8 @@
         }
 
         $(document).ready(function(fn){
+
+            //各种上翻的效果(模糊,缩放)
             var p=0,t=0;
             var timeout;
             var scrollSpan =0;
@@ -997,9 +1048,10 @@
                 }, 10);
             })
 
+            //parallax effect
             $('.parallax-window').parallax();
 
-
+            //城市列表插件
             $('#destination').getCityDestinations($('#mobiSearchBar'));
 
             $('#mobiSearchBar').click(function(){

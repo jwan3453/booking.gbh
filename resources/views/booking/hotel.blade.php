@@ -480,14 +480,10 @@
 
             $('#mapIcon').click(function(){
 
-
-
-
-                if(mapLoaded  === 0) {
-                    loadMap();
-                    mapLoaded = 1;
-                }
                 $('#mapBox').fadeIn();
+                loadMap();
+
+
             })
 
             $('#closeMap').click(function(){

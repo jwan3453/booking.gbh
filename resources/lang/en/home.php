@@ -44,5 +44,5 @@ return [
     'customerService' => 'Customer Service',
 
     'slogan' =>"hotels that you haven't experience yet",
-
+    'noCities' => "no available hotels is this region"
 ];

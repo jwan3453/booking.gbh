@@ -41,6 +41,6 @@ return [
     'bookingEmail' => '预定邮箱',
     'customerService' => '客服电话',
 
-    'slogan' =>'有一种酒店,你还未体验'
-
+    'slogan' =>'有一种酒店,你还未体验',
+    'noCities' => "该区域暂未开通城市"
 ];
