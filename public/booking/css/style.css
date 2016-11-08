@@ -1071,7 +1071,8 @@ img{
 
 }
 .room{
-
+    position:relative;
+    margin:10px 0;
 }
 .room img{
     width:120px;
@@ -1095,7 +1096,7 @@ img{
     width:500px;
     margin-top: 5px;
     position: absolute;
-    top:85px;
+    top:25px;
     left:145px;
 
 }

@@ -25,20 +25,18 @@
       <file leaf-file-name="BookingService.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Service/Booking/BookingService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="14" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
-              <folding>
-                <element signature="e#39#63#0#PHP" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="15.038462">
+              <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/booking/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.7806563">
-              <caret line="318" column="14" selection-start-line="318" selection-start-column="14" selection-end-line="318" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="359" column="20" selection-start-line="359" selection-start-column="20" selection-end-line="359" selection-end-column="20" />
               <folding>
                 <marker date="1478501457293" expanded="true" signature="23946:23954" placeholder="..." />
                 <marker date="1478501457293" expanded="true" signature="23946:23959" placeholder="..." />
@@ -81,7 +79,7 @@
       <file leaf-file-name="home.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/lang/zh_cn/home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.423077">
+            <state vertical-scroll-proportion="0.0">
               <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
               <folding />
             </state>
@@ -111,8 +109,8 @@
       <file leaf-file-name="hotel.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/booking/hotel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
+            <state vertical-scroll-proportion="-13.076923">
+              <caret line="240" column="40" selection-start-line="240" selection-start-column="40" selection-end-line="240" selection-end-column="40" />
               <folding>
                 <marker date="1478251264450" expanded="true" signature="12892:20350" placeholder="..." />
                 <marker date="1478251264450" expanded="true" signature="12903:20349" placeholder="..." />
@@ -133,11 +131,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/booking/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1998" column="29" selection-start-line="1998" selection-start-column="29" selection-end-line="1998" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.48013818">
+              <caret line="1083" column="1" selection-start-line="1083" selection-start-column="1" selection-end-line="1083" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -189,12 +187,12 @@
         <option value="$PROJECT_DIR$/resources/views/booking/destinationList.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/HotelPolicy.php" />
         <option value="$PROJECT_DIR$/resources/views/booking/hotel.blade.php" />
-        <option value="$PROJECT_DIR$/public/booking/css/style.css" />
         <option value="$PROJECT_DIR$/app/Service/Booking/BookingService.php" />
         <option value="$PROJECT_DIR$/resources/lang/en/hotel.php" />
         <option value="$PROJECT_DIR$/resources/lang/en/home.php" />
         <option value="$PROJECT_DIR$/resources/lang/zh_cn/home.php" />
         <option value="$PROJECT_DIR$/resources/views/booking/home.blade.php" />
+        <option value="$PROJECT_DIR$/public/booking/css/style.css" />
       </list>
     </option>
   </component>
@@ -265,6 +263,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -593,6 +592,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Booking" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="booking.gbh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="booking.gbh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -691,7 +712,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -764,7 +784,7 @@
     <option name="totallyTimeSpent" value="1874000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -1077,45 +1097,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="262" column="23" selection-start-line="262" selection-start-column="22" selection-end-line="262" selection-end-column="23" />
-          <folding>
-            <marker date="1478142948061" expanded="true" signature="1645:1701" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="3047:3107" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="3757:3819" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="4351:4403" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="4843:4903" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="5554:5616" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="6302:6350" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="6816:6876" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="7559:7625" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="9183:10644" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9194:10643" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9310:9390" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9321:9389" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9431:9507" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9442:9506" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9541:10207" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9553:9688" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9709:9731" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9823:9845" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="9894:10030" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10051:10073" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10168:10190" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10240:10628" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10252:10328" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10349:10375" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10432:10508" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10529:10604" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10676:10808" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10687:10785" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10858:11699" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10870:11698" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10940:11686" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10952:11681" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="10997:11097" placeholder="{...}" />
-            <marker date="1478142948061" expanded="true" signature="11119:11203" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="11237:11666" placeholder="..." />
-            <marker date="1478142948061" expanded="true" signature="11248:11665" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1133,7 +1114,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Service/Booking/BookingService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="15.038462">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/booking/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="359" column="20" selection-start-line="359" selection-start-column="20" selection-end-line="359" selection-end-column="20" />
+          <folding>
+            <marker date="1478501457293" expanded="true" signature="23946:23954" placeholder="..." />
+            <marker date="1478501457293" expanded="true" signature="23946:23959" placeholder="..." />
+            <marker date="1478501457293" expanded="true" signature="23961:23981" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Booking/BookingController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/lang/en/hotel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/lang/en/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/lang/zh_cn/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/lang/en/hotelByCategory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/lang/zh_cn/hotel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1143,8 +1184,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/booking/hotel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
+        <state vertical-scroll-proportion="-13.076923">
+          <caret line="240" column="40" selection-start-line="240" selection-start-column="40" selection-end-line="240" selection-end-column="40" />
           <folding>
             <marker date="1478251264450" expanded="true" signature="12892:20350" placeholder="..." />
             <marker date="1478251264450" expanded="true" signature="12903:20349" placeholder="..." />
@@ -1166,71 +1207,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/booking/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1998" column="29" selection-start-line="1998" selection-start-column="29" selection-end-line="1998" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.48013818">
+          <caret line="1083" column="1" selection-start-line="1083" selection-start-column="1" selection-end-line="1083" selection-end-column="1" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Service/Booking/BookingService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="14" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
-          <folding>
-            <element signature="e#39#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Booking/BookingController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/en/home.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/zh_cn/hotel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/en/hotel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/zh_cn/home.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.423077">
-          <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/booking/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7806563">
-          <caret line="318" column="14" selection-start-line="318" selection-start-column="14" selection-end-line="318" selection-end-column="14" />
-          <folding>
-            <marker date="1478501457293" expanded="true" signature="23946:23954" placeholder="..." />
-            <marker date="1478501457293" expanded="true" signature="23946:23959" placeholder="..." />
-            <marker date="1478501457293" expanded="true" signature="23961:23981" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
