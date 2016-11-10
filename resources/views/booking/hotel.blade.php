@@ -7,14 +7,19 @@
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
 
     {{--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
-    <script async defer
-            src="http://ditu.google.cn/maps/api/js?key=AIzaSyCEUgksLbNA-fLYtAfvLod8MP6kgaLc9nE">
-    </script>
+
+    <script src={{ asset('js/googleMapApi.js') }}></script>
 
 @stop
 
 @section('content')
-    <title>酒店详情</title>
+    <title>
+        @if(session('lang') == 'en')
+            {{$hotelDetail->name_en}}
+        @else
+            {{$hotelDetail->name}}
+        @endif
+    </title>
 
     {{--<div class="owl-carousel owl-theme hotel-image-cover" id="hotelImageCover">--}}
 
@@ -221,8 +226,9 @@
                 {{ trans('hotel.room') }}
             </div>
 
+            <?php $roomIndex=0;?>
             @foreach($hotelDetail->rooms as $room )
-                <div class="room">
+                <div class="room"  data-index="{{$roomIndex}}">
 
                     <img src="{{count($room->images)>0?$room->images[0]->link.'?imageView/1/w/150/h/150':''}}" />
 
@@ -260,6 +266,7 @@
 
 
                 </div>
+                <?php $roomIndex++;?>
             @endforeach
 
         </div>
@@ -271,6 +278,42 @@
 
 
 
+    <div class="room-detail-gallery" id="roomDetailGalleryBox">
+        <div class="room-detail-box-wrapper">
+
+            <div class="room-gallery-box" id="galleryBox">
+                <i class="icon remove circle big" id="closeRoomBox"></i>
+
+                <div class="room-gallery-box-left" id="roomGalleryBoxLeft" >
+
+                </div>
+
+
+
+                <div class="room-gallery-box-right" id="roomGalleryBoxRight">
+                    <div class="room-attributes-list">
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="icon user"></i>{{trans('hotel.numOfPeople')}}</span><span id="numOfPeople"></span>
+                        </div>
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="icon food"></i>{{trans('hotel.numOfBreakfast')}}</span><span id="numOfBreakfast"></span>
+                        </div>
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="icon grid layout icon"></i>{{trans('hotel.acreage')}} </span><span id="acreage"></span>
+                        </div>
+
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="icon wifi"></i>{{trans('hotel.wifi')}} </span><span id="wifi"></span>
+                        </div>
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="hotel icon"></i>{{trans('hotel.extraBed')}}</span><span id="extraBed"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
     <div class="hotel-image-gallery" id="hotelImageGallery">
@@ -529,9 +572,92 @@
 
 
 
+            //把room 明细转成javascript array
+            var re = new RegExp("&quot;", 'g');;
+            var roomDetail = '{{$hotelDetail->roomsInJson}}'.replace(re,'"');
+            roomDetail = JSON.parse(roomDetail);
+            $('.room > .name, .room > img').click(function(){
+
+
+                var roomIndex=$(this).parent('div').attr('data-index');
+                var roomName = '';
+
+                @if(session('lang') == 'en')
+                    roomName = roomDetail[roomIndex].room_name;
+                @else
+                    roomName = roomDetail[roomIndex].room_name_en;
+                @endif
+
+
+
+                var htmlLeft = '<div >';
+
+                htmlLeft += '<div class="room-name">'+ roomName+'</div>';
+                htmlLeft += '<img  id="roomImageShow" src="'+roomDetail[roomIndex].images[0].link +'">'+
+                        '<div class="room-image-nav">';
+                for(var i = 0; i<roomDetail[roomIndex].images.length; i++)
+                {
+                    htmlLeft += '<img src="'+roomDetail[roomIndex].images[i].link+'?imageView/1/w/135/h/100' +'">';
+                }
+
+                htmlLeft += '</div></div>';
+
+                //动态加载左边图像
+                $('#roomGalleryBoxLeft').empty().append(htmlLeft);
+
+                //加载房间属性
+                $('#numOfPeople').text(roomDetail[roomIndex].num_of_people);
+                $('#numOfBreakfast').text(roomDetail[roomIndex].num_of_breakfast );
+                $('#acreage').text(roomDetail[roomIndex].acreage + 'm²');
+                var wifi;
+                if(roomDetail[roomIndex].wifi == 0)
+                {
+                    wifi = '{{trans('hotel.noWifi')}}';
+                }
+                else if(roomDetail[roomIndex].wifi == 1)
+                {
+                    wifi = '{{trans('hotel.wifiWithCharge')}}';
+                }
+                else{
+                    wifi = '{{trans('hotel.freeWifi')}}';
+                }
+                $('#wifi').text(wifi);
+
+                var extraBed = '';
+                if(roomDetail[roomIndex].is_extra_bed == 0)
+                {
+                    extraBed = '{{trans('hotel.noExtraBed')}}';
+                }
+                else if(roomDetail[roomIndex].is_extra_bed == 1)
+                {
+                    extraBed = '{{trans('hotel.extraBedWithCharge')}}';
+                }
+                else{
+                    extraBed = '{{trans('hotel.freeExtraBed')}}';
+                }
+
+                $('#extraBed').text(extraBed);
+
+
+
+                $('#roomDetailGalleryBox').fadeIn(100);
+            })
+
+
+            $(document).on('click','.room-image-nav > img',function(){
+               $(this).addClass('room-image-nav-select').siblings('img').removeClass('room-image-nav-select');
+
+                var newLink = $(this).attr('src').substr(0,$(this).attr('src').indexOf('?'));
+               $('#roomImageShow').attr('src', newLink+'?imageView/1/w/600/h/400');
+
+            })
+
+            $('#closeRoomBox').click(function(){
+                $('#roomDetailGalleryBox').fadeOut(100);
+            })
 
             $('.hotel-image-list > li > .mask').click(function(){
-                $('#hotelImageGallery').fadeIn(400);
+                $('#hotelImageGallery').fadeIn(100);
                 $('#hotelImageShow').attr('src', $(this).siblings('img').attr('src')+'?imageView/1/w/600/h/400');
             })
 

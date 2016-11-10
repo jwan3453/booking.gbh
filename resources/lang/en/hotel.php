@@ -30,6 +30,21 @@ return [
      'all'=> 'all',
 
 
-    'bookNow' => 'book'
+    'bookNow' => 'book',
+
+    'numOfPeople' => 'max',
+    'numOfBreakfast' => 'breakfast',
+    'acreage' => 'room size',
+    'wifi' => 'wifi',
+    'extraBed' => 'extra bed',
+
+
+    'noWifi' => 'no wifi provide',
+    'wifiWithCharge' => 'wifi need extra charge',
+    'freeWifi' => 'freeWifi',
+
+    'noExtraBed' => 'no extra bed provide',
+    'extraBedWithCharge' => 'extra bed with charge',
+    'freeExtraBed' => 'free extra bed',
 
 ];

@@ -30,7 +30,22 @@ return [
     'all'=> '全部',
 
 
-    'bookNow' => '预订'
+    'bookNow' => '预订',
+
+
+    'numOfPeople' => '入住人数',
+    'numOfBreakfast' => '早餐数量',
+    'acreage' => '房间大小',
+    'wifi' => 'wifi',
+    'extraBed' => '加床',
+
+    'noWifi' => '不提供wifi',
+    'wifiWithCharge' => 'wifi需要收费',
+    'freeWifi' => '免费wifi',
+
+    'noExtraBed' => '不提供加床服务',
+    'extraBedWithCharge' => '加床需要收费',
+    'freeExtraBed' => '免费加床',
 
 
 ];

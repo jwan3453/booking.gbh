@@ -234,6 +234,7 @@ class BookingService{
 
         //获取房间列表
         $hotel->rooms= Room::where('hotel_id',$hotel->id)->get();
+
         foreach( $hotel->rooms as  $room)
         {
             $room->images = HotelImage::where(['section_id'=> $room->id,'hotel_id' => $hotelId,'type'=>2])->get();
@@ -258,7 +259,10 @@ class BookingService{
         }
         $hotel->policy =  HotelPolicy::where('hotel_id',$hotelId)->first();
 
+        //room detail 转成json
+        $hotel->roomsInJson = $hotel->rooms->toJson();
 
+        
         return $hotel;
     }
 
