@@ -25,6 +25,9 @@ return [
     'checkin' => '入住时间',
     'checkout' => '离店时间',
     'meals' => '膳食安排',
+    'petPolicy' => '关于宠物',
+    'airportTransfer' => '接机服务',
+    'payPolicy' => '支付',
     'other' => '其他',
 
     'all'=> '全部',
@@ -36,8 +39,12 @@ return [
     'numOfPeople' => '入住人数',
     'numOfBreakfast' => '早餐数量',
     'acreage' => '房间大小',
+    'bedSize' => '床型大小',
     'wifi' => 'wifi',
     'extraBed' => '加床',
+    'locationInfo' =>'位置信息',
+    'otherInfo'=>'其他信息',
+
 
     'noWifi' => '不提供wifi',
     'wifiWithCharge' => 'wifi需要收费',
@@ -46,6 +53,5 @@ return [
     'noExtraBed' => '不提供加床服务',
     'extraBedWithCharge' => '加床需要收费',
     'freeExtraBed' => '免费加床',
-
 
 ];

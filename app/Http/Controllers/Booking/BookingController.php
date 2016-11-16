@@ -40,9 +40,6 @@ class BookingController extends Controller
     public function home()
     {
 
-
-
-
         $isMobile = false;
         if($this->check_wap())
             $isMobile = true;
@@ -80,10 +77,8 @@ class BookingController extends Controller
     //
     public function hotelCategory($category)
     {
-
         $hotel = $this->bookingService->getHotelByCate($category);
         return view('booking.hotelByCategory')->with('hotel',$hotel);
-
 
     }
 
@@ -97,9 +92,9 @@ class BookingController extends Controller
 
 
     //目的地酒店
-    public function hotelByCity($code)
+    public function hotelByCity($area,$code)
     {
-        $hotel = $this->bookingService->getHotelByCity($code);
+        $hotel = $this->bookingService->getHotelByCity($area,$code);
         return view('booking.hotelByCity')->with('hotel',$hotel);
     }
 

@@ -8,7 +8,7 @@
 
     {{--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
 
-    <script src={{ asset('js/googleMapApi.js') }}></script>
+    <script src="http://ditu.google.cn/maps/api/js?key=AIzaSyBVbzDkqtNh-dK916AMJMsrF3G1BtUpHwg"></script>
 
 @stop
 
@@ -46,16 +46,23 @@
     </div>
 
 
-    <div class="hotel-detail auto-margin">
-
+    <div class="hotel-header" id="hotelHeader">
         <div class="hotel-name">
             @if(session('lang') == 'en')
                 {{$hotelDetail->name_en}}
             @else
                 {{$hotelDetail->name}}
             @endif
-
         </div>
+
+
+        <div class="image-count">
+            (共{{$hotelDetail->imageCount}}张图片)
+        </div>
+    </div>
+
+    <div class="hotel-detail auto-margin">
+
 
 
         <div class="hotel-desc hotel-line-detail ">
@@ -79,12 +86,12 @@
             <div class="detail">
                 <span id="hotelAddress">
                     @if(session('lang') == 'en')
-                       {{$hotelDetail->address->detail_en}} {{$hotelDetail->city->city_name_en}} {{$hotelDetail->province->province_name_en}}
+                       {{$hotelDetail->address->detail_en}} {{$hotelDetail->city->city_name_en}} {{$hotelDetail->province->province_name_en}}{{$hotelDetail->province->name_en}}
                     @else
-                        {{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district_name}}{{$hotelDetail->address->detail}}
+                        {{$hotelDetail->province->name}}{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district->district_name}}{{$hotelDetail->address->detail}}
                     @endif
                 </span>
-                <input type=hidden id="addressInCh" value="{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district_name}}{{$hotelDetail->address->detail}}">
+                <input type=hidden id="addressInCh" value="{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district->district_name}}{{$hotelDetail->address->detail}}">
                 <a id="mapIcon"><div class="map-icon" ></div></a>
             </div>
         </div>
@@ -126,6 +133,75 @@
                     {{ trans('hotel.facility') }}
                 </div>
                 <div class="detail" id="facilityList">
+
+
+                    <div class="facility-list">
+                        <div class="category">
+                                餐饮
+                        </div>
+
+                        <div  class="list-detail" >
+                            @foreach($hotelDetail->cateringList as $cateringItem)
+                            <div class="list-items">
+                                <label>
+
+                                        <span>
+                                            @if(session('lang') == 'en')
+                                                {{$cateringItem->name_en}}
+                                            @else
+
+                                                {{$cateringItem->name}}
+                                            @endif
+                                        </span>
+                                </label>
+
+                                <label>
+
+                                    <span>
+                                        营业时间: {{$cateringItem-> business_hour}}
+                                    </span>
+
+                                </label>
+                            </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+
+
+                    <div class="facility-list">
+                        <div class="category">
+                            健身娱乐
+                        </div>
+
+                        <div  class="list-detail" >
+                            @foreach($hotelDetail->recreationList as $recreationItem)
+                                <div class="list-items">
+                                    <label>
+
+                                        <span>
+                                            @if(session('lang') == 'en')
+                                                {{$recreationItem->name_en}}
+                                            @else
+
+                                                {{$recreationItem->name}}
+                                            @endif
+                                        </span>
+                                    </label>
+
+                                    <label>
+
+                                    <span>
+                                        营业时间: {{$recreationItem-> business_hour}}
+                                    </span>
+
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+
 
                     @foreach($hotelDetail->facility['category'] as $facilityCategory)
                         <div class="facility-list">
@@ -203,18 +279,72 @@
 
 
                 <div class="policy-item">
-                    <span class="title">{{ trans('hotel.other')}}</span>
+                    <span class="title">{{ trans('hotel.airportTransfer')}}</span>
                     <span class="de">
 
+                        @if(session('lang') == 'en')
+                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->airport_transfer_en}}
+                        @else
+
+                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->airport_transfer}}
+                        @endif
+                    </span>
+                </div>
+
+                <div class="policy-item">
+                    <span class="title">{{ trans('hotel.petPolicy')}}</span>
+                    <span class="de">
+                        @if(session('lang') == 'en')
+                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy}}
+                        @else
+                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}
+                        @endif
+                    </span>
+                </div>
+
+
+                <div class="policy-item">
+                    <span class="title">{{ trans('hotel.other')}}</span>
+                    <span class="de">
 
                         @if(session('lang') == 'en')
                             {{$hotelDetail->policy==null?'':$hotelDetail->policy->other_policy_en}}
                         @else
 
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->catering_arrangements}}
+                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->other_policy_en}}
                         @endif
                     </span>
                 </div>
+
+
+
+                <div class="policy-item">
+                    <span class="title">{{ trans('hotel.payPolicy')}}</span>
+                    <div class="de">
+                        {{--@if(session('lang') == 'en')--}}
+                            {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pay_policy}}--}}
+                        {{--@else--}}
+                            {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}--}}
+                        {{--@endif--}}
+                        @if(strpos($hotelDetail->policy->pay_policy,'m')!== false)
+                            <div class="master-card"></div>
+                        @endif
+                        @if(strpos($hotelDetail->policy->pay_policy,'v')!== false)
+                            <div class="visa-card"></div>
+                        @endif
+                        @if(strpos($hotelDetail->policy->pay_policy,'u')!== false)
+                            <div class="unionPay"></div>
+                        @endif
+                        @if(strpos($hotelDetail->policy->pay_policy,'a')!== false)
+                            <div class="aliPay"></div>
+                        @endif
+                        @if(strpos($hotelDetail->policy->pay_policy,'w')!== false)
+                            <div class="wechatPay"></div>
+                        @endif
+
+                    </div>
+                </div>
+
 
             </div>
 
@@ -301,13 +431,25 @@
                         <div class="room-attribute">
                             <span class="attr-name"><i class="icon grid layout icon"></i>{{trans('hotel.acreage')}} </span><span id="acreage"></span>
                         </div>
-
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="hotel icon"></i>{{trans('hotel.bedSize')}} </span><span id="bedSize"></span>
+                        </div>
                         <div class="room-attribute">
                             <span class="attr-name"><i class="icon wifi"></i>{{trans('hotel.wifi')}} </span><span id="wifi"></span>
                         </div>
                         <div class="room-attribute">
-                            <span class="attr-name"><i class="hotel icon"></i>{{trans('hotel.extraBed')}}</span><span id="extraBed"></span>
+                            <span class="attr-name"><i class="plus icon"></i>{{trans('hotel.extraBed')}}</span><span id="extraBed"></span>
                         </div>
+
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="map pin icon"></i>{{trans('hotel.locationInfo')}}</span><span id="locationInfo"></span>
+                        </div>
+
+                        <div class="room-attribute">
+                            <span class="attr-name"><i class="info circle icon"></i>{{trans('hotel.otherInfo')}}</span><span id="otherInfo"></span>
+                        </div>
+
+                        <div>
                     </div>
                 </div>
 
@@ -422,6 +564,17 @@
         $(document).ready(function(){
 
 
+            //添加hotel header特效
+            $('.hotel-images').hover(
+
+                function(){
+                    $('#hotelHeader').addClass('hotel-header-animate');
+                },
+                function(){
+                    $('#hotelHeader').removeClass('hotel-header-animate');
+
+            })
+
 
             var mapLoaded = 0;
             var directionsDisplay;
@@ -467,7 +620,7 @@
                     codeAddress();
 
                     function codeAddress() {
-                        var address = '厦门市思明区厦禾路火车站';
+                        var address = $('#addressInCh').val();
                         geocoder.geocode( { 'address': address}, function(results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
                                 map.setCenter(results[0].geometry.location);
@@ -476,7 +629,7 @@
                                     position: results[0].geometry.location
                                 });
                             } else {
-                                alert("Geocode was not successful for the following reason: " + status);
+                                console.log("Geocode was not successful for the following reason: " + status);
                             }
                         });
                     }
@@ -583,9 +736,9 @@
                 var roomName = '';
 
                 @if(session('lang') == 'en')
-                    roomName = roomDetail[roomIndex].room_name;
-                @else
                     roomName = roomDetail[roomIndex].room_name_en;
+                @else
+                    roomName = roomDetail[roomIndex].room_name;
                 @endif
 
 
@@ -609,6 +762,7 @@
                 $('#numOfPeople').text(roomDetail[roomIndex].num_of_people);
                 $('#numOfBreakfast').text(roomDetail[roomIndex].num_of_breakfast );
                 $('#acreage').text(roomDetail[roomIndex].acreage + 'm²');
+                $('#bedSize').text(roomDetail[roomIndex].bed.length + 'm x '+ roomDetail[roomIndex].bed.width +'m');
                 var wifi;
                 if(roomDetail[roomIndex].wifi == 0)
                 {
@@ -638,7 +792,18 @@
 
                 $('#extraBed').text(extraBed);
 
+                var locationInfo = '';
+                var otherInfo='';
+                @if(session('lang') == 'en')
+                    locationInfo = roomDetail[roomIndex].location_info_en;
+                    other_info = roomDetail[roomIndex].other_info_en;
+                @else
+                    locationInfo = roomDetail[roomIndex].location_info;
+                    other_info = roomDetail[roomIndex].other_info;
+                @endif
 
+                $('#locationInfo').text(locationInfo);
+                $('#otherInfo').text(other_info);
 
                 $('#roomDetailGalleryBox').fadeIn(100);
             })

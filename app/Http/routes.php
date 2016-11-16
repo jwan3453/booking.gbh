@@ -34,7 +34,7 @@ Route::get('/category/{category}','Booking\BookingController@hotelCategory');
 Route::get('/destinationList','Booking\BookingController@destinationList');
 
 //目的地酒店
-Route::get('/hotelByCity/{cityCode}','Booking\BookingController@hotelByCity');
+Route::get('/hotelByCity/{area}/{cityCode}','Booking\BookingController@hotelByCity');
 
 
 //更换语言

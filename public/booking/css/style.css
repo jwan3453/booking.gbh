@@ -897,6 +897,52 @@ img{
     height: 500px;
 }
 
+.hotel-header{
+
+    position: absolute;
+    top:200px;
+    width:100%;
+    -webkit-transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    transition:all 0.3s ease;
+}
+
+
+.hotel-header-animate{
+    cursor: pointer;
+    -webkit-transform:scale(0);
+    -moz-transform:scale(0);
+    -o-transform:scale(0);
+    transform:scale(0);
+    -webkit-transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    transition:all 0.3s ease;
+}
+
+.hotel-name{
+    text-align: center;
+    font-size: 38px;
+    padding:5px 0;
+    font-weight: 500;
+    z-index:3;
+    width: 100%;
+    color:#f8f8f8;
+
+}
+
+.image-count{
+    text-align: center;
+    font-size: 20px;
+    padding:5px 0;
+    font-weight: 500;
+    z-index:3;
+    width: 100%;
+    color:#f8f8f8;
+
+}
+
 .hotel-detail{
     background-color: #fff;
     width:100%;
@@ -906,16 +952,6 @@ img{
     padding-top:20px;
 }
 
-.hotel-name{
-
-
-    text-align: center;
-    font-size: 28px;
-    padding:10px 0;
-    font-weight: 500;
-    z-index:3;
-    width: 100%;
-}
 
 
 .hotel-line-detail{
@@ -1006,11 +1042,12 @@ img{
 }
 
 .policy-item{
-    padding:10px 0 ;
+    margin:15px 0 ;
+
 }
 .policy-item .title{
     color: #979797;
-    min-width:120px;
+    min-width:140px;
     display: inline-block;
     vertical-align: top;
 }
@@ -1040,11 +1077,20 @@ img{
     display: inline-block;
     vertical-align: top;
     font-size: 14px;
+    padding:5px 0 ;
 }
+
+.facility-list .list-detail{
+    display: inline-block; width:720px;
+}
+
+
+
 .facility-list .list-items{
     width:700px;
     display: inline-block;
     font-size: 14px;
+    margin-bottom: 5px;
 }
 
 .facility-list .list-items label{
@@ -1212,7 +1258,7 @@ img{
 .hotel-image-list li .mask{
     height:100%;
     width:100%;
-    background: rgba(10, 3, 29, 0.9);
+    background: rgba(10, 3, 29, 0.6);
     position: absolute;
     top:0;
     -webkit-transition:all 0.5s ease;
@@ -2306,7 +2352,52 @@ img{
     vertical-align: middle;
 }
 
+.master-card{
+    width: 60px;
+    height: 60px;
+    background-image: url('/booking/icon/masterCard.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+.visa-card{
+    width: 60px;
+    height: 60px;
+    background-image: url('/booking/icon/masterCard.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    overflow: hidden;
 
+}
+.unionPay{
+    width: 60px;
+    height: 60px;
+    background-image: url('/booking/icon/masterCard.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+.aliPay{
+    width: 60px;
+    height: 60px;
+    background-image: url('/booking/icon/masterCard.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+.wechatPay{
+    width: 60px;
+    height: 60px;
+    background-image: url('/booking/icon/masterCard.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
 /********************/
 
 
@@ -3009,18 +3100,23 @@ img{
     }
 
 
+    .hotel-header{
+        top:180px;
+    }
 
     .hotel-name{
-        position: absolute;
-        font-size: 24px;
-        padding:10px 0!important;
+        font-size: 30px;
+        padding:0;
         font-weight: 500;
-        margin-top:-62px;
         color: #f8f8f8;
         width:100%;
-        background-color:rgba(9,9,26,0.7);
 
     }
+    .image-count{
+        font-size: 18px;
+        padding:0;
+    }
+
 
 
 
@@ -3028,7 +3124,6 @@ img{
 
         background-color: #fff;
         width:100%;
-
         z-index:2;
         position: relative;
         padding-top:10px;
@@ -3127,6 +3222,10 @@ img{
         vertical-align: top;
         font-size: 16px;
     }
+    .facility-list .list-detail{
+        display: inline-block;
+        width:100%;
+    }
     .facility-list .list-items{
 
         width:100%;
@@ -3177,6 +3276,7 @@ img{
         vertical-align:top;
         margin-left:0px;
         position: relative;
+        width:100%;
 
     }
     .room img{

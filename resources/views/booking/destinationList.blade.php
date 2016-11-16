@@ -106,22 +106,22 @@
                             </span>
                             <img src ="{{$city->cover_image}}"/>
                         </div>
+                        <a href="/hotelByCity/ds/{{$city->code}}">
+                            <div class="city-mask ">
+                                <div class="num-of-hotel">
+                                    {{ trans('destination.total') }}<span>{{$city->num_of_hotel}}</span>{{ trans('destination.hotels') }}
+                                </div>
 
-                        <div class="city-mask ">
-                            <div class="num-of-hotel">
-                                {{ trans('destination.total') }}<span>{{$city->num_of_hotel}}</span>{{ trans('destination.hotels') }}
+                                <div class="desc">
+                                    @if(session('lang') == 'en')
+                                        {{$city->description_en}}
+                                    @else
+
+                                        {{$city->description}}
+                                    @endif
+                                </div>
                             </div>
-
-                            <div class="desc">
-                                @if(session('lang') == 'en')
-                                    {{$city->description_en}}
-                                @else
-
-                                    {{$city->description}}
-                                @endif
-                            </div>
-                        </div>
-
+                        </a>
                     </div>
                 @endforeach
 
@@ -160,20 +160,22 @@
                             <img src ="{{$city->cover_image}}"/>
                         </div>
 
-                        <div class="city-mask ">
-                            <div class="num-of-hotel">
-                                {{ trans('destination.total') }}<span>{{$city->num_of_hotel}} </span>{{ trans('destination.hotels') }}
-                            </div>
+                        <a href="/hotelByCity/ds/{{$city->code}}">
+                                <div class="city-mask ">
+                                <div class="num-of-hotel">
+                                    {{ trans('destination.total') }}<span>{{$city->num_of_hotel}} </span>{{ trans('destination.hotels') }}
+                                </div>
 
-                            <div class="desc">
-                                @if(session('lang') == 'en')
-                                    {{$city->description_en}}
-                                @else
+                                <div class="desc">
+                                    @if(session('lang') == 'en')
+                                        {{$city->description_en}}
+                                    @else
 
-                                    {{$city->description}}
-                                @endif
+                                        {{$city->description}}
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        </a>
 
                     </div>
                 @endforeach
@@ -220,7 +222,7 @@
                             </span>
                                 <img src ="{{$city->cover_image}}"/>
                             </div>
-
+                            <a href="/hotelByCity/int/{{$city->code}}">
                             <div class="city-mask ">
                                 <div class="num-of-hotel">
                                     {{ trans('destination.total') }}<span>{{$city->num_of_hotel}} </span>{{ trans('destination.hotels') }}
@@ -235,7 +237,7 @@
                                     @endif
                                 </div>
                             </div>
-
+                            </a>
                         </div>
                     @endforeach
 

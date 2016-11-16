@@ -5,6 +5,7 @@ namespace App\Service\Booking;
 use App\Models\Province;
 use App\Models\City;
 use App\Models\District;
+use App\Models\Country;
 use App\Models\Continent;
 use App\Models\InternationalCity;
 use App\Models\Hotel;
@@ -14,10 +15,13 @@ use App\Models\HotelSurrounding;
 use App\Models\HotelPolicy;
 use App\Models\HotelSection;
 use App\Models\Room;
+use App\Models\Bed;
 use App\Models\Category;
 use App\Models\HotelFacility;
 use App\Models\HotelFacilityList;
 use App\Models\HotelFacilityCategory;
+use App\Models\HotelCateringService;
+use App\Models\HotelRecreationService;
 use Illuminate\Support\Facades\DB;
 
 
@@ -135,9 +139,11 @@ class BookingService{
         $hotelRoomList = Room::where('hotel_Id',$hotelId)->select('id','room_name','room_name_en')->get();
 
         //获取酒店区域照片
+        $hotel->imageCount  = count(HotelImage::where(['hotel_id' => $hotelId])->get());
         foreach($hotelSections as $section)
         {
             $images = HotelImage::where(['hotel_id'=>$hotelId,'section_id'=> $section->id,'hotel_id' => $hotelId,'type'=>1])->get();
+
             if(count($images) > 0 )
             {
 
@@ -163,6 +169,7 @@ class BookingService{
 
             }
         }
+
         //获取酒店房间照片
         $roomImages = HotelImage::where(['hotel_id' => $hotelId,'type'=>2])->get();
 
@@ -171,6 +178,7 @@ class BookingService{
         //给照片附上房间类型
         foreach($hotelRoomList as $room)
         {
+
             foreach($roomImages as  $image)
             {
                 if($image->section_id == $room->id)
@@ -230,10 +238,18 @@ class BookingService{
         }
 
 
+        //获取酒店餐饮服务列表
+        $hotel->cateringList = HotelCateringService::where('hotel_id',$hotelId)->get();
 
+        //获取酒店健身娱乐列表
+        $hotel->recreationList = HotelRecreationService::where('hotel_id',$hotelId)->get();
 
         //获取房间列表
         $hotel->rooms= Room::where('hotel_id',$hotel->id)->get();
+        foreach($hotel->rooms as $room)
+        {
+            $room->bed =  Bed::where('room_id',$room->id)->first();
+        }
 
         foreach( $hotel->rooms as  $room)
         {
@@ -246,23 +262,24 @@ class BookingService{
         //获取酒店图片列表
         $hotel->hotelImageList = $sectionImageList;
 
-        $hotel->coverImageList = HotelImage::where('hotel_id' ,$hotel->id)->where('is_cover','<>',0)->get();
+        $hotel->coverImageList = HotelImage::where('hotel_id' ,$hotel->id)->where('is_cover','<>',0)->take(9)->get();
         $hotel->surroundingList  = HotelSurrounding::where('hotel_id',$hotel->id)->get();
 
 
         $hotel->address = Address::where('id',$hotel->address_id)->first();
+
         if($hotel->address != null)
         {
-            $hotel->province  = $this->getAdressInfo('province',$hotel->address->province_code);
-            $hotel->city  = $this->getAdressInfo('city',$hotel->address->city_code);
-            $hotel->district  = $this->getAdressInfo('district',$hotel->address->district_code);
+            $hotel->province  = $this->getAdressInfo('province',$hotel->address->province_code,$hotel->address->type);
+            $hotel->city  = $this->getAdressInfo('city',$hotel->address->city_code,$hotel->address->type);
+            $hotel->district  = $this->getAdressInfo('district',$hotel->address->district_code,$hotel->address->type);
         }
         $hotel->policy =  HotelPolicy::where('hotel_id',$hotelId)->first();
 
         //room detail 转成json
         $hotel->roomsInJson = $hotel->rooms->toJson();
 
-        
+
         return $hotel;
     }
 
@@ -290,19 +307,31 @@ class BookingService{
 
 
     //通过目的地获取酒店
-    public function getHotelByCity($code)
+    public function getHotelByCity($area,$code)
     {
 
-        $hotel['cityName']= City::where('code',$code)->select('city_name','city_name_en')->firstOrFail();
+        //国内城市
+        if($area === 'ds')
+        {
+            $hotel['cityName']= City::where('code',$code)->select('city_name','city_name_en')->firstOrFail();
 
-        $hotel['list'] =DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
-            ->join('address','hotel.address_id','=','address.id')
-            ->join('city','address.city_code','=','city.code')
-            ->join('province','address.province_code','=','province.code')
-            ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
-            ->select('hotel.*','province.province_name','province.province_name_en','city.city_name','city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
-
-
+            $hotel['list'] =DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
+                ->join('address','hotel.address_id','=','address.id')
+                ->join('city','address.city_code','=','city.code')
+                ->join('province','address.province_code','=','province.code')
+                ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
+                ->select('hotel.*','province.province_name','province.province_name_en','city.city_name','city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
+        }
+        //国际城市
+        else{
+            $hotel['cityName']= InternationalCity::where('code',$code)->select('city_name','city_name_en')->firstOrFail();
+            $hotel['list'] =DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
+                ->join('address','hotel.address_id','=','address.id')
+                ->join('international_city','address.city_code','=','international_city.code')
+                ->join('country','address.province_code','=','country.code')
+                ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
+                ->select('hotel.*','country.name','country.name_en','international_city.city_name','international_city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
+        }
 
 
         return $hotel;
@@ -368,7 +397,7 @@ class BookingService{
     /*
    *  level = city|province|district
    */
-    public function getAdressInfo($level = '' , $code = 110000)
+    public function getAdressInfo($level = '' , $code = 110000, $type)
     {
         if ($level == '') {
             return false;
@@ -376,13 +405,22 @@ class BookingService{
         $info = '';
         switch ($level) {
             case 'city':
-                $info = City::select('city_name','city_name_en')->where('code',$code)->first();
+                if($type==1)
+                    $info = City::select('city_name','city_name_en')->where('code',$code)->first();
+                else
+                    $info = InternationalCity::select('city_name','city_name_en')->where('code',$code)->first();
                 break;
             case 'province':
-                $info = Province::select('province_name','province_name_en')->where('code',$code)->first();
+                if($type==1)
+                    $info = Province::select('province_name','province_name_en')->where('code',$code)->first();
+                else
+                    $info = Country::select('name','name_en')->where('code',$code)->first();
                 break;
             case 'district':
-                $info = District::select('district_name')->where('code',$code)->first();
+                if($type==1)
+                    $info = District::select('district_name')->where('code',$code)->first();
+                else
+                    $info ='';
                 break;
             default:
                 $info = "未知";

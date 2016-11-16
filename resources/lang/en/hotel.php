@@ -22,6 +22,9 @@ return [
     'checkin' => 'Check In',
     'checkout' => 'Check Out',
     'meals' => 'Meals',
+    'petPolicy' => 'Pet',
+    'airportTransfer' => 'Airport Transfer',
+    'payPolicy' => 'pay policy',
     'other' => 'Other',
 
 
@@ -35,13 +38,16 @@ return [
     'numOfPeople' => 'max',
     'numOfBreakfast' => 'breakfast',
     'acreage' => 'room size',
+    'bedSize' => 'bed size',
     'wifi' => 'wifi',
     'extraBed' => 'extra bed',
+    'locationInfo' =>'location info',
+    'otherInfo' =>'other info',
 
 
     'noWifi' => 'no wifi provide',
     'wifiWithCharge' => 'wifi need extra charge',
-    'freeWifi' => 'freeWifi',
+    'freeWifi' => 'free Wifi',
 
     'noExtraBed' => 'no extra bed provide',
     'extraBedWithCharge' => 'extra bed with charge',
