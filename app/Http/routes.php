@@ -16,10 +16,11 @@
 //酒店预订首页
 Route::get('/','Booking\BookingController@home');
 
+//搜索
+Route::get('/search/{keyword}','Booking\BookingController@search');
 
 //获取所有目的地
-Route::post('/getDestinationCities','Booking\BookingController@getDestinationCities');
-
+Route::post('/getDestinationCitiesHotels','Booking\BookingController@getDestinationCitiesHotels');
 
 
 //酒店详情页

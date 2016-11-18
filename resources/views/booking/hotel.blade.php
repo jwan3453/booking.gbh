@@ -8,7 +8,7 @@
 
     {{--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
 
-    <script src="http://ditu.google.cn/maps/api/js?key=AIzaSyBVbzDkqtNh-dK916AMJMsrF3G1BtUpHwg"></script>
+    <script src="http://ditu.google.cn/maps/api/js?sensor=true&key=AIzaSyBVbzDkqtNh-dK916AMJMsrF3G1BtUpHwg"></script>
 
 @stop
 
@@ -455,8 +455,8 @@
 
             </div>
         </div>
+        </div>
     </div>
-
 
     <div class="hotel-image-gallery" id="hotelImageGallery">
 
@@ -822,7 +822,9 @@
             })
 
             $('.hotel-image-list > li > .mask').click(function(){
-                $('#hotelImageGallery').fadeIn(100);
+
+
+                $('#hotelImageGallery').show();
                 $('#hotelImageShow').attr('src', $(this).siblings('img').attr('src')+'?imageView/1/w/600/h/400');
             })
 

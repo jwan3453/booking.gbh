@@ -53,11 +53,69 @@ class BookingController extends Controller
         return view('booking.home')->with('isMobile',$isMobile)->with('selectedHotels',$selectedHotels)->with('categories',$categories)->with('hotDestination',$hotDestination);
     }
 
+
+    //搜索关键词
+    public function search($keyword)
+    {
+        $destinationList =  $this->bookingService->getDestinationCitiesHotels();
+
+        //搜索国内城市
+        foreach($destinationList['domestic'] as $initial => $cityList)
+        {
+            if($initial != '')
+            {
+                //dd($cityList);
+                foreach($cityList as $city)
+                {
+
+                    if(stripos($city->city_name,$keyword)!== false || stripos($city->city_name_en,$keyword) !== false )
+                    {
+                        //找到城市返回
+                       return redirect('hotelByCity/ds/'.$city->code);
+                    }
+                }
+            }
+
+        }
+
+
+        //搜索国际城市
+        foreach($destinationList['international'] as $key => $cityList)
+        {
+            if($key != '' && $key != 'hotDestination' && $key != 'continentList')
+            {
+                //dd($cityList);
+                foreach($cityList as $city)
+                {
+
+                    if(stripos($city->city_name,$keyword)!== false || stripos($city->city_name_en,$keyword) !== false )
+                    {
+                        //找到城市返回
+                        return redirect('hotelByCity/int/'.$city->code);
+                    }
+                }
+            }
+
+        }
+
+        //搜索酒店
+        foreach($destinationList['hotel'] as $key => $hotel)
+        {
+            if(stripos($hotel->name,$keyword)!== false || stripos($hotel->name_en,$keyword) !== false )
+            {
+                return redirect('hotel/'.$hotel->code);
+            }
+        }
+
+
+        return view('booking.noResult');
+    }
+
     //ajax 回去目的地列表
-    public function getDestinationCities(Request $request)
+    public function getDestinationCitiesHotels(Request $request)
     {
         $jsonResult = new MessageResult();
-        $destinationList =  $this->bookingService->getDestinationCities();
+        $destinationList =  $this->bookingService->getDestinationCitiesHotels();
         $jsonResult->statusCode =1;
         $jsonResult->StatusMsg = '';
         $jsonResult->extra = $destinationList;
@@ -66,10 +124,10 @@ class BookingController extends Controller
 
 
     //酒店详情页
-    public function hotelDetail($hotelId)
+    public function hotelDetail($code)
     {
 
-        $hotelDetail =  $this->bookingService->getHotelDetail($hotelId);
+        $hotelDetail =  $this->bookingService->getHotelDetail($code);
         return view('booking.hotel')->with('hotelDetail',$hotelDetail);
     }
 

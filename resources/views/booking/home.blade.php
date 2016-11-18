@@ -391,15 +391,15 @@
         $.fn.getCityDestinations = function(optionFiled)
         {
 
-            var obj = $(this);
-            var cityList ;
+            var inputObj = $(this);
+            var cityHotelList ;
             var $container ;
             var $searchContainer ;
 
             //ajax 获取数据
             $.ajax({
                 type: 'POST',
-                url: '/getDestinationCities',
+                url: '/getDestinationCitiesHotels',
                 dataType: 'json',
                 async:false,
                 headers: {
@@ -408,15 +408,15 @@
                 success : function(data){
                     if(data.statusCode === 1)
                     {
-                        cityList = data.extra;
+                        cityHotelList = data.extra;
 
                         //创建城市列表html
                         $container = setupContainer();
                         $searchContainer = setupSearchContainer();
 
-                        var offset = obj.offset();
-                        var height = obj.height();
-                        var width = obj.width();
+                        var offset = inputObj.offset();
+                        var height = inputObj.height();
+                        var width = inputObj.width();
                         var cont_top = offset.top + height;
                         var cont_left = offset.left;
 
@@ -484,12 +484,12 @@
             function searchDestin()
             {
 
-                var offset = obj.offset();
-                var height = obj.height();
-                var width = obj.width();
+                var offset = inputObj.offset();
+                var height = inputObj.height();
+                var width = inputObj.width();
                 var cont_top = offset.top + height;
                 var cont_left = offset.left;
-                var inputField = obj;
+                var inputField = inputObj;
                 if(inputField.val()!== '')
                 {
 //                    $container.fadeOut();
@@ -528,37 +528,87 @@
 
                     $searchContainer.empty();
                     var searchListCount = 0;
-                    $.each(cityList, function(key,cities)
+//                    $.each(cityHotelList, function(key,cities)
+//                    {
+
+                    var domesticCityList = cityHotelList['domestic'];
+                    var internationalCityList  = cityHotelList['international'];
+                    var hotelList = cityHotelList['hotel'];
+
+                    //查找国内城市
+                    $.each(domesticCityList, function(key,cities)
                     {
 
-                        if(cities.length > 0 && key !== 'hotDestination')
+                        searchCity(cities,key,'ds');
+                    })
+
+                    //查找国外城市
+                    $.each(internationalCityList, function(key,cities)
+                    {
+                        searchCity(cities,key,'int');
+                    })
+
+
+                    //查找酒店
+                    $.each(hotelList, function(key,hotel)
+                    {
+                        var hotelName='';
+                        @if(session('lang') == 'en')
+                            hotelName = hotel.name_en;
+                        @else
+                            hotelName =hotel.name;
+                        @endif
+
+                        if(hotelName!=null && (hotelName.toLowerCase()).indexOf($.trim(inputObj.val().toLowerCase())) !== -1)
                         {
-                            for(var i=0; i<cities.length; i++)
-                            {
-
-                                var cityName='';
-                                @if(session('lang') == 'en')
-                                    cityName = cities[i].city_name_en;
-                                @else
-                                    cityName =cities[i].city_name;
-                                @endif
-
-                                if( (cityName.toLocaleLowerCase()).indexOf($.trim(inputField.val().toLocaleLowerCase())) !== -1)
-                                {
 
 
-                                    var html = '<div class="geo-search-line">' +
-                                            '<i class ="icon marker large"></i>' +
-                                            '<span class="c" id="'+ cities[i].code +'">'+cityName+'</span></div>';
-                                    $searchContainer.show();
+                            var html = '<a href="/hotel/'+hotel.code+'"><div class="geo-search-line">' +
+                                    '<i class ="icon hotel  large"></i>' +
+                                    '<span class="c" id="'+ hotel.code +'">'+hotelName+'</span>' +
+                                    '</div></a>';
+                            $searchContainer.show();
 
-                                    $searchContainer.append(html);
-                                }
-                            }
+                            $searchContainer.append(html);
                         }
+
 
                     })
 
+
+
+                }
+            }
+
+
+            //搜索城市
+            function searchCity(cities,key,area)
+            {
+                if(cities.length > 0 && key !== 'hotDestination')
+                {
+                    for(var i=0; i<cities.length; i++)
+                    {
+
+                        var cityName='';
+                        @if(session('lang') == 'en')
+                            cityName = cities[i].city_name_en;
+                        @else
+                            cityName =cities[i].city_name;
+                        @endif
+
+                        if(cityName!=null && (cityName.toLowerCase()).indexOf($.trim(inputObj.val().toLowerCase())) !== -1)
+                        {
+
+
+                            var html = '<a href="/hotelByCity/'+area+'/'+cities[i].code+'"><div class="geo-search-line">' +
+                                    '<i class ="icon marker large"></i>' +
+                                    '<span class="c" id="'+ cities[i].code +'">'+cityName+'</span>' +
+                                    '</div></a>';
+                            $searchContainer.show();
+
+                            $searchContainer.append(html);
+                        }
+                    }
                 }
             }
 
@@ -567,10 +617,10 @@
             {
 
                 var html = '';
-
+                var numOfCityByInitial = 0;
                 initialList.forEach(function(initial)
                 {
-                    if( typeof(cityList['domestic'][initial]) !== 'undefined')
+                    if( typeof(cityHotelList['domestic'][initial]) !== 'undefined')
                     {
                         html += '<div class=city_group>';
                         if(initial !== 'hotDestination')
@@ -578,7 +628,8 @@
 
                         html += '<div class=city-initial-list>';
 
-                        cityList['domestic'][initial].forEach(function(city){
+
+                        cityHotelList['domestic'][initial].forEach(function(city){
                             var cityName = '';
                             @if(session('lang') == 'en')
                                 cityName = city.city_name_en;
@@ -586,11 +637,14 @@
                                 cityName = city.city_name;
                             @endif
                             html += '<span id="city_' + city.code + '">'+cityName+'</span>'
+                            numOfCityByInitial++;
                         })
                         html +='</div></div>';
                     }
 
                 })
+                if(numOfCityByInitial == 0 )
+                    citySection.append('<span>'+"{{trans('home.noCities')}}"+'</span>');
 
                 citySection.append(html);
             }
@@ -706,7 +760,7 @@
 
                 //添加热门城市
                 interCityHtml += '<div  class="city-section" id="'+ 'hot_int_city">';
-                cityList['international']['hotDestination'].forEach(function(city)
+                cityHotelList['international']['hotDestination'].forEach(function(city)
                 {
                     var cityName = '';
                     @if(session('lang') === 'en')
@@ -719,7 +773,7 @@
                 interCityHtml +='</div></div>';
 
 
-                cityList['international']['continentList'].forEach(function(continent){
+                cityHotelList['international']['continentList'].forEach(function(continent){
 
                     var  continentIndex = continent['name_en'];
 
@@ -733,7 +787,7 @@
                     }
 
                     interCityHtml += '<div class="city-initial-list"> ';
-                    cityList['international'][continentIndex].forEach(function(city)
+                    cityHotelList['international'][continentIndex].forEach(function(city)
                     {
                                 var cityName = '';
                                 @if(session('lang') === 'en')
@@ -744,7 +798,7 @@
                                 interCityHtml += '<span id="city_' + city.code + '">'+cityName+'</span>';
                     })
 
-                    if(cityList['international'][continentIndex].length==0)
+                    if(cityHotelList['international'][continentIndex].length==0)
                     {
                         interCityHtml += '<span>'+"{{trans('home.noCities')}}"+'</span>';
                     }
@@ -804,14 +858,17 @@
 
 
             //点击切换国内 国外城市
+            var selectedArea = 'ds';//默认国内区域
             $(document).on('click','#areaOption span', function(){
                 $(this).addClass('current-select').siblings('span').removeClass('current-select');
                 if($(this).attr('id') == 'ds')
                 {
+                    selectedArea = 'ds';
                     $('#domestic').show();
                     $('#international').hide();
                 }
                 else{
+                    selectedArea = 'int';
                     $('#domestic').hide();
                     $('#international').show();
                 }
@@ -865,12 +922,13 @@
             })
 
             //选择国内城市
-            $(document).on('click','.city-initial-list > span',function() {
+            $(document).on('click','.city-initial-list > span, #hot_int_city>span',function() {
 
                  @if($isMobile)
-                        location.href ='/hotelByCity/'+$(this).attr('id').split('_')[1];
+                        location.href ='/hotelByCity/'+selectedArea+'/'+$(this).attr('id').split('_')[1];
                  @else
-                        $('#destination').attr('data-input',$(this).attr('id').split('_')[1]).val($(this).text());
+                        location.href ='/hotelByCity/'+selectedArea+'/'+$(this).attr('id').split('_')[1];
+                        //$('#destination').attr('data-input',$(this).attr('id').split('_')[1]).val($(this).text());
                         $('#container').hide();
                  @endif
 
@@ -892,7 +950,7 @@
 
             //点击搜索酒店
             $('#homeSearch').click(function(){
-                location.href ='/hotelByCity/'+$('#destination').attr('data-input');
+                location.href ='/search/'+$('#destination').val();
             })
 
 //            $(document).on('click','.city',function(){

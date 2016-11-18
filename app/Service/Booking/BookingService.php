@@ -56,7 +56,7 @@ class BookingService{
 
 
     //获取城市目的地
-    public function getDestinationCities()
+    public function getDestinationCitiesHotels()
     {
 
 
@@ -119,7 +119,12 @@ class BookingService{
         }
         $internationalCity['hotDestination'] = InternationalCity::where('is_hot',1)->get();
         $internationalCity['continentList'] =  $continentList;
+
+        //获取国外目的地
         $destinationList['international'] = $internationalCity;
+
+        //获取所有酒店
+        $destinationList['hotel'] = Hotel::select('code','name','name_en')->get();
 
         //dd($destinationList);
         return $destinationList;
@@ -128,11 +133,11 @@ class BookingService{
 
 
     //获取酒店详细信息
-    public function getHotelDetail($hotelId)
+    public function getHotelDetail($code)
     {
 
-        $hotel = Hotel::where('id',$hotelId)->firstOrFail();
-
+        $hotel = Hotel::where('code',$code)->firstOrFail();
+        $hotelId = $hotel->id;
         $sectionImageList = [];
         $sectionList = [];
         $hotelSections = HotelSection::all();
@@ -323,7 +328,7 @@ class BookingService{
                 ->select('hotel.*','province.province_name','province.province_name_en','city.city_name','city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
         }
         //国际城市
-        else{
+        else if($area === 'int'){
             $hotel['cityName']= InternationalCity::where('code',$code)->select('city_name','city_name_en')->firstOrFail();
             $hotel['list'] =DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
                 ->join('address','hotel.address_id','=','address.id')

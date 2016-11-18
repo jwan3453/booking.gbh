@@ -1605,9 +1605,9 @@ img{
 
 .cate-name{
     position: absolute;
-    font-size:24px;
+    font-size:20px;
     top:30px;
-    color:#09adcc;
+    color: #6f6f6f;
     width:100%;
     text-align: center;
     font-weight: 600;
@@ -1615,9 +1615,9 @@ img{
 
 .cate-city-name{
     position: absolute;
-    font-size:24px;
+    font-size:20px;
     top:15px;
-    color:#09adcc;
+    color: #6f6f6f;
     width:100%;
     text-align: center;
     font-weight: 600;
@@ -2296,13 +2296,13 @@ img{
     cursor: pointer;
     font-size:13px;
     padding:10px 0 10px 0;
-    width: 478px;
 
+    color:#505050!important;
 }
 
 .geo-search-line:hover{
-    background-color: #00aced;
-    color:#f8f8f8;
+    color: #ff5f76;
+
 }
 .geo-search-line span{
     display:inline-block;
@@ -2311,7 +2311,7 @@ img{
 }
 
 .geo-search-line i{
-    margin-left:3px!important;
+    margin: 0 5px 0 5px!important;
 }
 
 
@@ -2350,53 +2350,61 @@ img{
     overflow: hidden;
     display: inline-block;
     vertical-align: middle;
+    margin-left:10px;
 }
 
 .master-card{
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-image: url('/booking/icon/masterCard.png');
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
     overflow: hidden;
+    margin-left:10px;
+    background-position: center;
 }
 .visa-card{
-    width: 60px;
-    height: 60px;
-    background-image: url('/booking/icon/masterCard.png');
+    width: 50px;
+    height: 50px;
+    background-image: url('/booking/icon/visa.png');
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
     overflow: hidden;
+    margin-left:10px;
+    background-position: center;
 
 }
 .unionPay{
-    width: 60px;
-    height: 60px;
-    background-image: url('/booking/icon/masterCard.png');
+    width: 50px;
+    height: 50px;
+    background-image: url('/booking/icon/unionPay.png');
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
     overflow: hidden;
+    margin-left:10px;
 }
 .aliPay{
-    width: 60px;
-    height: 60px;
-    background-image: url('/booking/icon/masterCard.png');
+    width: 50px;
+    height: 50px;
+    background-image: url('/booking/icon/aliPay.png');
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
     overflow: hidden;
+    margin-left:10px;
 }
 .wechatPay{
-    width: 60px;
-    height: 60px;
-    background-image: url('/booking/icon/masterCard.png');
+    width: 50px;
+    height: 50px;
+    background-image: url('/booking/icon/wechatPay.png');
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
     overflow: hidden;
+    margin-left:10px;
 }
 /********************/
 
