@@ -10,20 +10,26 @@
 @section('content')
 
     <title>404</title>
-    <div class="pusher">
+    <div class="no-result">
+        <img src = '/booking/img/no_more.png'>
 
-        <div class="ui container">
-            <div class="error-box">
+        <div>
 
+            <div class="more-option">
+                <a href="/"  class="option"><div>
+                        带我回首页
+                    </div></a>
 
-                <img class="auto-margin" src = '/Gbh/img/doge.png'>
-                <span class="giant-font">404 Page Not Found</span>
-                <p class="giant-font">页面没找到，小二打酱油去了</p>
-                <a href="/"><div class="regular-btn red-btn auto-margin">带我回首页</div></a>
+                <a href="/destinationList" class="option"><div >
+                        热门目的地
+                    </div></a>
 
+                <a href="http://gbhchina.com/newArticles" class="option"><div >
+                        酒店体验
+                    </div></a>
             </div>
         </div>
-    </div>
+
 @stop
 
 

@@ -3,6 +3,7 @@
 
 
 return [
+
     'description' => '酒店介绍 ',
     'location'=> '酒店位置',
     'surrounding'=> '周边环境',

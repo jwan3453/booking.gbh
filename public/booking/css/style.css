@@ -576,7 +576,7 @@ img{
     padding:10px ;
 
     color:#f8f8f8;
-    background-color: rgba(9,9,26,0.3);
+    background-color: rgba(9,9,26,0.6);
 }
 
 .h-hotel-info .general-info{
@@ -586,29 +586,32 @@ img{
 }
 
 .h-hotel-info .name{
-    width:150px;
+    width:230px;
     display: block;
-    font-size: 18px;
+    font-size: 17px;
     margin-bottom: 5px;
-    font-weight: 600;
-    padding: 0 0 0 10px;
+
+
 }
 
 .h-hotel-info .location{
     width:150px;
     display: block;
-    font-size: 14px;
-    padding: 0 0 0 5px;
+    font-size: 12px;
+    padding: 0 0 0 0;
     color: #d0d0d0;
+}
+.h-hotel-info .location i{
+    padding: 0!important;
 }
 
 .h-hotel-info .price{
 
     display: inline-block;
     float:right;
-    color:#ff5f76;
+    color:  #EA9E20;
 
-    line-height: 50px;
+    line-height: 70px;
     height:50px;
 }
 
@@ -1584,6 +1587,8 @@ img{
     height:auto;
     border:1px solid #f8f8f8;
     z-index: 2;
+    padding:0 0 50px 0;
+    border-radius: 2px;
 }
 
 .cate-icon{
@@ -1616,7 +1621,7 @@ img{
 .cate-city-name{
     position: absolute;
     font-size:20px;
-    top:15px;
+    top:30px;
     color: #6f6f6f;
     width:100%;
     text-align: center;
@@ -1625,6 +1630,7 @@ img{
 
 .cate-hotel-list{
     margin-top:100px;
+
 
 }
 
@@ -1741,7 +1747,7 @@ img{
 
 
 
-.cate-hotel-detail .cover-image h2 {
+.cate-hotel-detail .cover-image h3 {
 
 
     font-weight: 300;
@@ -1753,7 +1759,7 @@ img{
     transform: translate3d(0,-20px,0);
 }
 
-.cate-hotel-detail:hover .cover-image h2{
+.cate-hotel-detail:hover .cover-image h3{
     opacity: 1;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -1787,10 +1793,14 @@ img{
     transition-delay: 0.15s;
 }
 
+ .price-from-text{
+    font-size:12px;
+}
+
 
 .cate-hotel-detail:hover .text-detail{
 
-    border:3px solid #ff5f76;
+    /*border:3px solid #ff5f76;*/
 }
 
 .cate-hotel-detail:hover .connect-line{
@@ -1819,6 +1829,7 @@ img{
     height:220px;
     width:400px;
     color: #384750;
+    margin-left:20px;
 }
 
 
@@ -1838,10 +1849,10 @@ img{
     text-align: center;
     display: block;
     font-size: 16px;
-
+    height:30px;
     /*height:30px;*/
     /*line-height: 30px;*/
-    margin:10px  0 20px 0 ;
+    margin:20px  0 20px 0 ;
 }
 
 .text-detail .feature{
@@ -1851,7 +1862,7 @@ img{
     font-size: 16px;
 
     height:30px;
-    line-height: 30px;
+
     margin:40px  0 10px 0 ;
 }
 
@@ -2122,7 +2133,50 @@ img{
 /*}*/
 /*********************/
 
+/****没有结果页面******/
 
+.no-result
+{
+    min-height:450px;
+    text-align: center;
+}
+
+.no-result img{
+    margin:70px auto 20px auto;
+}
+
+.more-option{
+    width:500px;
+    margin:20px auto;
+
+}
+
+.more-option .option{
+    display:inline-block;
+    height:40px;
+
+    color: #f8f8f8;
+    line-height: 40px;
+    width:120px;
+    margin-left:20px;
+    border-radius: 3px;
+    cursor:pointer;
+}
+.more-option .option:nth-child(1)
+{
+    background-color:#A979C3 ;
+}
+.more-option .option:nth-child(2)
+{
+    background-color: #47A6D9;
+}
+
+.more-option .option:nth-child(3)
+{
+    background-color: #EA9E20;
+}
+
+/********************/
 
 
 
@@ -3432,14 +3486,13 @@ img{
 
     .room-gallery-box-left img{
         width:98%;
-        height: 45%;
-
+        height: 35%;
         display: block;
     }
 
     .room-name{
         font-size:18px;
-        margin:10px 30px;
+        margin:10px 10px;
         font-weight: 600;
     }
 
@@ -3474,7 +3527,7 @@ img{
         margin-top:10px;
     }
     .room-attribute{
-        margin:15px 5px;
+        margin:7px 5px;
         font-size: 14px;
     }
     .room-attribute i{
@@ -3879,13 +3932,27 @@ img{
 
     .text-detail{
 
+        width: calc(100% - 20px);
+        margin-left:0px;
+        padding:0 10px;
+    }
+
+    /**********/
+
+    /***没有结果页面**/
+
+    .more-option{
         width:100%;
+        margin:20px auto;
 
     }
 
-
-
+    .more-option .option{
+        width: calc(33.3333% - 20px );
+        margin-left:10px;
+    }
     /**********/
+
 
     /**********************/
 }

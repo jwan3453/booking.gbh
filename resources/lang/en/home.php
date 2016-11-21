@@ -15,8 +15,8 @@ return [
     'selectH' => 'Select Hotel',
     'whereToGo' =>'place you want to be (hotel/city)',
 
-    'from' => 'from',
-    'fromZh' => '',
+    'enFrom' => 'from',
+    'zhFrom' => '',
 
     'selectC' => 'Select Category',
     'zen' => 'Zen',

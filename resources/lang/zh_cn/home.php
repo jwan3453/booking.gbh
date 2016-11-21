@@ -15,8 +15,8 @@ return [
      'whereToGo' =>'您要去哪(酒店/城市)',
 
 
-    'from' => '',
-    'fromZh' => '起',
+    'enFrom' => '',
+    'zhFrom' => '起',
 
     'selectC' => '精选主题',
     'zen' => '禅修养生',

@@ -36,7 +36,6 @@
 
 
     @else
-
         <div class="covervid-wrapper" id="vedioCover" >
             <video class="covervid-video scale "   autoplay style="opacity:1"  >
                 {{--<source src="videos/clouds.webm" type="video/webm">--}}
@@ -44,7 +43,6 @@
             </video>
 
         </div>
-
 
     @endif
 
@@ -65,118 +63,49 @@
 
 
 
-    <div class="home-sec trans_level_2  "  >
+    <div class="home-sec trans_level_2  ">
 
         <div class="header">
             {{ trans('home.selectH') }}
         </div>
 
         <div class="hotel-rec-list auto-margin " >
-            <a  href="">
+
+            @foreach($selectedHotels as $hotel)
+            <a  href="/hotel/{{$hotel->code}}">
                 <div class="hotel-box ">
                     <div class="cover-image">
-                        <img src="booking/img/1.jpg">
+                        <img src="{{$hotel->link}}">
                     </div>
 
                     <div class="h-hotel-info">
                         <div class="general-info">
-                            <span class="name">悦泉行管</span>
-                            <span class="location"><i class="icon marker"></i>福建,厦门</span>
+                            <span class="name">
+                                @if(session('lang') == 'en')
+                                    {{$hotel->name_en}}
+                                @else
+                                    {{$hotel->name}}
+                                @endif
+                            </span>
+                            <span class="location">
+                                @if(session('lang') == 'en')
+                                     {{$hotel->city_name_en}} , {{$hotel->province_name_en}}
+                                @else
+                                    {{$hotel->province_name}} , {{$hotel->city_name}}
+                                @endif
+                            </span>
                          </div>
-                        <div class="price">￥990 <span class="q">起</span></div>
+                        <div class="price">
+                            <span class="price-from-text">{{ trans('home.enFrom') }}</span>￥{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('home.zhFrom') }}</span>
 
-                    </div>
-
-                </div>
-            </a>
-
-            <a  href="">
-                <div class="hotel-box ">
-                    <div class="cover-image">
-                        <img src="booking/img/1.jpg">
-                    </div>
-
-                    <div class="h-hotel-info">
-                        <div class="general-info">
-                            <span class="name">悦泉行管</span>
-                            <span class="location"><i class="icon marker"></i>福建,厦门</span>
                         </div>
-                        <div class="price"><span class="q">{{trans('home.from')}}</span> ￥990 <span class="q">{{trans('home.fromZh')}}</span></div>
 
                     </div>
 
                 </div>
             </a>
+            @endforeach
 
-            <a  href="">
-                <div class="hotel-box ">
-                    <div class="cover-image">
-                        <img src="booking/img/1.jpg">
-                    </div>
-
-                    <div class="h-hotel-info">
-                        <div class="general-info">
-                            <span class="name">悦泉行管</span>
-                            <span class="location"><i class="icon marker"></i>福建,厦门</span>
-                        </div>
-                        <div class="price">￥990 <span class="q">起</span></div>
-
-                    </div>
-
-                </div>
-            </a>
-
-            <a  href="">
-                <div class="hotel-box ">
-                    <div class="cover-image">
-                        <img src="booking/img/1.jpg">
-                    </div>
-
-                    <div class="h-hotel-info">
-                        <div class="general-info">
-                            <span class="name">悦泉行管</span>
-                            <span class="location"><i class="icon marker"></i>福建,厦门</span>
-                        </div>
-                        <div class="price">￥990 <span class="q">起</span></div>
-
-                    </div>
-
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-box ">
-                    <div class="cover-image">
-                        <img src="booking/img/1.jpg">
-                    </div>
-
-                    <div class="h-hotel-info">
-                        <div class="general-info">
-                            <span class="name">悦泉行管</span>
-                            <span class="location"><i class="icon marker"></i>福建,厦门</span>
-                        </div>
-                        <div class="price">￥990 <span class="q">起</span></div>
-
-                    </div>
-
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-box ">
-                    <div class="cover-image">
-                        <img src="booking/img/1.jpg">
-                    </div>
-
-                    <div class="h-hotel-info">
-                        <div class="general-info">
-                            <span class="name">悦泉行管</span>
-                            <span class="location"><i class="icon marker"></i>福建,厦门</span>
-                        </div>
-                        <div class="price">￥990 <span class="q">起</span></div>
-
-                    </div>
-
-                </div>
-            </a>
 
         </div>
 
@@ -212,68 +141,7 @@
 
             @endforeach
 
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/禅.png'>
-                    <span>{{ trans('home.zen') }}</span>
-                </div>
-            </a>
 
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/海边.png'>
-                    <span>{{ trans('home.Sea') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/蜜月.png'>
-                    <span>{{ trans('home.HM') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/人文古厝.png'>
-                    <span>{{ trans('home.cultureOldAge') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/森林.png'>
-                    <span>{{ trans('home.jungle') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/山水风光.png'>
-                    <span>{{ trans('home.landScen') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/设计师之家.png'>
-                    <span>{{ trans('home.design') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/饕餮.png'>
-                    <span>{{ trans('home.topFood') }}</span>
-                </div>
-            </a>
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/温泉.png'>
-                    <span>{{ trans('home.spa') }}</span>
-                </div>
-            </a>
-
-            <a  href="">
-                <div class="hotel-cate">
-                    <img src = 'booking/icon/乡村回归.png'>
-                    <span>{{ trans('home.country') }}</span>
-                </div>
-            </a>
         </div>
     </div>
 
@@ -950,7 +818,14 @@
 
             //点击搜索酒店
             $('#homeSearch').click(function(){
-                location.href ='/search/'+$('#destination').val();
+                if($.trim($('#destination').val()) === '')
+                {
+                    $('#container').show();
+                }
+                else{
+                    location.href ='/search/'+$('#destination').val();
+                }
+
             })
 
 //            $(document).on('click','.city',function(){

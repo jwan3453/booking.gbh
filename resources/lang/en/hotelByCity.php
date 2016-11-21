@@ -4,7 +4,8 @@
 
 return [
     'title' => 'Hotels By City',
-    'from' => '',
+    'enFrom' => 'from',
+    'zhFrom' => '',
     'view' => 'view',
     'sHotel' => "'s hotel"
 ];

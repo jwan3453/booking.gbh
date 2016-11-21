@@ -43,19 +43,17 @@
                 <div class="cover-image">
                     <img class="trans_fast" src="{{$hotel->link}}">
                     <div >
-                        <h2>
 
-                            @if(session('lang') == 'en')
-                                {{$hotel->name_en}}
-                            @else
-
-                                {{$hotel->name}}
-                            @endif
-                        </h2>
-                        <p>￥12299 <span>{{ trans('hotelByCategory.from') }}</span></p>
+                            <h3>
+                                @if(session('lang') == 'en')
+                                    {{$hotel->name_en}}
+                                @else
+                                    {{$hotel->name}}
+                                @endif</h3>
+                            <p><span class="price-from-text">{{ trans('hotelByCity.enFrom') }}</span>￥{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('hotelByCity.zhFrom') }}</span></p>
                     </div>
                 </div>
-                <div class="connect-line"></div>
+
                 <div class="text-detail trans_fast">
 
                     <span class="feature">
@@ -75,7 +73,7 @@
                             {{$hotel->province_name}}{{$hotel->city_name}}{{$hotel->detail}}
                         @endif
                     </span>
-                    <a href="/hotel/{{$hotel->id}}"><div class="regular-btn red-btn auto-margin">{{ trans('hotelByCategory.view') }}</div></a>
+                    <a href="/hotel/{{$hotel->code}}"><div class="regular-btn red-btn auto-margin">{{ trans('hotelByCategory.view') }}</div></a>
                 </div>
             </div>
             @endforeach

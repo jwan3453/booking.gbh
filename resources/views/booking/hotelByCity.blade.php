@@ -11,7 +11,7 @@
 
 @section('content')
 
-    <title> {{ trans('hotel.title') }}</title>
+    <title> {{ trans('hotelByCity.title') }}</title>
 
 
 
@@ -34,20 +34,25 @@
                     <div class="cover-image">
                         <img class="trans_fast" src="{{$hotel->link}}">
                         <div >
-                            <h2>{{$hotel->name}}</h2>
-                            <p>￥12299 <span>{{ trans('hotelByCity.from') }}</span></p>
+                            <h3>
+                                @if(session('lang') == 'en')
+                                    {{$hotel->name_en}}
+                                @else
+                                    {{$hotel->name}}
+                                @endif</h3>
+                            <p><span class="price-from-text">{{ trans('hotelByCity.enFrom') }}</span>￥{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('hotelByCity.zhFrom') }}</span></p>
                         </div>
                     </div>
-                    <div class="connect-line"></div>
+
                     <div class="text-detail trans_fast">
 
                     <span class="feature">
 
                         @if(session('lang') == 'en')
-                         {{$hotel->hotel_features_en}}
-                     @else
-                         {{$hotel->hotel_features}}
-                     @endif
+                             {{$hotel->hotel_features_en}}
+                         @else
+                             {{$hotel->hotel_features}}
+                         @endif
 
 
                     </span>
@@ -58,7 +63,7 @@
                             {{$hotel->province_name}}{{$hotel->city_name}}{{$hotel->detail}}
                         @endif
                     </span>
-                        <a href=""><div class="regular-btn red-btn auto-margin">{{ trans('hotelByCity.view') }}</div></a>
+                        <a href="/hotel/{{$hotel->code}}"><div class="regular-btn red-btn auto-margin">{{ trans('hotelByCity.view') }}</div></a>
                     </div>
                 </div>
             @endforeach

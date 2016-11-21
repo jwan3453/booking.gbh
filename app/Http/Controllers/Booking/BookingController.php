@@ -48,8 +48,6 @@ class BookingController extends Controller
         $categories = $this->bookingService->getCategories();
         $hotDestination = $this->bookingService->getHotelDestination();
 
-
-
         return view('booking.home')->with('isMobile',$isMobile)->with('selectedHotels',$selectedHotels)->with('categories',$categories)->with('hotDestination',$hotDestination);
     }
 

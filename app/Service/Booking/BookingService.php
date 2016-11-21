@@ -36,7 +36,14 @@ class BookingService{
     //获取推荐的酒店
     public function getSelectedHotels()
     {
-        return Hotel::all();
+        return DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
+            ->join('address','hotel.address_id','=','address.id')
+            ->join('city','address.city_code','=','city.code')
+            ->join('province','address.province_code','=','province.code')
+            ->join('room','room.hotel_id','=','hotel.id')
+            ->where('hotel_image.is_cover',2)
+            ->groupBy('hotel.id')
+            ->selectRaw('hotel.*,province.province_name,province.province_name_en,city.city_name,city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->take(6)->orderBy('updated_at','desc')->get();
     }
 
     //获取酒店分类
@@ -298,14 +305,18 @@ class BookingService{
 
 
         $hotel['category'] = Category::where('id',$category)->FirstOrFail();//->select('category_name','category_name_en','icon')->FirstOrFail();
-        $hotel['list'] = DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
+        $hotel['list'] = DB::table('category')->join('category_hotel','category_hotel.category_id','=','category.id')
+                        ->join('hotel','hotel.id','=','category_hotel.hotel_id')
+                        ->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
                          ->join('address','hotel.address_id','=','address.id')
                          ->join('city','address.city_code','=','city.code')
+                        ->join('room','room.hotel_id','=','hotel.id')
                         ->join('province','address.province_code','=','province.code')
-                        ->where('hotel_image.is_cover',2)->select('hotel.*','province.province_name','province.province_name_en','city.city_name','city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
+                        ->where(['hotel_image.is_cover' =>2,'category.id'=>$hotel['category']->id])
+                        ->groupBy('hotel.id')
+            ->selectRaw('hotel.*,province.province_name,province.province_name_en,city.city_name,city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->get();
 
 
-        //dd($category);
 
         return $hotel;
     }
@@ -324,8 +335,10 @@ class BookingService{
                 ->join('address','hotel.address_id','=','address.id')
                 ->join('city','address.city_code','=','city.code')
                 ->join('province','address.province_code','=','province.code')
+                ->join('room','room.hotel_id','=','hotel.id')
                 ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
-                ->select('hotel.*','province.province_name','province.province_name_en','city.city_name','city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
+                ->groupBy('hotel.id')
+                ->selectRaw('hotel.*,province.province_name,province.province_name_en,city.city_name,city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->get();
         }
         //国际城市
         else if($area === 'int'){
@@ -334,11 +347,10 @@ class BookingService{
                 ->join('address','hotel.address_id','=','address.id')
                 ->join('international_city','address.city_code','=','international_city.code')
                 ->join('country','address.province_code','=','country.code')
-                ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
-                ->select('hotel.*','country.name','country.name_en','international_city.city_name','international_city.city_name_en','address.detail','address.detail_en','hotel_image.link')->get();
+                ->join('room','room.hotel_id','=','hotel.id')
+                ->groupBy('hotel.id')
+                ->selectRaw('hotel.*,province.province_name,province.province_name_en,city.city_name,city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->get();
         }
-
-
         return $hotel;
     }
 
