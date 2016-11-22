@@ -1020,7 +1020,7 @@ img{
 
 .surr-item{
     display: block;
-    padding:5px 0 ;
+    padding:10px 0 ;
     cursor: pointer;
 }
 
@@ -1029,8 +1029,9 @@ img{
     color: #979797;
 }
 .surr-item .name,.surr-item .distance,.surr-item .taxi,.surr-item .walk,.surr-item .bus{
-    min-width:160px;
+    width:180px;
     display: inline-block;
+    vertical-align: middle;
     font-size: 14px;
 
 }

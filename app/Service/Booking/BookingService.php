@@ -49,7 +49,7 @@ class BookingService{
     //获取酒店分类
     public function getCategories()
     {
-        return Category::where('parent_id',3)->get();
+        return Category::where('category_level',2)->get();
     }
 
     //获取热门目的地

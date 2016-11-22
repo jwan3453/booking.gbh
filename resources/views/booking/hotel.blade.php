@@ -6,10 +6,14 @@
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
 
-    {{--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
 
+    @if( $hotelDetail->address->type =='1')
+
+    {{--<script id="baiduMapAPI" type="text/javascript" src="http://api.map.baidu.com/api?v=quick&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
+    <script src="http://webapi.amap.com/maps?v=1.3&key=c782c3fe3c22c1d753fb40d7ef09eb49"></script>
+    @else
     <script src="http://ditu.google.cn/maps/api/js?sensor=true&key=AIzaSyBVbzDkqtNh-dK916AMJMsrF3G1BtUpHwg"></script>
-
+    @endif
 @stop
 
 @section('content')
@@ -251,18 +255,6 @@
                     <span class="de">{{ trans('hotel.checkin')}}: {{$hotelDetail->policy==null?'':$hotelDetail->policy->checkin_time}} , {{ trans('hotel.checkout')}}: {{$hotelDetail->policy==null?'':$hotelDetail->policy->checkout_time}}</span>
                 </div>
 
-                {{--<div class="policy-item">--}}
-                    {{--<span class="title">证件/押金</span>--}}
-                    {{--<span class="de">--}}
-
-                        {{--@if(session('lang') == 'en')--}}
-                            {{--{{$hotelDetail->policy->prepaid_deposit_en}}--}}
-                        {{--@else--}}
-
-                            {{--{{$hotelDetail->policy->prepaid_deposit}}--}}
-                        {{--@endif--}}
-                    {{--</span>--}}
-                {{--</div>--}}
 
                 <div class="policy-item">
                     <span class="title">{{ trans('hotel.meals')}}</span>
@@ -559,6 +551,155 @@
             }
         })
 
+        function loadMap() {
+
+            @if( $hotelDetail->address->type =='1')
+
+                var map = new AMap.Map('map',{
+                    resizeEnable: true
+                });
+
+                map.setLang('zh_en');
+                AMap.plugin('AMap.Geocoder',function(){
+                    var geocoder = new AMap.Geocoder({
+                        city: "{{$hotelDetail->city->city_name}}"//城市，默认：“全国”
+                    });
+                    var marker = new AMap.Marker({
+                        map:map,
+                        bubble:true
+                    })
+
+                    geocoder.getLocation('{{$hotelDetail->address->detail}}',function(status,result){
+                        if(status=='complete'&&result.geocodes.length){
+                            marker.setPosition(result.geocodes[0].location);
+                            map.setCenter(marker.getPosition())
+
+                        }else{
+
+                        }
+                    })
+                });
+
+
+//                var map = new BMap.Map("map");
+//                var myGeo = new BMap.Geocoder();
+//                // 将地址解析结果显示在地图上,并调整地图视野
+//                myGeo.getPoint($('#addressInCh').val(), function(point){
+//                    if (point) {
+//                        map.centerAndZoom(point, 20);
+//                        var marker = new BMap.Marker(point);  // 创建标注
+//                        map.addOverlay(marker);               // 将标注添加到地图中
+//                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+//
+//                        map.enableScrollWheelZoom(true);
+//                    }else{
+//                    alert("您选择地址没有解析到结果!");
+//                }
+//            });
+//
+            @else
+                var geocoder;
+                geocoder = new google.maps.Geocoder();
+
+                var mapOptions = {
+                    zoom: 16
+                }
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                google.maps.event.trigger(map, 'resize');
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                codeAddress();
+
+                function codeAddress() {
+                    var address = $('#addressInCh').val();
+                    geocoder.geocode( { 'address': address}, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                        } else {
+                            console.log("Geocode was not successful for the following reason: " + status);
+                        }
+                    });
+                }
+            @endif
+        }
+
+        var loadOnce = false;
+        function findPath(surroundingItem){
+
+            @if( $hotelDetail->address->type =='1')
+
+                {{--$('#map').html('');--}}
+                {{--var map = new BMap.Map("map");--}}
+                {{--var myGeo = new BMap.Geocoder();--}}
+                {{--var start = $('#addressInCh').val();--}}
+                {{--var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;--}}
+
+{{--//                    map.clearOverlays();--}}
+{{--//                    myGeo.getPoint(start, function(point){--}}
+{{--//                        map.centerAndZoom( point, 12);--}}
+{{--//                    })--}}
+{{--//                    var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "route",  autoViewport: true}});--}}
+{{--//                     driving.search(start, end);--}}
+                {{--map.clearOverlays();--}}
+                {{--search(start,end,'BMAP_DRIVING_POLICY_LEAST_TIME');--}}
+                {{--function search(start,end,route){--}}
+                    {{--var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: route});--}}
+                    {{--driving.search(start,end);--}}
+                {{--}--}}
+                var map = new AMap.Map('map',{
+                        resizeEnable: true
+                    });
+                map.setLang('zh_en');
+                AMap.service('AMap.Driving',function(){//回调函数
+                //实例化Driving
+                var driving= new AMap.Driving({
+                    map:map,
+                    city: "{{$hotelDetail->city->city_name}}"//城市，默认：“全国”
+                });
+
+                var start = $('#addressInCh').val();
+                var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
+
+                driving.search([{keyword:start},{keyword:end}], function(status, result) {
+                    //TODO 解析返回结果，自己生成操作界面和地图展示界面
+                });
+                //TODO: 使用driving对象调用驾车路径规划相关的功能
+            })
+
+
+
+            @else
+
+
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                google.maps.event.trigger(map, 'resize');
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+                var start = $('#addressInCh').val();
+
+                var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
+
+                var request = {
+                    origin:start,
+                    destination:end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    }
+                });
+            @endif
+        }
+
+
+
 
 
         $(document).ready(function(){
@@ -576,103 +717,25 @@
             })
 
 
-            var mapLoaded = 0;
-            var directionsDisplay;
-            var directionsService = new google.maps.DirectionsService();
-            var map;
-            directionsDisplay = new google.maps.DirectionsRenderer();
-            var china = new google.maps.LatLng(39.8563912573, 116.4027431763);
-            var mapOptions = {
-                zoom:7,
-                center: china
-            }
+            @if( $hotelDetail->address->type =='1')
 
 
-            function loadMap() {
-//
-//                var map = new BMap.Map("map");
-//                var myGeo = new BMap.Geocoder();
-//                // 将地址解析结果显示在地图上,并调整地图视野
-//                myGeo.getPoint($('#addressInCh').val(), function(point){
-//                    if (point) {
-//                        map.centerAndZoom(point, 20);
-//                        var marker = new BMap.Marker(point);  // 创建标注
-//                        map.addOverlay(marker);               // 将标注添加到地图中
-//                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-//
-//                        map.enableScrollWheelZoom(true);
-//                    }else{
-//                        alert("您选择地址没有解析到结果!");
-//                    }
-//                });
-//
+           @else
 
-                    var geocoder;
-                    geocoder = new google.maps.Geocoder();
-
-                    var mapOptions = {
-                        zoom: 16
-                    }
-                    map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                    google.maps.event.trigger(map, 'resize');
-                    map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-                    codeAddress();
-
-                    function codeAddress() {
-                        var address = $('#addressInCh').val();
-                        geocoder.geocode( { 'address': address}, function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                map.setCenter(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    map: map,
-                                    position: results[0].geometry.location
-                                });
-                            } else {
-                                console.log("Geocode was not successful for the following reason: " + status);
-                            }
-                        });
-                    }
-            }
-
-            function findPath(surroundingItem){
-                {{--var map = new BMap.Map("map");--}}
-                {{--var myGeo = new BMap.Geocoder();--}}
-                {{--var start = $('#addressInCh').val();--}}
-                {{--var end = '{{$hotelDetail->province}}'+'{{$hotelDetail->city}}'+surroundingItem;--}}
-
-                {{--myGeo.getPoint(start, function(point){--}}
-                    {{--map.centerAndZoom( point, 12);--}}
-                {{--})--}}
+                var mapLoaded = 0;
+                var directionsDisplay;
+                var directionsService = new google.maps.DirectionsService();
+                var map;
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                var china = new google.maps.LatLng(39.8563912573, 116.4027431763);
+                var mapOptions = {
+                    zoom:7,
+                    center: china
+                }
+            @endif
 
 
 
-                {{--var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "route",  autoViewport: true}});--}}
-                {{--driving.search(start, end);--}}
-                map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                google.maps.event.trigger(map, 'resize');
-                map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-                directionsDisplay.setMap(map);
-                directionsDisplay.setPanel(document.getElementById("directionsPanel"));
-                var start = $('#addressInCh').val();
-
-                var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
-
-                var request = {
-                    origin:start,
-                    destination:end,
-                    travelMode: google.maps.TravelMode.DRIVING
-                };
-                directionsService.route(request, function(response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-
-
-                        directionsDisplay.setDirections(response);
-                    }
-                });
-
-            }
 
             $('#mapIcon').click(function(){
 
@@ -684,7 +747,7 @@
 
             $('#closeMap').click(function(){
 //                $('#map').empty();
-//                $('#route').empty();
+                $('#route').empty();
                 $('#mapBox').fadeOut();
             })
 
@@ -692,6 +755,7 @@
             $('.surr-item').click(function(){
                 $('#mapBox').fadeIn();
                 var surroundingItem = $(this).children('.nameInZh').val();
+
                     findPath(surroundingItem);
 
             })
