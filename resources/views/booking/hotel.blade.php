@@ -9,8 +9,8 @@
 
     @if( $hotelDetail->address->type =='1')
 
-    <script id="baiduMapAPI" type="text/javascript" src="http://api.map.baidu.com/api?v=quick&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>
-    {{--<script src="http://webapi.amap.com/maps?v=1.3&key=c782c3fe3c22c1d753fb40d7ef09eb49"></script>--}}
+    {{--<script id="baiduMapAPI" type="text/javascript" src="http://api.map.baidu.com/api?v=quick&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
+    <script src="http://webapi.amap.com/maps?v=1.3&key=c782c3fe3c22c1d753fb40d7ef09eb49"></script>
     @else
     <script src="http://ditu.google.cn/maps/api/js?sensor=true&key=AIzaSyBVbzDkqtNh-dK916AMJMsrF3G1BtUpHwg"></script>
     @endif
@@ -555,47 +555,39 @@
 
             @if( $hotelDetail->address->type =='1')
 
-//                var map = new AMap.Map('map',{
-//                    resizeEnable: true
-//                });
-//
-//                map.setLang('zh_en');
-//                AMap.plugin('AMap.Geocoder',function(){
-//                    var geocoder = new AMap.Geocoder({
-//
-//                    });
-//                    var marker = new AMap.Marker({
-//                        map:map,
-//                        bubble:true
-//                    })
-//
-//                    geocoder.getLocation('山东省济宁市曲阜市尼山镇圣水湖北路199号',function(status,result){
-//                        if(status=='complete'&&result.geocodes.length){
-//                            marker.setPosition(result.geocodes[0].location);
-//                            map.setCenter(marker.getPosition())
-//
-//                        }else{
-//
-//                        }
-//                    })
-//                });
+                var map = new AMap.Map('map',{
+                    resizeEnable: true
+                });
 
-
-                var map = new BMap.Map("map");
-                var myGeo = new BMap.Geocoder();
-                // 将地址解析结果显示在地图上,并调整地图视野
-                myGeo.getPoint($('#addressInCh').val(), function(point){
-                    if (point) {
-                        map.centerAndZoom(point, 20);
-                        var marker = new BMap.Marker(point);  // 创建标注
-                        map.addOverlay(marker);               // 将标注添加到地图中
-                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-
-                        map.enableScrollWheelZoom(true);
-                    }else{
-                    alert("您选择地址没有解析到结果!");
-                }
+                map.setLang('zh_en');
+                AMap.service(["AMap.PlaceSearch"], function() {
+                var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+                    pageSize: 1,
+                    pageIndex: 1,
+                    city: "010", //城市
+                    map: map//,
+                    //panel: "panel"
+                });
+                //关键字查询
+                placeSearch.search($('#addressInCh').val(), function(status, result) {
+                });
             });
+
+//                var map = new BMap.Map("map");
+//                var myGeo = new BMap.Geocoder();
+//                // 将地址解析结果显示在地图上,并调整地图视野
+//                myGeo.getPoint($('#addressInCh').val(), function(point){
+//                    if (point) {
+//                        map.centerAndZoom(point, 20);
+//                        var marker = new BMap.Marker(point);  // 创建标注
+//                        map.addOverlay(marker);               // 将标注添加到地图中
+//                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+//
+//                        map.enableScrollWheelZoom(true);
+//                    }else{
+//                    alert("您选择地址没有解析到结果!");
+//                }
+//            });
 //
             @else
                 var geocoder;
@@ -632,36 +624,43 @@
 
             @if( $hotelDetail->address->type =='1')
 
-                $('#map').html('');
-                var map = new BMap.Map("map");
-                var myGeo = new BMap.Geocoder();
-                var start = $('#addressInCh').val();
-                var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
-                map.clearOverlays();
-                search(start,end,'BMAP_DRIVING_POLICY_LEAST_TIME');
-                function search(start,end,route){
-                    var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: route});
-                    driving.search(start,end);
-                }
-                {{--var map = new AMap.Map('map',{--}}
-                        {{--resizeEnable: true--}}
-                    {{--});--}}
-                {{--map.setLang('zh_en');--}}
-                {{--AMap.service('AMap.Driving',function(){//回调函数--}}
-                {{--//实例化Driving--}}
-                {{--var driving= new AMap.Driving({--}}
-                    {{--map:map,--}}
-                    {{--city: "{{$hotelDetail->city->city_name}}"//城市，默认：“全国”--}}
-                {{--});--}}
-
+                {{--$('#map').html('');--}}
+                {{--var map = new BMap.Map("map");--}}
+                {{--var myGeo = new BMap.Geocoder();--}}
                 {{--var start = $('#addressInCh').val();--}}
                 {{--var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;--}}
 
-                {{--driving.search([{keyword:start},{keyword:end}], function(status, result) {--}}
-                    {{--//TODO 解析返回结果，自己生成操作界面和地图展示界面--}}
-                {{--});--}}
-                {{--//TODO: 使用driving对象调用驾车路径规划相关的功能--}}
-            {{--})--}}
+{{--//                    map.clearOverlays();--}}
+{{--//                    myGeo.getPoint(start, function(point){--}}
+{{--//                        map.centerAndZoom( point, 12);--}}
+{{--//                    })--}}
+{{--//                    var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map,panel: "route",  autoViewport: true}});--}}
+{{--//                     driving.search(start, end);--}}
+                {{--map.clearOverlays();--}}
+                {{--search(start,end,'BMAP_DRIVING_POLICY_LEAST_TIME');--}}
+                {{--function search(start,end,route){--}}
+                    {{--var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: route});--}}
+                    {{--driving.search(start,end);--}}
+                {{--}--}}
+                var map = new AMap.Map('map',{
+                        resizeEnable: true
+                    });
+                map.setLang('zh_en');
+                AMap.service('AMap.Driving',function(){//回调函数
+                //实例化Driving
+                var driving= new AMap.Driving({
+                    map:map,
+                    city: "{{$hotelDetail->city->city_name}}"//城市，默认：“全国”
+                });
+
+                var start = $('#addressInCh').val();
+                var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
+
+                driving.search([{keyword:start},{keyword:end}], function(status, result) {
+                    //TODO 解析返回结果，自己生成操作界面和地图展示界面
+                });
+                //TODO: 使用driving对象调用驾车路径规划相关的功能
+            })
 
 
 
