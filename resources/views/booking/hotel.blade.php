@@ -562,7 +562,7 @@
                 map.setLang('zh_en');
                 AMap.plugin('AMap.Geocoder',function(){
                     var geocoder = new AMap.Geocoder({
-                        city: "{{$hotelDetail->city->city_name}}"//城市，默认：“全国”
+
                     });
                     var marker = new AMap.Marker({
                         map:map,
