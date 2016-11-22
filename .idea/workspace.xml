@@ -76,8 +76,8 @@
       <file leaf-file-name="hotel.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/booking/hotel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55785835">
-              <caret line="564" column="0" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.38169256">
+              <caret line="638" column="121" selection-start-line="638" selection-start-column="121" selection-end-line="638" selection-end-column="121" />
               <folding />
             </state>
           </provider>
@@ -1016,8 +1016,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/booking/hotel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55785835">
-          <caret line="564" column="0" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.38169256">
+          <caret line="638" column="121" selection-start-line="638" selection-start-column="121" selection-end-line="638" selection-end-column="121" />
           <folding />
         </state>
       </provider>
