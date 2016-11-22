@@ -569,7 +569,7 @@
                         bubble:true
                     })
 
-                    geocoder.getLocation('{{$hotelDetail->address->detail}}',function(status,result){
+                    geocoder.getLocation($('#addressInCh').val(),function(status,result){
                         if(status=='complete'&&result.geocodes.length){
                             marker.setPosition(result.geocodes[0].location);
                             map.setCenter(marker.getPosition())

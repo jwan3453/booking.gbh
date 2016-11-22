@@ -126,13 +126,11 @@
                     <div class="hotel-cate">
                         <img src = '{{$category->icon}}'>
                         <span>
-                            {{ trans('home.zen') }}
-
                             @if(session('lang') == 'en')
-                                {{$category->category_en}}
+                                {{$category->category_name_en}}
                             @else
 
-                                {{$category->category}}
+                                {{$category->category_name}}
                             @endif
 
                         </span>
