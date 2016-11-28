@@ -39,6 +39,7 @@
 
         <div class="cate-hotel-list auto-margin">
             @foreach($hotel['list'] as $hotel)
+            <a href="/hotel/{{$hotel->code}}">
             <div class="cate-hotel-detail">
                 <div class="cover-image">
                     <img class="trans_fast" src="{{$hotel->link}}">
@@ -54,7 +55,8 @@
                     </div>
                 </div>
 
-                <div class="text-detail trans_fast">
+
+                    <div class="text-detail trans_fast  ">
 
                     <span class="feature">
 
@@ -66,16 +68,17 @@
 
 
                     </span>
-                    <span class="address"><i class="icon marker"></i>
+                    <span class="address"><div class="location-icon" ></div>
                         @if(session('lang') == 'en')
                             {{$hotel->detail_en}} {{$hotel->city_name_en}} {{$hotel->province_name_en}}
                         @else
                             {{$hotel->province_name}}{{$hotel->city_name}}{{$hotel->detail}}
                         @endif
                     </span>
-                    <a href="/hotel/{{$hotel->code}}"><div class="regular-btn red-btn auto-margin">{{ trans('hotelByCategory.view') }}</div></a>
+                  <div class="regular-btn red-btn auto-margin">{{ trans('hotelByCategory.view') }}</div>
                 </div>
-            </div>
+            </div></a>
+
             @endforeach
         </div>
 
@@ -94,11 +97,15 @@
 
         $(document).ready(function(){
 
+            if($(document).width() > 767)
+            {
+                $('.text-detail').addClass('draw');
+            }
 
         })
         var pattern = Trianglify({
             width: $(window).width(),
-            height: $(window).height(),
+            height: $(window).height()+257,
             cell_size: 40});
 
         document.getElementById('contentSection').appendChild(pattern.canvas());

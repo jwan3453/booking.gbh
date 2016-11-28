@@ -119,7 +119,9 @@
                         <span class="distance">  {{ trans('hotel.distance') }}: {{$surrounding->distance}}km</span>
                         <span class="taxi" >  {{ trans('hotel.taxi') }}: {{$surrounding->by_taxi}}  {{ trans('hotel.min') }}</span>
                         <span class="walk">  {{ trans('hotel.walk') }}: {{$surrounding->by_walk}} {{ trans('hotel.min') }}</span>
-                        <span class="bus">  {{ trans('hotel.bus') }}: {{$surrounding->by_bus}} {{ trans('hotel.line') }}</span>
+                        @if(trim($surrounding->by_bus)!== '')
+                            <span class="bus">  {{ trans('hotel.bus') }}: {{$surrounding->by_bus}} {{ trans('hotel.line') }}</span>
+                        @endif
                         <input class="nameInZh"   type="hidden" value="{{$surrounding->name}}"/>
                     </div>
                 @endforeach
@@ -141,7 +143,9 @@
 
                     <div class="facility-list">
                         <div class="category">
-                                餐饮
+
+                            <div class="catering-icon service-icon"></div>
+                            <span>{{ trans('hotel.catering') }}</span>
                         </div>
 
                         <div  class="list-detail" >
@@ -162,7 +166,7 @@
                                 <label>
 
                                     <span>
-                                        营业时间: {{$cateringItem-> business_hour}}
+                                        {{ trans('hotel.businessHour') }}: {{$cateringItem-> business_hour}}
                                     </span>
 
                                 </label>
@@ -173,43 +177,54 @@
                     </div>
 
 
-                    <div class="facility-list">
-                        <div class="category">
-                            健身娱乐
-                        </div>
+                    {{--<div class="facility-list">--}}
+                        {{--<div class="category">--}}
+                            {{--{{ trans('hotel.recreation') }}--}}
+                        {{--</div>--}}
 
-                        <div  class="list-detail" >
-                            @foreach($hotelDetail->recreationList as $recreationItem)
-                                <div class="list-items">
-                                    <label>
+                        {{--<div  class="list-detail" >--}}
+                            {{--@foreach($hotelDetail->recreationList as $recreationItem)--}}
+                                {{--<div class="list-items">--}}
+                                    {{--<label>--}}
 
-                                        <span>
-                                            @if(session('lang') == 'en')
-                                                {{$recreationItem->name_en}}
-                                            @else
+                                        {{--<span>--}}
+                                            {{--@if(session('lang') == 'en')--}}
+                                                {{--{{$recreationItem->name_en}}--}}
+                                            {{--@else--}}
 
-                                                {{$recreationItem->name}}
-                                            @endif
-                                        </span>
-                                    </label>
+                                                {{--{{$recreationItem->name}}--}}
+                                            {{--@endif--}}
+                                        {{--</span>--}}
+                                    {{--</label>--}}
 
-                                    <label>
+                                    {{--<label>--}}
 
-                                    <span>
-                                        营业时间: {{$recreationItem-> business_hour}}
-                                    </span>
+                                    {{--<span>--}}
+                                        {{--{{ trans('hotel.businessHour') }}: {{$recreationItem-> business_hour}}--}}
+                                    {{--</span>--}}
 
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
+                                    {{--</label>--}}
+                                {{--</div>--}}
+                            {{--@endforeach--}}
+                        {{--</div>--}}
 
-                    </div>
+                    {{--</div>--}}
 
 
                     @foreach($hotelDetail->facility['category'] as $facilityCategory)
                         <div class="facility-list">
                             <div class="category">
+
+                                @if($facilityCategory->service_type == 1)
+                                    <div class="general-service-icon service-icon"></div>
+                                @elseif($facilityCategory->service_type == 2)
+                                    <div class="recreation-icon service-icon"></div>
+                                @elseif($facilityCategory->service_type == 3)
+                                    <div class="general-facility-icon service-icon"></div>
+                                @elseif($facilityCategory->service_type == 4)
+                                    <div class="room-facility-icon service-icon"></div>
+                                @endif
+
                                 @if(session('lang') == 'en')
                                     {{$facilityCategory->service_name_en}}
                                 @else
@@ -408,6 +423,7 @@
 
                 <div class="room-gallery-box-left" id="roomGalleryBoxLeft" >
 
+
                 </div>
 
 
@@ -559,7 +575,7 @@
                     resizeEnable: true
                 });
 
-                map.setLang('zh_en');
+                //map.setLang('zh_en');
                 AMap.service(["AMap.PlaceSearch"], function() {
                 var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
                     pageSize: 1,
@@ -569,7 +585,7 @@
                     //panel: "panel"
                 });
                 //关键字查询
-                placeSearch.search($('#addressInCh').val(), function(status, result) {
+                placeSearch.search($('#addressInCh').val()+'{{$hotelDetail->name}}', function(status, result) {
                 });
             });
 
@@ -653,7 +669,7 @@
                     city: "{{$hotelDetail->city->city_name}}"//城市，默认：“全国”
                 });
 
-                var start = $('#addressInCh').val();
+                var start = $('#addressInCh').val()+'{{$hotelDetail->name}}';
                 var end ='{{$hotelDetail->province->province_name}}'+'{{$hotelDetail->city->city_name}}'+surroundingItem;
 
                 driving.search([{keyword:start},{keyword:end}], function(status, result) {
@@ -782,11 +798,16 @@
 
 
             //把room 明细转成javascript array
-            var re = new RegExp("&quot;", 'g');;
+            var currentRoomNavIndex = 0;
+            var imageCount = 0;
+            var re = new RegExp("&quot;", 'g');
             var roomDetail = '{{$hotelDetail->roomsInJson}}'.replace(re,'"');
             roomDetail = JSON.parse(roomDetail);
             $('.room > .name, .room > img').click(function(){
 
+
+
+                $('#currentImage').text(1);
 
                 var roomIndex=$(this).parent('div').attr('data-index');
                 var roomName = '';
@@ -800,13 +821,34 @@
 
 
                 var htmlLeft = '<div >';
+                htmlLeft += '<i class=" big arrow circle left icon image-nav-left"></i>'+
+                            '<i class="big arrow circle right icon image-nav-right"></i>';
+
+
+
 
                 htmlLeft += '<div class="room-name">'+ roomName+'</div>';
-                htmlLeft += '<img  id="roomImageShow" src="'+roomDetail[roomIndex].images[0].link +'">'+
-                        '<div class="room-image-nav">';
+                htmlLeft += '<div style="position:relative"><img  class="show-image" id="roomImageShow" src="'+roomDetail[roomIndex].images[0].link +'">';
+                htmlLeft += '<div class="room-image-pager" id="roomImagePager">'+
+                                '<span id="currentImage">1'+
+                                    '</span>'+
+                                    '/'+
+                                    '<span id="totalImage">'+
+                                '</span>'+
+                            '</div>'+
+                        '</div><div class="room-image-nav">';
+
+                var selectedClass  =  'room-image-nav-select';
+                imageCount = roomDetail[roomIndex].images.length;
+
                 for(var i = 0; i<roomDetail[roomIndex].images.length; i++)
                 {
-                    htmlLeft += '<img src="'+roomDetail[roomIndex].images[i].link+'?imageView/1/w/135/h/100' +'">';
+
+                    if(i != 0 )
+                    {
+                        selectedClass = '';
+                    }
+                    htmlLeft += '<img  class="'+selectedClass+'" src="'+roomDetail[roomIndex].images[i].link+'?imageView/1/w/135/h/100' +'">';
                 }
 
                 htmlLeft += '</div></div>';
@@ -814,6 +856,8 @@
                 //动态加载左边图像
                 $('#roomGalleryBoxLeft').empty().append(htmlLeft);
 
+
+                $('#totalImage').text(imageCount);
                 //加载房间属性
                 $('#numOfPeople').text(roomDetail[roomIndex].num_of_people);
                 $('#numOfBreakfast').text(roomDetail[roomIndex].num_of_breakfast );
@@ -910,6 +954,28 @@
                 var newLink = $(this).attr('src').substr(0,$(this).attr('src').indexOf('?'));
                 $('#hotelImageShow').attr('src', newLink+'?imageView/1/w/600/h/400');
 
+            })
+
+
+            //房间图片左右导航
+
+            $(document).on('click','.image-nav-left ',function(){
+
+                if(currentRoomNavIndex <= imageCount  && currentRoomNavIndex >= 1)
+                {
+                    currentRoomNavIndex--;
+                    $(".room-image-nav > img:eq("+currentRoomNavIndex+")").click();
+                    $('#currentImage').text(currentRoomNavIndex+1);
+                }
+            })
+
+            $(document).on('click','.image-nav-right ',function(){
+                if(currentRoomNavIndex < imageCount -1 )
+                {
+                    currentRoomNavIndex++;
+                    $(".room-image-nav > img:eq("+currentRoomNavIndex+")").click();
+                    $('#currentImage').text(currentRoomNavIndex+1);
+                }
             })
 
 //            var p=0,t=0;

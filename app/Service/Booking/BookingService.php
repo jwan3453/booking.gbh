@@ -121,10 +121,10 @@ class BookingService{
         {
 
             $internationalCity[$continent->name_en] =DB::table('international_city')->join('country','international_city.country_code','=','country.code')
-                ->join('continent','country.continent_id','=','continent.id')->where('continent.id',$continent->id)->select('international_city.*')->get();
+                ->join('continent','country.continent_id','=','continent.id')->where(['continent.id'=>$continent->id,'international_city.status'=>1])->select('international_city.*')->get();
             $continentList[] = ['name'=>$continent->name,'name_en'=>$continent->name_en];
         }
-        $internationalCity['hotDestination'] = InternationalCity::where('is_hot',1)->get();
+        $internationalCity['hotDestination'] = InternationalCity::where(['is_hot'=>1,'status'=>1])->get();
         $internationalCity['continentList'] =  $continentList;
 
         //获取国外目的地

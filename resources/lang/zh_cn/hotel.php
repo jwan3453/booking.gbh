@@ -22,6 +22,10 @@ return [
     'showAll' => '显示全部',
 
 
+    'catering' =>'餐饮',
+    'businessHour' =>'营业时间',
+    'recreation' => '活动娱乐',
+
     'checkinOut' => '入住/离店',
     'checkin' => '入住时间',
     'checkout' => '离店时间',

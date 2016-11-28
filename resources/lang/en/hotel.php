@@ -31,7 +31,9 @@ return [
     'showAll' => 'show all',
 
      'all'=> 'all',
-
+    'catering' =>'Catering Service',
+    'businessHour' =>'Business Hour',
+    'recreation' => 'Recreation Service',
 
     'bookNow' => 'book',
 

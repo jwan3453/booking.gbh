@@ -18,6 +18,7 @@
 
     <div class="slogan">
         {{ trans('home.slogan') }}
+        <div class='small-divider'></div>
     </div>
     @if($isMobile)
 
@@ -334,7 +335,7 @@
             })
 
             $('#destination').keyup(function(){
-
+                $container.fadeOut();
                 searchDestin();
             })
 

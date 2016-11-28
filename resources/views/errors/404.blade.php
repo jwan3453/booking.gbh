@@ -10,8 +10,8 @@
 @section('content')
 
     <title>404</title>
-    <div class="no-result">
-        <img src = '/booking/img/no_more.png'>
+    <div class="page-not-found">
+        <img src = '/booking/img/404.png'>
 
         <div>
 
