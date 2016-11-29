@@ -2575,7 +2575,7 @@ img{
 .general-facility-icon{
     width: 30px;
     height: 30px;
-    background-image: url('/booking/icon/generalfacility.png');
+    background-image: url('/booking/icon/generalFacility.png');
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
@@ -3485,6 +3485,7 @@ img{
         width:100%;
         display: inline-block;
         font-size: 14px;
+        margin-top: 10px;
     }
 
     .facility-list .list-items label{

@@ -2,9 +2,9 @@
 
 
 @section('resources')
-    <script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>
-    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>
-    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
+    {{--<script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>--}}
+    {{--<link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>--}}
+    {{--<link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>--}}
 
 
     @if( $hotelDetail->address->type =='1')
@@ -92,10 +92,11 @@
                     @if(session('lang') == 'en')
                        {{$hotelDetail->address->detail_en}} {{$hotelDetail->city->city_name_en}} {{$hotelDetail->province->province_name_en}}{{$hotelDetail->province->name_en}}
                     @else
-                        {{$hotelDetail->province->name}}{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district->district_name}}{{$hotelDetail->address->detail}}
+                        {{$hotelDetail->province->name}}{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district=''?$hotelDetail->district->district_name:'' }}{{$hotelDetail->address->detail}}
+
                     @endif
                 </span>
-                <input type=hidden id="addressInCh" value="{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district->district_name}}{{$hotelDetail->address->detail}}">
+                <input type=hidden id="addressInCh" value="{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district=''?$hotelDetail->district->district_name:'' }}{{$hotelDetail->address->detail}}">
                 <a id="mapIcon"><div class="map-icon" ></div></a>
             </div>
         </div>
@@ -394,7 +395,7 @@
 
 
                     <div class="room-price">
-                        <span class="m-s">￥</span><span class="price">{{$room->rack_rate}}</span>
+                        <span class="m-s">{{ trans('home.currency') }}</span><span class="price">{{$room->rack_rate}}</span>
                     </div>
 
                     <div class="booking">
@@ -821,8 +822,7 @@
 
 
                 var htmlLeft = '<div >';
-                htmlLeft += '<i class=" big arrow circle left icon image-nav-left"></i>'+
-                            '<i class="big arrow circle right icon image-nav-right"></i>';
+
 
 
 
@@ -835,7 +835,9 @@
                                     '/'+
                                     '<span id="totalImage">'+
                                 '</span>'+
-                            '</div>'+
+                            '</div>';
+                htmlLeft += '<i class=" big arrow circle left icon image-nav-left"></i>'+
+                        '<i class="big arrow circle right icon image-nav-right"></i>'+
                         '</div><div class="room-image-nav">';
 
                 var selectedClass  =  'room-image-nav-select';

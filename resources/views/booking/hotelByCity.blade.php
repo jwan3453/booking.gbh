@@ -2,8 +2,7 @@
 
 @section('resources')
 
-    <script src="/js/parallax/parallax.min.js"></script>
-    <script src="/js/triang.min.js"></script>
+
 
 @stop
 
@@ -40,7 +39,7 @@
                                 @else
                                     {{$hotel->name}}
                                 @endif</h3>
-                            <p><span class="price-from-text">{{ trans('hotelByCity.enFrom') }}</span>￥{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('hotelByCity.zhFrom') }}</span></p>
+                            <p><span class="price-from-text">{{ trans('hotelByCity.enFrom') }}{{ trans('home.currency') }}</span>{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('hotelByCity.zhFrom') }}</span></p>
                         </div>
                     </div>
 
@@ -85,6 +84,10 @@
 
         $(document).ready(function(){
 
+            if($(document).width() > 767)
+            {
+                $('.text-detail').addClass('draw');
+            }
 
         })
         var pattern = Trianglify({

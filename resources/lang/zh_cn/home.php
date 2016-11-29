@@ -17,6 +17,7 @@ return [
 
     'enFrom' => '',
     'zhFrom' => '起',
+    'currency' => '￥',
 
     'selectC' => '精选主题',
     'zen' => '禅修养生',

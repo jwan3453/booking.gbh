@@ -9,30 +9,27 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+
+
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/style.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/icon.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/container.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/transition.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/popup.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/divider.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/dropdown.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/flag.css') }}>--}}
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/css3nav/styles.css') }}>--}}
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/styles.min.css') }}>
+
     <script src={{ asset('js/jquery-2.1.4.min.js') }}></script>
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/style.css') }}>
-
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/icon.css') }}>
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/container.css') }}>
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/transition.css') }}>
-    <script src={{ asset('semantic/transition.min.js') }}></script>
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/popup.css') }}>
-    <script src={{ asset('semantic/popup.min.js') }}></script>
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/divider.css') }}>
-
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/dropdown.css') }}>
-    <script src={{ asset('semantic/dropdown.min.js') }}></script>
-
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/flag.css') }}>
-
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/css3nav/styles.css') }}>
-
+    {{--<script src={{ asset('semantic/transition.min.js') }}></script>--}}
+    {{--<script src={{ asset('semantic/popup.min.js') }}></script>--}}
+    {{--<script src={{ asset('semantic/dropdown.min.js') }}></script>--}}
+    {{--<script src="/js/parallax/parallax.min.js"></script>--}}
+    {{--<script src="/js/triang.min.js"></script>--}}
+    <script src={{ asset('booking/js/all.min.js') }}></script>
     @yield('resources')
 
 </head>

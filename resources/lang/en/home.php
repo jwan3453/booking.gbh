@@ -17,6 +17,7 @@ return [
 
     'enFrom' => 'from',
     'zhFrom' => '',
+    'currency' => ' CNY ',
 
     'selectC' => 'Select Category',
     'zen' => 'Zen',

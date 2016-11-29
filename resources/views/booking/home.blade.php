@@ -2,7 +2,7 @@
 
 @section('resources')
 
-    <script src="/js/parallax/parallax.min.js"></script>
+
 @stop
 
 
@@ -97,7 +97,7 @@
                             </span>
                          </div>
                         <div class="price">
-                            <span class="price-from-text">{{ trans('home.enFrom') }}</span>￥{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('home.zhFrom') }}</span>
+                            <span class="price-from-text">{{ trans('home.enFrom') }}{{ trans('home.currency') }}</span>{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('home.zhFrom') }}</span>
 
                         </div>
 
@@ -335,8 +335,18 @@
             })
 
             $('#destination').keyup(function(){
-                $container.fadeOut();
+                if($(this).val() == '')
+                {
+                    $container.fadeIn();
+                    $searchContainer.hide();
+                }
+                else{
+                    $container.fadeOut()
+
+                }
                 searchDestin();
+
+
             })
 
             //for ios
