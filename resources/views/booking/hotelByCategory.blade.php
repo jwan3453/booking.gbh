@@ -20,7 +20,7 @@
         <div class="cate-icon">
             <img  src = '{{$hotel['category']->icon}}'>
         </div>
-        <div class="cate-name">
+        <div  class= " ui horizontal divider cate-name">
             @if(session('lang') == 'en')
                 {{$hotel['category']->category_name_en}}
             @else

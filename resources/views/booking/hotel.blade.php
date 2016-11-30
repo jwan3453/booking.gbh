@@ -542,31 +542,31 @@
 @section('script')
 
     <script type="text/javascript">
-        $('.owl-carousel').owlCarousel({
-            loop:true,
-            responsiveClass:true,
-            autoplay:true,
-            autoplayTimeout:4000,
-
-
-            responsive:{
-                0:{
-                    items:1,
-
-                    loop:true
-                },
-                600:{
-                    items:1,
-
-                    loop:true
-                },
-                1000:{
-                    items:1,
-
-                    loop:true
-                }
-            }
-        })
+//        $('.owl-carousel').owlCarousel({
+//            loop:true,
+//            responsiveClass:true,
+//            autoplay:true,
+//            autoplayTimeout:4000,
+//
+//
+//            responsive:{
+//                0:{
+//                    items:1,
+//
+//                    loop:true
+//                },
+//                600:{
+//                    items:1,
+//
+//                    loop:true
+//                },
+//                1000:{
+//                    items:1,
+//
+//                    loop:true
+//                }
+//            }
+//        })
 
         function loadMap() {
 

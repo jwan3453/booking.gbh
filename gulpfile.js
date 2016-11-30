@@ -19,6 +19,7 @@ elixir(function(mix) {
         '/public/semantic/popup.css',
         '/public/semantic/dropdown.css',
         '/public/semantic/divider.css',
+        '/public/semantic/flag.css',
         '/public/booking/css/style.css',
         '/public/booking/css/css3nav/styles.css'
     ],'./public/booking/css/styles.min.css','.');
@@ -28,6 +29,8 @@ elixir(function(mix) {
     mix.scripts(
         (['/public/semantic/transition.min.js',
           '/public/js/parallax/parallax.min.js',
+          '/public/js/triang.min.js',
+          '/public/semantic/dropdown.min.js',
         ]),'./public/booking/js/all.min.js','.');
 
 });

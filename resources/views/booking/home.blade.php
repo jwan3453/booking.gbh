@@ -97,7 +97,7 @@
                             </span>
                          </div>
                         <div class="price">
-                            <span class="price-from-text">{{ trans('home.enFrom') }}{{ trans('home.currency') }}</span>{{$hotel->priceFrom}} <span class="price-from-text">{{ trans('home.zhFrom') }}</span>
+                            <span class="price-from-text">{{ trans('home.enFrom') }}{{ trans('home.currency') }}</span>{{intval($hotel->priceFrom)}} <span class="price-from-text">{{ trans('home.zhFrom') }}</span>
 
                         </div>
 
@@ -299,7 +299,7 @@
                         //设置contianer 基本css
                         $container.appendTo($("body")).css({
                             'color': '#505050',
-                            'position':'absolute',
+
                             'display':'none',
                             'background':' #f8f8f8',
 
@@ -312,6 +312,7 @@
                             $container.appendTo($("body")).css({
                                 'top': 50,
                                 'left': 0,
+                                'position':'fixed',
                                 'width':'100%'}
                             );
 //                            $container.attr('id','searchContainerWrapper');
@@ -319,6 +320,7 @@
                             $container.appendTo($("body")).css({
                             'top': cont_top+3,
                             'left': cont_left-37,
+                            'position':'absolute',
                             'width':480}
                         );
 
@@ -836,6 +838,13 @@
                 }
 
             })
+            // 绑定键盘按下事件
+            $(document).keypress(function(e) {
+                // 回车键事件
+                if(e.which == 13) {
+                    $('#homeSearch').click();
+                }
+            });
 
 //            $(document).on('click','.city',function(){
 //

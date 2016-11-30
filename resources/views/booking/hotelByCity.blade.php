@@ -17,8 +17,7 @@
     <div class="cate-city-hotel auto-margin">
 
 
-
-        <div class="cate-city-name">
+        <div class= " ui horizontal divider cate-city-name">
             @if(session('lang') == 'en')
             {{$hotel['cityName']->city_name_en}}
             @else
