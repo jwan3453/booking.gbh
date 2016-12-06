@@ -61,7 +61,7 @@
 
 
         <div class="image-count">
-            (共{{$hotelDetail->imageCount}}张图片)
+            ({{trans('hotel.total')}}{{$hotelDetail->imageCount}}{{trans('hotel.image')}})
         </div>
     </div>
 
@@ -335,19 +335,44 @@
                             {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}--}}
                         {{--@endif--}}
                         @if(strpos($hotelDetail->policy->pay_policy,'m')!== false)
-                            <div class="master-card"></div>
+                            <div class="master-card pay-icon" >
+                                <div class="tooltip">
+                                    <div class="triangle-up"></div>
+                                    <div class="text">{{trans('hotel.visaCard')}}</div>
+                                </div>
+                            </div>
                         @endif
                         @if(strpos($hotelDetail->policy->pay_policy,'v')!== false)
-                            <div class="visa-card"></div>
+                            <div class="visa-card pay-icon">
+                                <div class="tooltip">
+                                    <div class="triangle-up"></div>
+                                    <div class="text"> {{trans('hotel.visaCard')}}</div>
+                                </div>
+                            </div>
                         @endif
                         @if(strpos($hotelDetail->policy->pay_policy,'u')!== false)
-                            <div class="unionPay"></div>
+                            <div class="unionPay pay-icon">
+                                <div class="tooltip">
+                                    <div class="triangle-up"></div>
+                                    <div class="text"> {{trans('hotel.unionPay')}}</div>
+                                </div>
+                            </div>
                         @endif
                         @if(strpos($hotelDetail->policy->pay_policy,'a')!== false)
-                            <div class="aliPay"></div>
+                            <div class="aliPay pay-icon">
+                                <div class="tooltip">
+                                    <div class="triangle-up"></div>
+                                    <div class="text"> {{trans('hotel.aliPay')}}</div>
+                                </div>
+                            </div>
                         @endif
                         @if(strpos($hotelDetail->policy->pay_policy,'w')!== false)
-                            <div class="wechatPay"></div>
+                            <div class="wechatPay pay-icon">
+                                <div class="tooltip">
+                                    <div class="triangle-up"></div>
+                                    <div class="text"> {{trans('hotel.wechatPay')}}</div>
+                                </div>
+                            </div>
                         @endif
 
                     </div>
@@ -798,6 +823,14 @@
 
 
 
+            //显示支付名称
+            $('.pay-icon').hover(function(){
+
+                $(this).find('.tooltip').show();
+            },function(){
+                $(this).find('.tooltip').hide();
+            })
+
             //把room 明细转成javascript array
             var currentRoomNavIndex = 0;
             var imageCount = 0;
@@ -911,18 +944,13 @@
             })
 
 
-            $(document).on('click','.room-image-nav > img',function(){
-               $(this).addClass('room-image-nav-select').siblings('img').removeClass('room-image-nav-select');
 
-                var newLink = $(this).attr('src').substr(0,$(this).attr('src').indexOf('?'));
-               $('#roomImageShow').attr('src', newLink+'?imageView/1/w/600/h/400');
-
-            })
 
             $('#closeRoomBox').click(function(){
                 $('#roomDetailGalleryBox').fadeOut(100);
             })
 
+            //点击酒店图片画廊图片
             $('.hotel-image-list > li > .mask').click(function(){
 
 
@@ -930,6 +958,7 @@
                 $('#hotelImageShow').attr('src', $(this).siblings('img').attr('src')+'?imageView/1/w/600/h/400');
             })
 
+            //hover 显示酒店图片
             $('.hotel-image-list > li .mask').hover(function(){
 
                 $(this).siblings('img').addClass('hotel-image-list-hover').removeClass('blur');
@@ -944,7 +973,7 @@
             $('#closeGallery').click(function(){
                 $('#hotelImageGallery').fadeOut(400);
             })
-//
+            //酒店图片区域导航
             $('.h-s-l > span').click(function(){
 
                 $('.h-i-l').children().eq($(this).index()).fadeIn().siblings('div').hide();
@@ -960,7 +989,6 @@
 
 
             //房间图片左右导航
-
             $(document).on('click','.image-nav-left ',function(){
 
                 if(currentRoomNavIndex <= imageCount  && currentRoomNavIndex >= 1)
@@ -978,6 +1006,18 @@
                     $(".room-image-nav > img:eq("+currentRoomNavIndex+")").click();
                     $('#currentImage').text(currentRoomNavIndex+1);
                 }
+            })
+
+            $(document).on('click','.room-image-nav > img',function(){
+
+                currentRoomNavIndex = $(this).index();
+                $('#currentImage').text(currentRoomNavIndex+1);
+
+                $(this).addClass('room-image-nav-select').siblings('img').removeClass('room-image-nav-select');
+
+                var newLink = $(this).attr('src').substr(0,$(this).attr('src').indexOf('?'));
+                $('#roomImageShow').attr('src', newLink+'?imageView/1/w/600/h/400');
+
             })
 
 //            var p=0,t=0;

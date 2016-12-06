@@ -3,6 +3,9 @@
 
 
 return [
+    'total' => 'total ',
+    'image' => ' images',
+
     'description' => 'Brief  ',
     'location'=> 'Location',
     'surrounding'=> 'Surrounding',
@@ -26,7 +29,11 @@ return [
     'airportTransfer' => 'Airport Transfer',
     'payPolicy' => 'pay policy',
     'other' => 'Other',
-
+    'masterCard' => 'master card',
+    'visaCard' => 'visa card',
+    'unionPay' => 'unionPay',
+    'aliPay' => 'aliPay',
+    'wechatPay' => 'wechat Pay',
 
     'showAll' => 'show all',
 

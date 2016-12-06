@@ -3,6 +3,8 @@
 
 
 return [
+    'total' => '一共',
+    'image' => '张图片',
 
     'description' => '酒店介绍 ',
     'location'=> '酒店位置',
@@ -34,6 +36,11 @@ return [
     'airportTransfer' => '接机服务',
     'payPolicy' => '支付',
     'other' => '其他',
+    'masterCard' => '万事达卡',
+    'visaCard' => 'visa卡',
+    'unionPay' => '银联',
+    'aliPay' => '支付宝',
+    'wechatPay' => '微信支付',
 
     'all'=> '全部',
 

@@ -27,7 +27,7 @@
                 <span class="p"></span>
                 <span>{{trans('destination.domestic')}}</span>
             </div>
-            <div class="area" >
+            <div class="area"  id="10000">
                 <div class="p"></div>
                 <span>{{ trans('destination.municipality') }}</span>
             </div>
@@ -86,7 +86,7 @@
 
 
         <div class="area-section">
-            <div class="ui horizontal divider  area-name">
+            <div class="ui horizontal divider  area-name" id="area_10000">
                 {{ trans('destination.municipality') }}
             </div>
 

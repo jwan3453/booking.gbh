@@ -39,6 +39,7 @@ img{
     overflow: hidden;
     position: relative;
     z-index:100!important;
+    background-color: rgba(9, 9, 26,0.5);
 }
 .parallax-mask{
 
@@ -2602,6 +2603,50 @@ img{
 }
 
 
+.tooltip{
+    clear: both;
+    position: absolute;
+    border: 1px solid #f8f8f8;
+    width:100px;
+    bottom: -60px;
+    left:-30px;
+    display: none;
+    z-index:1001;
+}
+
+.tooltip .triangle-up{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #e6e6e6;
+    position: absolute;
+    left: 45px;
+}
+.tooltip .text{
+    clear: both;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+    text-align: center;
+
+}
+
+.pay-icon{
+    position: relative;
+    font-size:10px;
+    color:#505050;
+
+}
+.pay-icon span{
+    display: block;
+    position: absolute;
+    bottom: -13px;
+    text-align: center;
+    width:50px;
+}
+
 .master-card{
     width: 50px;
     height: 50px;
@@ -2609,9 +2654,10 @@ img{
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
-    overflow: hidden;
+    position: relative;
     margin-left:10px;
     background-position: center;
+
 }
 .visa-card{
     width: 50px;
@@ -2620,7 +2666,7 @@ img{
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
-    overflow: hidden;
+
     margin-left:10px;
     background-position: center;
 
@@ -2632,7 +2678,7 @@ img{
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
-    overflow: hidden;
+
     margin-left:10px;
 }
 .aliPay{
@@ -2642,7 +2688,7 @@ img{
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
-    overflow: hidden;
+
     margin-left:10px;
 }
 .wechatPay{
@@ -2652,7 +2698,7 @@ img{
     background-repeat: no-repeat;
     background-size: 100%;
     display: inline-block;
-    overflow: hidden;
+
     margin-left:10px;
 }
 /********************/
@@ -4339,6 +4385,10 @@ img{
 .bright-bg{
     background: rgba(0, 0, 0,0.2)!important;
 }
+
+
+
+
 
 
 

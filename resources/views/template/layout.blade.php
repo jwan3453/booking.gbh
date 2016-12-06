@@ -7,7 +7,10 @@
     <meta name=”viewport” content=”width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=false;” />
     <meta name=”viewport” content=”width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;” />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="keywords" content="GBH，gbhchina，,全球精品酒店，精品酒店预定,globalBotiqueHotel，精品酒店">
+    <meta name="description" content="全球精品酒店，全球精品酒店平台。在gbh，寻找中国乃至世界上独一无二的精品酒店">
     <meta name="_token" content="{{ csrf_token() }}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://og9duuhyy.bkt.clouddn.com/logo/gbhchina_log.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 
