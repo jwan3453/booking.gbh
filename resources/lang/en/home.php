@@ -37,7 +37,7 @@ return [
     'aboutUs' => 'About Us',
     'aboutGbh' => 'About Gbh',
     'contactUs'=> 'Contact Us',
-    'articles' => 'Articles',
+    'articles' => 'Media Center',
     'aboutTeam' => 'About Team',
     'team' => 'Team Member',
     'joinUs' => 'Join Us',
