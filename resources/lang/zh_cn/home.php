@@ -43,5 +43,7 @@ return [
     'customerService' => '客服电话',
 
     'slogan' =>'有一种酒店,你还未体验',
-    'noCities' => "该区域暂未开通城市"
+    'noCities' => "该区域暂未开通城市",
+    'copyRightUp'=>  'Copyright © 2016 全球精品酒店 版权所有',
+    'copyRightDown' => 'All rights reserved. 闽ICP备16016886号'
 ];

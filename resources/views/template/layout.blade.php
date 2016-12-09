@@ -155,8 +155,8 @@
         </ul>
         <div class="copy-right auto-margin">
 
-            <span class="up">全球精品酒店 版权所有 2016-2028 保留所有权利 gbhchina.com 2016.</span>
-            <span class="down"> All rights reserved. 闽ICP备16016886号</span>
+            <span class="up"> {{ trans('home.copyRightUp') }}</span>
+            <span class="down"> {{ trans('home.copyRightDown') }}</span>
 
         </div>
         <div class="statistic">

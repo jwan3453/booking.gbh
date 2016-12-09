@@ -45,5 +45,7 @@ return [
     'customerService' => 'Customer Service',
 
     'slogan' =>"hotels that you haven't experience yet",
-    'noCities' => "no available hotels is this region"
+    'noCities' => "no available hotels is this region",
+    'copyRightUp'=> 'Copyright © 2016 gbhchina.com All right reserved.',
+    'copyRightDown' => '闽ICP备16016886号'
 ];
