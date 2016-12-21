@@ -15,16 +15,17 @@
 
 
 
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/style.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/icon.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/container.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/transition.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/popup.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/divider.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/dropdown.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/flag.css') }}>--}}
-    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/css3nav/styles.css') }}>--}}
-    <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/styles.min.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/style.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/icon.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/container.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/transition.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/popup.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/divider.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/dropdown.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/flag.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/loader.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/css3nav/styles.css') }}>
+    {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/styles.min.css') }}>--}}
 
     <script src={{ asset('js/jquery-2.1.4.min.js') }}></script>
     {{--<script src={{ asset('semantic/transition.min.js') }}></script>--}}
@@ -39,7 +40,7 @@
 
 <body id="body">
 
-    <div style="position:relative" id="contentSection">
+    <div style="position:relative;border-top:1px solid transparent;" id="contentSection">
         <div class="site-header  ">
 
             <div class="logo">

@@ -5,8 +5,6 @@
     {{--<script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>--}}
     {{--<link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>--}}
     {{--<link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>--}}
-
-
     @if( $hotelDetail->address->type =='1')
 
     {{--<script id="baiduMapAPI" type="text/javascript" src="http://api.map.baidu.com/api?v=quick&ak=9mVc34VYHPIqmoOCuy7KqWK8NMXtazoY"></script>--}}
@@ -14,6 +12,8 @@
     @else
     <script src="http://ditu.google.cn/maps/api/js?sensor=true&key=AIzaSyBVbzDkqtNh-dK916AMJMsrF3G1BtUpHwg"></script>
     @endif
+
+    <script  type="text/javascript" src= {{ asset('js/calendar.js')}}></script>
 @stop
 
 @section('content')
@@ -25,6 +25,7 @@
         @endif
     </title>
 
+    @include('partial.calender')
     {{--<div class="owl-carousel owl-theme hotel-image-cover" id="hotelImageCover">--}}
 
         {{--@foreach($hotelDetail->coverImageList as $image)--}}
@@ -65,379 +66,405 @@
         </div>
     </div>
 
-    <div class="hotel-detail auto-margin">
+    {{--<div class="date-search-bar" >--}}
+        {{--<div>--}}
+            {{----}}
+        {{--</div>--}}
+    {{--</div>--}}
 
 
+    <div class="hotel-detail-wrap">
 
-        <div class="hotel-desc hotel-line-detail ">
-            <div class="ui horizontal divider line-header ">
-                {{ trans('hotel.description') }}
-            </div>
+        <div class="hotel-detail auto-margin">
 
-            <div class="detail">
-                @if(session('lang') == 'en')
-                    {{$hotelDetail->description_en}}
-                @else
-                    {{$hotelDetail->description}}
-                @endif
-            </div>
-        </div>
+            <form class="search-date-box-wrap" id="searchRoomDateForm">
 
-        <div class="hotel-location hotel-line-detail">
-            <div class="ui horizontal divider line-header ">
-                {{ trans('hotel.location') }}
-            </div>
-            <div class="detail">
-                <span id="hotelAddress">
-                    @if(session('lang') == 'en')
-                       {{$hotelDetail->address->detail_en}} {{$hotelDetail->city->city_name_en}} {{$hotelDetail->province->province_name_en}}{{$hotelDetail->province->name_en}}
-                    @else
-                        {{$hotelDetail->province->name}}{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district=''?$hotelDetail->district->district_name:'' }}{{$hotelDetail->address->detail}}
-
-                    @endif
-                </span>
-                <input type=hidden id="addressInCh" value="{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district=''?$hotelDetail->district->district_name:'' }}{{$hotelDetail->address->detail}}">
-                <a id="mapIcon"><div class="map-icon" ></div></a>
-            </div>
-        </div>
-
-
-        <div class="hotel-surr hotel-line-detail">
-
-            <div class="ui horizontal divider line-header ">
-                {{ trans('hotel.surrounding') }}
-            </div>
-            <div class="detail " id="surrDetail">
-                @foreach($hotelDetail->surroundingList as $surrounding)
-                    <div class="surr-item">
-                         <span class="name">
-                            @if(session('lang') == 'en')
-                                {{$surrounding->name_en}}
-                            @else
-                               {{$surrounding->name}}
-                            @endif
-                            </span>
-                        <span class="distance">  {{ trans('hotel.distance') }}: {{$surrounding->distance}}km</span>
-                        <span class="taxi" >  {{ trans('hotel.taxi') }}: {{$surrounding->by_taxi}}  {{ trans('hotel.min') }}</span>
-                        <span class="walk">  {{ trans('hotel.walk') }}: {{$surrounding->by_walk}} {{ trans('hotel.min') }}</span>
-                        @if(trim($surrounding->by_bus)!== '')
-                            <span class="bus">  {{ trans('hotel.bus') }}: {{$surrounding->by_bus}} {{ trans('hotel.line') }}</span>
-                        @endif
-                        <input class="nameInZh"   type="hidden" value="{{$surrounding->name}}"/>
-                    </div>
-                @endforeach
-            </div>
-            <span class="show-all" id="showAllSurr"> {{ trans('hotel.showAll')}}<i class="angle down icon"></i> </span>
-        </div>
-
-
-
-
-        @if($hotelDetail->facility != null)
-
-            <div class="hotel-facility hotel-line-detail ">
-                <div class="ui horizontal divider line-header ">
-                    {{ trans('hotel.facility') }}
+                <input type="hidden" name="hotelId" value="{{$hotelDetail->id}}" />
+                <div class="search-date-box" id="searchDateBox">
+                    <input class="check-in-date date-input" name="checkInDate" id="checkInDate" type="text" placeholder="入住日期"  readonly/>
+                    <input class="check-out-date date-input" name="checkOutDate" id="checkOutDate" type="text" placeholder="离店日期" readonly/>
                 </div>
-                <div class="detail" id="facilityList">
 
 
-                    <div class="facility-list">
-                        <div class="category">
+                <div class="search-room-btn" id="searchRoomBtn">
+                    <span>搜索房间</span>
+                    <div class="ui active loader search-room-loader" id="searchRoomLoader"></div>
+                </div>
 
-                            <div class="catering-icon service-icon"></div>
-                            <span>{{ trans('hotel.catering') }}</span>
+            </form>
+
+            <div class="hotel-desc hotel-line-detail ">
+                <div class="ui horizontal divider line-header ">
+                    {{ trans('hotel.description') }}
+                </div>
+
+                <div class="detail">
+                    @if(session('lang') == 'en')
+                        {{$hotelDetail->description_en}}
+                    @else
+                        {{$hotelDetail->description}}
+                    @endif
+                </div>
+            </div>
+
+            <div class="hotel-location hotel-line-detail">
+                <div class="ui horizontal divider line-header ">
+                    {{ trans('hotel.location') }}
+                </div>
+                <div class="detail">
+                    <span id="hotelAddress">
+                        @if(session('lang') == 'en')
+                           {{$hotelDetail->address->detail_en}} {{$hotelDetail->city->city_name_en}} {{$hotelDetail->province->province_name_en}}{{$hotelDetail->province->name_en}}
+                        @else
+                            {{$hotelDetail->province->name}}{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district=''?$hotelDetail->district->district_name:'' }}{{$hotelDetail->address->detail}}
+
+                        @endif
+                    </span>
+                    <input type=hidden id="addressInCh" value="{{$hotelDetail->province->province_name}}{{$hotelDetail->city->city_name}}{{$hotelDetail->district=''?$hotelDetail->district->district_name:'' }}{{$hotelDetail->address->detail}}">
+                    <a id="mapIcon"><div class="map-icon" ></div></a>
+                </div>
+            </div>
+
+
+            <div class="hotel-surr hotel-line-detail">
+
+                <div class="ui horizontal divider line-header ">
+                    {{ trans('hotel.surrounding') }}
+                </div>
+                <div class="detail " id="surrDetail">
+                    @foreach($hotelDetail->surroundingList as $surrounding)
+                        <div class="surr-item">
+                             <span class="name">
+                                @if(session('lang') == 'en')
+                                    {{$surrounding->name_en}}
+                                @else
+                                   {{$surrounding->name}}
+                                @endif
+                                </span>
+                            <span class="distance">  {{ trans('hotel.distance') }}: {{$surrounding->distance}}km</span>
+                            <span class="taxi" >  {{ trans('hotel.taxi') }}: {{$surrounding->by_taxi}}  {{ trans('hotel.min') }}</span>
+                            <span class="walk">  {{ trans('hotel.walk') }}: {{$surrounding->by_walk}} {{ trans('hotel.min') }}</span>
+                            @if(trim($surrounding->by_bus)!== '')
+                                <span class="bus">  {{ trans('hotel.bus') }}: {{$surrounding->by_bus}} {{ trans('hotel.line') }}</span>
+                            @endif
+                            <input class="nameInZh"   type="hidden" value="{{$surrounding->name}}"/>
                         </div>
+                    @endforeach
+                </div>
+                <span class="show-all" id="showAllSurr"> {{ trans('hotel.showAll')}}<i class="angle down icon"></i> </span>
+            </div>
 
-                        <div  class="list-detail" >
-                            @foreach($hotelDetail->cateringList as $cateringItem)
-                            <div class="list-items">
-                                <label>
 
-                                        <span>
-                                            @if(session('lang') == 'en')
-                                                {{$cateringItem->name_en}}
-                                            @else
 
-                                                {{$cateringItem->name}}
-                                            @endif
-                                        </span>
-                                </label>
 
-                                <label>
+            @if($hotelDetail->facility != null)
 
-                                    <span>
-                                        {{ trans('hotel.businessHour') }}: {{$cateringItem-> business_hour}}
-                                    </span>
-
-                                </label>
-                            </div>
-                            @endforeach
-                        </div>
-
+                <div class="hotel-facility hotel-line-detail ">
+                    <div class="ui horizontal divider line-header ">
+                        {{ trans('hotel.facility') }}
                     </div>
+                    <div class="detail" id="facilityList">
 
 
-                    {{--<div class="facility-list">--}}
-                        {{--<div class="category">--}}
-                            {{--{{ trans('hotel.recreation') }}--}}
-                        {{--</div>--}}
-
-                        {{--<div  class="list-detail" >--}}
-                            {{--@foreach($hotelDetail->recreationList as $recreationItem)--}}
-                                {{--<div class="list-items">--}}
-                                    {{--<label>--}}
-
-                                        {{--<span>--}}
-                                            {{--@if(session('lang') == 'en')--}}
-                                                {{--{{$recreationItem->name_en}}--}}
-                                            {{--@else--}}
-
-                                                {{--{{$recreationItem->name}}--}}
-                                            {{--@endif--}}
-                                        {{--</span>--}}
-                                    {{--</label>--}}
-
-                                    {{--<label>--}}
-
-                                    {{--<span>--}}
-                                        {{--{{ trans('hotel.businessHour') }}: {{$recreationItem-> business_hour}}--}}
-                                    {{--</span>--}}
-
-                                    {{--</label>--}}
-                                {{--</div>--}}
-                            {{--@endforeach--}}
-                        {{--</div>--}}
-
-                    {{--</div>--}}
-
-
-                    @foreach($hotelDetail->facility['category'] as $facilityCategory)
                         <div class="facility-list">
                             <div class="category">
 
-                                @if($facilityCategory->service_type == 1)
-                                    <div class="general-service-icon service-icon"></div>
-                                @elseif($facilityCategory->service_type == 2)
-                                    <div class="recreation-icon service-icon"></div>
-                                @elseif($facilityCategory->service_type == 3)
-                                    <div class="general-facility-icon service-icon"></div>
-                                @elseif($facilityCategory->service_type == 4)
-                                    <div class="room-facility-icon service-icon"></div>
-                                @endif
-
-                                @if(session('lang') == 'en')
-                                    {{$facilityCategory->service_name_en}}
-                                @else
-
-                                    {{$facilityCategory->service_name}}
-                                @endif
+                                <div class="catering-icon service-icon"></div>
+                                <span>{{ trans('hotel.catering') }}</span>
                             </div>
-                            <div class="list-items">
 
-                                @foreach($hotelDetail->facility['list'][$facilityCategory->id] as $facilityItem)
+                            <div  class="list-detail" >
+                                @foreach($hotelDetail->cateringList as $cateringItem)
+                                <div class="list-items">
                                     <label>
-                                        <i class="checkmark box icon"></i>
-                                        <span>
 
-                                            @if(session('lang') == 'en')
-                                                {{$facilityItem->name_en}}
-                                            @else
+                                            <span>
+                                                @if(session('lang') == 'en')
+                                                    {{$cateringItem->name_en}}
+                                                @else
 
-                                                {{$facilityItem->name}}
-                                            @endif
-                                        </span>
+                                                    {{$cateringItem->name}}
+                                                @endif
+                                            </span>
                                     </label>
+
+                                    <label>
+
+                                        <span>
+                                            {{ trans('hotel.businessHour') }}: {{$cateringItem-> business_hour}}
+                                        </span>
+
+                                    </label>
+                                </div>
                                 @endforeach
-
                             </div>
+
                         </div>
-                    @endforeach
+
+
+                        {{--<div class="facility-list">--}}
+                            {{--<div class="category">--}}
+                                {{--{{ trans('hotel.recreation') }}--}}
+                            {{--</div>--}}
+
+                            {{--<div  class="list-detail" >--}}
+                                {{--@foreach($hotelDetail->recreationList as $recreationItem)--}}
+                                    {{--<div class="list-items">--}}
+                                        {{--<label>--}}
+
+                                            {{--<span>--}}
+                                                {{--@if(session('lang') == 'en')--}}
+                                                    {{--{{$recreationItem->name_en}}--}}
+                                                {{--@else--}}
+
+                                                    {{--{{$recreationItem->name}}--}}
+                                                {{--@endif--}}
+                                            {{--</span>--}}
+                                        {{--</label>--}}
+
+                                        {{--<label>--}}
+
+                                        {{--<span>--}}
+                                            {{--{{ trans('hotel.businessHour') }}: {{$recreationItem-> business_hour}}--}}
+                                        {{--</span>--}}
+
+                                        {{--</label>--}}
+                                    {{--</div>--}}
+                                {{--@endforeach--}}
+                            {{--</div>--}}
+
+                        {{--</div>--}}
+
+
+                        @foreach($hotelDetail->facility['category'] as $facilityCategory)
+                            <div class="facility-list">
+                                <div class="category">
+
+                                    @if($facilityCategory->service_type == 1)
+                                        <div class="general-service-icon service-icon"></div>
+                                    @elseif($facilityCategory->service_type == 2)
+                                        <div class="recreation-icon service-icon"></div>
+                                    @elseif($facilityCategory->service_type == 3)
+                                        <div class="general-facility-icon service-icon"></div>
+                                    @elseif($facilityCategory->service_type == 4)
+                                        <div class="room-facility-icon service-icon"></div>
+                                    @endif
+
+                                    @if(session('lang') == 'en')
+                                        {{$facilityCategory->service_name_en}}
+                                    @else
+
+                                        {{$facilityCategory->service_name}}
+                                    @endif
+                                </div>
+                                <div class="list-items">
+
+                                    @foreach($hotelDetail->facility['list'][$facilityCategory->id] as $facilityItem)
+                                        <label>
+                                            <i class="checkmark box icon"></i>
+                                            <span>
+
+                                                @if(session('lang') == 'en')
+                                                    {{$facilityItem->name_en}}
+                                                @else
+
+                                                    {{$facilityItem->name}}
+                                                @endif
+                                            </span>
+                                        </label>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                    <span class="show-all" id="showAllFaci">{{ trans('hotel.showAll')}} <i class="angle down icon"></i> </span>
+                </div>
+
+            @endif
+
+            <div class="hotel-policy hotel-line-detail">
+                <div class="ui horizontal divider line-header ">
+                    {{ trans('hotel.policy') }}
+                </div>
+                <div class="detail">
+                    <div class="policy-item">
+                        <span class="title"> {{ trans('hotel.checkinOut') }}</span>
+                        <span class="de">{{ trans('hotel.checkin')}}: {{$hotelDetail->policy==null?'':$hotelDetail->policy->checkin_time}} , {{ trans('hotel.checkout')}}: {{$hotelDetail->policy==null?'':$hotelDetail->policy->checkout_time}}</span>
+                    </div>
+
+
+                    <div class="policy-item">
+                        <span class="title">{{ trans('hotel.meals')}}</span>
+                        <span class="de">
+
+                            @if(session('lang') == 'en')
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->catering_arrangements_en}}
+                            @else
+
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->catering_arrangements}}
+                            @endif
+                        </span>
+                    </div>
+
+
+                    <div class="policy-item">
+                        <span class="title">{{ trans('hotel.airportTransfer')}}</span>
+                        <span class="de">
+
+                            @if(session('lang') == 'en')
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->airport_transfer_en}}
+                            @else
+
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->airport_transfer}}
+                            @endif
+                        </span>
+                    </div>
+
+                    <div class="policy-item">
+                        <span class="title">{{ trans('hotel.petPolicy')}}</span>
+                        <span class="de">
+                            @if(session('lang') == 'en')
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy}}
+                            @else
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}
+                            @endif
+                        </span>
+                    </div>
+
+
+                    <div class="policy-item">
+                        <span class="title">{{ trans('hotel.other')}}</span>
+                        <span class="de">
+
+                            @if(session('lang') == 'en')
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->other_policy_en}}
+                            @else
+
+                                {{$hotelDetail->policy==null?'':$hotelDetail->policy->other_policy_en}}
+                            @endif
+                        </span>
+                    </div>
+
+
+
+                    <div class="policy-item">
+                        <span class="title">{{ trans('hotel.payPolicy')}}</span>
+                        <div class="de">
+                            {{--@if(session('lang') == 'en')--}}
+                                {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pay_policy}}--}}
+                            {{--@else--}}
+                                {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}--}}
+                            {{--@endif--}}
+                            @if(strpos($hotelDetail->policy->pay_policy,'m')!== false)
+                                <div class="master-card pay-icon" >
+                                    <div class="tooltip">
+                                        <div class="triangle-up"></div>
+                                        <div class="text">{{trans('hotel.visaCard')}}</div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if(strpos($hotelDetail->policy->pay_policy,'v')!== false)
+                                <div class="visa-card pay-icon">
+                                    <div class="tooltip">
+                                        <div class="triangle-up"></div>
+                                        <div class="text"> {{trans('hotel.visaCard')}}</div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if(strpos($hotelDetail->policy->pay_policy,'u')!== false)
+                                <div class="unionPay pay-icon">
+                                    <div class="tooltip">
+                                        <div class="triangle-up"></div>
+                                        <div class="text"> {{trans('hotel.unionPay')}}</div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if(strpos($hotelDetail->policy->pay_policy,'a')!== false)
+                                <div class="aliPay pay-icon">
+                                    <div class="tooltip">
+                                        <div class="triangle-up"></div>
+                                        <div class="text"> {{trans('hotel.aliPay')}}</div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if(strpos($hotelDetail->policy->pay_policy,'w')!== false)
+                                <div class="wechatPay pay-icon">
+                                    <div class="tooltip">
+                                        <div class="triangle-up"></div>
+                                        <div class="text"> {{trans('hotel.wechatPay')}}</div>
+                                    </div>
+                                </div>
+                            @endif
+
+                        </div>
+                    </div>
+
 
                 </div>
 
-                <span class="show-all" id="showAllFaci">{{ trans('hotel.showAll')}} <i class="angle down icon"></i> </span>
             </div>
 
-        @endif
 
-        <div class="hotel-policy hotel-line-detail">
-            <div class="ui horizontal divider line-header ">
-                {{ trans('hotel.policy') }}
-            </div>
-            <div class="detail">
-                <div class="policy-item">
-                    <span class="title"> {{ trans('hotel.checkinOut') }}</span>
-                    <span class="de">{{ trans('hotel.checkin')}}: {{$hotelDetail->policy==null?'':$hotelDetail->policy->checkin_time}} , {{ trans('hotel.checkout')}}: {{$hotelDetail->policy==null?'':$hotelDetail->policy->checkout_time}}</span>
+            <div class="hotel-rooms hotel-line-detail" id="roomList">
+                <div class="ui horizontal divider line-header ">
+                    {{ trans('hotel.room') }}
                 </div>
 
+                <?php $roomIndex=0;?>
+                @foreach($hotelDetail->rooms as $room )
+                    <div class="room"  data-index="{{$roomIndex}}" id="room_{{$room->id}}">
 
-                <div class="policy-item">
-                    <span class="title">{{ trans('hotel.meals')}}</span>
-                    <span class="de">
-
-                        @if(session('lang') == 'en')
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->catering_arrangements_en}}
-                        @else
-
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->catering_arrangements}}
-                        @endif
-                    </span>
-                </div>
+                        <img src="{{count($room->images)>0?$room->images[0]->link.'?imageView/1/w/150/h/150':''}}" />
 
 
-                <div class="policy-item">
-                    <span class="title">{{ trans('hotel.airportTransfer')}}</span>
-                    <span class="de">
-
-                        @if(session('lang') == 'en')
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->airport_transfer_en}}
-                        @else
-
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->airport_transfer}}
-                        @endif
-                    </span>
-                </div>
-
-                <div class="policy-item">
-                    <span class="title">{{ trans('hotel.petPolicy')}}</span>
-                    <span class="de">
-                        @if(session('lang') == 'en')
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy}}
-                        @else
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}
-                        @endif
-                    </span>
-                </div>
+                        <div class="name">
 
 
-                <div class="policy-item">
-                    <span class="title">{{ trans('hotel.other')}}</span>
-                    <span class="de">
+                            @if(session('lang') == 'en')
+                                {{$room->room_name_en}}
+                            @else
 
-                        @if(session('lang') == 'en')
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->other_policy_en}}
-                        @else
+                                {{$room->room_name}}
+                            @endif
 
-                            {{$hotelDetail->policy==null?'':$hotelDetail->policy->other_policy_en}}
-                        @endif
-                    </span>
-                </div>
+                        </div>
+                        <div class="description">
+
+                            @if(session('lang') == 'en')
+                                {{$room->room_description_en}}
+                            @else
+
+                                {{$room->room_description}}
+                            @endif
+                        </div>
 
 
+                        <div class="room-price">
+                            <span class="m-s">{{ trans('home.currency') }}</span><span class="price">{{$room->rack_rate}}</span>
+                        </div>
 
-                <div class="policy-item">
-                    <span class="title">{{ trans('hotel.payPolicy')}}</span>
-                    <div class="de">
-                        {{--@if(session('lang') == 'en')--}}
-                            {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pay_policy}}--}}
-                        {{--@else--}}
-                            {{--{{$hotelDetail->policy==null?'':$hotelDetail->policy->pet_policy_en}}--}}
-                        {{--@endif--}}
-                        @if(strpos($hotelDetail->policy->pay_policy,'m')!== false)
-                            <div class="master-card pay-icon" >
-                                <div class="tooltip">
-                                    <div class="triangle-up"></div>
-                                    <div class="text">{{trans('hotel.visaCard')}}</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if(strpos($hotelDetail->policy->pay_policy,'v')!== false)
-                            <div class="visa-card pay-icon">
-                                <div class="tooltip">
-                                    <div class="triangle-up"></div>
-                                    <div class="text"> {{trans('hotel.visaCard')}}</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if(strpos($hotelDetail->policy->pay_policy,'u')!== false)
-                            <div class="unionPay pay-icon">
-                                <div class="tooltip">
-                                    <div class="triangle-up"></div>
-                                    <div class="text"> {{trans('hotel.unionPay')}}</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if(strpos($hotelDetail->policy->pay_policy,'a')!== false)
-                            <div class="aliPay pay-icon">
-                                <div class="tooltip">
-                                    <div class="triangle-up"></div>
-                                    <div class="text"> {{trans('hotel.aliPay')}}</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if(strpos($hotelDetail->policy->pay_policy,'w')!== false)
-                            <div class="wechatPay pay-icon">
-                                <div class="tooltip">
-                                    <div class="triangle-up"></div>
-                                    <div class="text"> {{trans('hotel.wechatPay')}}</div>
-                                </div>
-                            </div>
-                        @endif
+
+                        <div class="booking">
+                            <a href="/newOrder"><div class="short-btn red-btn auto-margin">{{trans('hotel.bookNow')}}</div></a>
+                        </div>
+
 
                     </div>
-                </div>
-
+                    <?php $roomIndex++;?>
+                @endforeach
 
             </div>
-
-        </div>
-
-
-        <div class="hotel-rooms hotel-line-detail">
-            <div class="ui horizontal divider line-header ">
-                {{ trans('hotel.room') }}
-            </div>
-
-            <?php $roomIndex=0;?>
-            @foreach($hotelDetail->rooms as $room )
-                <div class="room"  data-index="{{$roomIndex}}">
-
-                    <img src="{{count($room->images)>0?$room->images[0]->link.'?imageView/1/w/150/h/150':''}}" />
-
-
-                    <div class="name">
-
-
-                        @if(session('lang') == 'en')
-                            {{$room->room_name_en}}
-                        @else
-
-                            {{$room->room_name}}
-                        @endif
-
-                    </div>
-                    <div class="description">
-
-                        @if(session('lang') == 'en')
-                            {{$room->room_description_en}}
-                        @else
-
-                            {{$room->room_description}}
-                        @endif
-                    </div>
-
-
-
-                    <div class="room-price">
-                        <span class="m-s">{{ trans('home.currency') }}</span><span class="price">{{$room->rack_rate}}</span>
-                    </div>
-
-                    <div class="booking">
-                        <div class="short-btn red-btn auto-margin">{{trans('hotel.bookNow')}}</div>
-                    </div>
-
-
-                </div>
-                <?php $roomIndex++;?>
-            @endforeach
-
-        </div>
 
 
 
 
     </div>
+
+    </div>
+
 
 
 
@@ -852,13 +879,7 @@
                     roomName = roomDetail[roomIndex].room_name;
                 @endif
 
-
-
                 var htmlLeft = '<div >';
-
-
-
-
 
                 htmlLeft += '<div class="room-name">'+ roomName+'</div>';
                 htmlLeft += '<div style="position:relative"><img  class="show-image" id="roomImageShow" src="'+roomDetail[roomIndex].images[0].link +'">';
@@ -1019,6 +1040,98 @@
                 $('#roomImageShow').attr('src', newLink+'?imageView/1/w/600/h/400');
 
             })
+
+
+            //选择日期
+            $('#checkInDate').showCalendar($('#checkOutDate'));
+
+
+            //点击关闭日历
+            $(document).bind("click",function(e){
+
+                //点击隐藏日历
+
+                e = e || window.event;
+                var target = $(e.target);
+                var test = target.parents();
+
+                if((target.closest($('#calendar')).length == 0 &&target.closest($('#searchDateBox')).length == 0)   && target.parents().length !==0){
+
+                    $('#calendar').hide();
+                }
+
+            });
+
+            //搜索框锁定
+            var timeout;
+            $(window).scroll(function() {
+
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+
+                    if($(this).scrollTop()> 450)
+                    {
+                        $('.search-date-box-wrap').css('left',$('.search-date-box-wrap').offset().left).addClass('search-date-box-wrap-fixed');
+                        $('.calendar').css('left',$('.calendar').offset().left).addClass('calendar-fixed');
+                    }
+                    else{
+                        $('.search-date-box-wrap').removeClass('search-date-box-wrap-fixed').removeAttr('style');
+                        $('.calendar').removeClass('calendar-fixed')
+                    }
+
+
+                }, 10);
+
+            });
+
+            //点击房间搜索ajax
+            $('#searchRoomBtn').click(function(){
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/searchRoomByDate',
+                    dataType: 'json',
+                    data: $('#searchRoomDateForm').serialize(),
+                    async:false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    beforeSend:function(){
+                        $('#searchRoomLoader').transition('fade');
+                    },
+                    success : function(data){
+                        if(data.statusCode === 1)
+                        {
+                            $('html, body').animate({scrollTop:$('#roomList').offset().top-60}, 'fast');
+                            //房态列表, 删去无房的房间
+                            var roomStatus =data.extra;
+                            for(var i=0; i<roomStatus['nonAvlRoomId'].length;i++)
+                            {
+                                   $('#room_'+roomStatus['nonAvlRoomId'][i]).hide();
+                            }
+
+                            //恢复空房房型
+                            for(var i=0; i<roomStatus['avlRoomList'].length;i++)
+                            {
+                                $('#room_'+roomStatus['avlRoomList'][i].id).show().find('.price').text(roomStatus['avlRoomList'][i].avgPrice).transition('jiggle');
+
+                            }
+
+
+                        }
+                        else{
+
+                        }
+                        $('#searchRoomLoader').transition('fade');
+
+                    },
+                    error:function(){
+                        $('#searchRoomLoader').transition('fade');
+
+                    }
+                })
+            })
+
 
 //            var p=0,t=0;
 //            var timeout;

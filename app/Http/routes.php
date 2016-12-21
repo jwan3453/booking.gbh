@@ -45,5 +45,15 @@ Route::get('/hotelByCity/{area}/{cityCode}','Booking\BookingController@hotelByCi
 Route::get('/lang/{lang}','Common\CommonController@setLang');
 
 
-
 Route::get('/testDestination','Booking\BookingController@testDest');
+
+//更具时间搜索房间
+Route::post('/searchRoomByDate','Booking\BookingController@searchRoomByDate');
+
+
+//根据时间所搜索新房价
+Route::post('/searchPriceByDate','Booking\OrderController@searchPriceByDate');
+
+//新订单
+Route::get('/newOrder/{hotelId}/{roomId}/{checkInDate}/{checkOutDate}','Booking\OrderController@newOrder');
+

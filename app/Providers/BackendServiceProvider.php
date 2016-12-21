@@ -26,5 +26,7 @@ class BackendServiceProvider extends ServiceProvider
         //
         $this->app->bind('App\Service\Booking\BookingService', 'App\Service\Booking\BookingService');
 
+        $this->app->bind('App\Service\Booking\OrderService','App\Service\Booking\OrderService');
+
     }
 }

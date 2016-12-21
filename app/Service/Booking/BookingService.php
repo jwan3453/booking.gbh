@@ -22,8 +22,14 @@ use App\Models\HotelFacilityList;
 use App\Models\HotelFacilityCategory;
 use App\Models\HotelCateringService;
 use App\Models\HotelRecreationService;
+use App\Models\RoomPrice;
+use App\Models\RoomStatus;
 use Illuminate\Support\Facades\DB;
 
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
 
 
 /**
@@ -408,13 +414,100 @@ class BookingService{
 
 
 
+    //通过时间搜索房间
+    public function SearchRoomByDate(Request $request)
+    {
+
+
+        $roomStatusByDate = [];
+        $avlRoomList = [];
+        $avlRoomId = [];
+        $nonAvlRoomId = [];
+        $hotelId = $request->input('hotelId');
+        $checkInDate = $request->input('checkInDate');
+        $checkOutDate = $request->input('checkOutDate');
+
+
+        //获取所有房型
+        $rooms = Room::where('hotel_id',$hotelId)->get();
+
+        //获取房态列表
+        $roomStatus  =DB::table('room_status') ->whereBetween('date', array($checkInDate, $checkOutDate))->where('hotel_id',$hotelId)->get();
+
+
+
+        //到店日期和离店日期的间隔
+        $dateDiff = $this->diffBetweenTwoDays($checkInDate, $checkOutDate) + 1;
+
+        $hasRoomCount = 0;
+        foreach($rooms as $room){
+            foreach($roomStatus as $status)
+            {
+                if($room->id == $status->room_id)
+                {
+                    //现付
+                    if($status->num_of_sold_room < $status->num_of_blocked_room && $status->room_status == 1 )
+                    {
+                        $hasRoomCount++;
+                    }
+                    //预付
+
+                }
+            }
+
+
+            if($hasRoomCount == $dateDiff)
+            {
+                $avlRoomList[]  =  $room;
+                $avlRoomId[] = $room->id;
+            }
+            else{
+                $nonAvlRoomId[] = $room->id;
+            }
+            $hasRoomCount = 0;
+
+        }
+
+        //获取房价列表
+        $roomPrice = DB::table('room_price') ->whereBetween('date', array($checkInDate, $checkOutDate))->where('hotel_id',$hotelId)->whereIn('room_id',$avlRoomId)->get();
+
+
+        //获得房间均价
+        $avgPrice = 0;
+        foreach($avlRoomList as $room)
+        {
+            foreach($roomPrice  as $price)
+            {
+                if($room->id == $price->room_id)
+                {
+                    $avgPrice += $price->rate;
+                }
+                else{
+
+                }
+
+            }
+            $room->avgPrice = ceil($avgPrice/$dateDiff);
+            $avgPrice= 0;
+        }
+
+
+        //获得空房状态
+        $roomStatusByDate['avlRoomList'] = $avlRoomList;
+        //获得无空房的房型ID
+        $roomStatusByDate['nonAvlRoomId'] = $nonAvlRoomId;
+
+
+        return $roomStatusByDate;
+    }
+
 
 
     //获取省市县区
     /*
    *  level = city|province|district
    */
-    public function getAdressInfo($level = '' , $code = 110000, $type)
+     function getAdressInfo($level = '' , $code = 110000, $type)
     {
         if ($level == '') {
             return false;
@@ -447,6 +540,19 @@ class BookingService{
         return $info;
 
 
+    }
+
+    function diffBetweenTwoDays ($day1, $day2)
+    {
+        $second1 = strtotime($day1);
+        $second2 = strtotime($day2);
+
+        if ($second1 < $second2) {
+            $tmp = $second2;
+            $second2 = $second1;
+            $second1 = $tmp;
+        }
+        return ($second1 - $second2) / 86400;
     }
 
 

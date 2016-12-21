@@ -154,6 +154,18 @@ class BookingController extends Controller
         return view('booking.hotelByCity')->with('hotel',$hotel);
     }
 
+
+    //ajax通过时间所有房间
+    public function searchRoomByDate(Request $request)
+    {
+        $jsonResult = new MessageResult();
+        $roomStatusByDate = $this->bookingService->SearchRoomByDate($request);
+        $jsonResult->statusCode =1;
+        $jsonResult->StatusMsg = '';
+        $jsonResult->extra = $roomStatusByDate;
+        return response($jsonResult->toJson());
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -164,7 +176,7 @@ class BookingController extends Controller
         //
     }
 
-    /**
+    /**i
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

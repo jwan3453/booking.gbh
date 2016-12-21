@@ -974,31 +974,132 @@ img{
 
 }
 
-.hotel-detail{
-    background-color: #fff;
+.hotel-detail-wrap{
+    background-color: #ededef;
     width:100%;
-
     z-index:2;
     position: relative;
     padding-top:20px;
 }
 
 
+.search-date-box-wrap-fixed{
+    position:fixed!important;
+    top:65px!important;
+}
+
+.calendar-fixed{
+    position:fixed!important;
+    top:125px!important;
+}
+
+.search-date-box-wrap{
+    width:260px;
+    height:130px;
+
+    position: absolute;
+    right:0;
+    top:0;
+    background-color:#ffffff;
+
+    border-radius: 3px;
+}
+
+.search-date-box{
+    margin:20px 10px 0 10px;
+}
+.check-in-date{
+    height:35px;
+    width:110px;
+    border:1px solid #b0b0b0;
+    display: inline-block;
+
+    margin-right:10px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 35px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.085);
+
+}
+
+.check-in-date:focus , .check-out-date:focus{
+    border:1px solid #ff5f76;
+
+}
+
+.check-out-date{
+    height:35px;
+    width:110px;
+    border:1px solid #b0b0b0;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    line-height: 35px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.085);
+
+}
+
+.search-room-btn{
+    width:240px;
+    font-size: 16px;
+    height:35px;
+    line-height: 35px;
+    margin: 20px auto;
+    background-color:  #09adcc;
+    color: #f8f8f8;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.search-room-btn span{
+
+    display: inline-block;
+
+
+}
+
+.search-room-loader{
+
+    display: none!important;
+
+}
+
+.search-room-loader-active{
+    display: inline-block!important;
+}
+
+.ui.loader:before, .ui.loader:after{
+    width:23px!important;
+    height:23px!important;
+    margin:3px 0 0 50px!important;
+}
+
+.hotel-detail {
+
+    width:1180px;
+    position: relative;
+}
+
+
 
 .hotel-line-detail{
-    padding:10px 0;
-    width:950px;
-    margin: 0 auto;
+    width:880px;
     z-index:3;
     position:relative;
-
+    background-color: #ffffff;
+    margin:10px 0;
+    padding:10px;
 
 }
 .hotel-line-detail .line-header{
     font-size: 20px!important;
     color: #09adcc!important;
     font-weight: 400!important;
-    width:100%;
+    width:200px;
+    margin: 0 auto;
 }
 
 
@@ -1057,7 +1158,7 @@ img{
     color: #979797;
 }
 .surr-item .name,.surr-item .distance,.surr-item .taxi,.surr-item .walk,.surr-item .bus{
-    width:180px;
+    width:165px;
     display: inline-block;
     vertical-align: middle;
     font-size: 14px;
@@ -1123,13 +1224,13 @@ img{
 }
 
 .facility-list .list-detail{
-    display: inline-block; width:720px;
+    display: inline-block; width:660px;
 }
 
 
 
 .facility-list .list-items{
-    width:700px;
+    width:650px;
     display: inline-block;
     font-size: 14px;
     margin-bottom: 5px;
@@ -1139,7 +1240,7 @@ img{
 
 
     display: inline-block;
-    min-width: 170px;
+    min-width: 165px;
     margin:5px 0;
 }
 .facility-list .list-items i{
@@ -1164,8 +1265,8 @@ img{
     cursor:pointer;
 }
 .room img{
-    width:120px;
-    height:120px;
+    width:100px;
+    height:100px;
 
     display: inline-block;
     vertical-align:top;
@@ -1178,15 +1279,15 @@ img{
     display: inline-block;
     vertical-align:top;
     margin-left:20px;
-    width:500px;
+    width:450px;
 }
 .room  .description{
     font-size:14px;
-    width:500px;
+    width:450px;
     margin-top: 5px;
     position: absolute;
     top:25px;
-    left:145px;
+    left:125px;
 
 }
 
@@ -1212,7 +1313,7 @@ img{
     width:120px;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 
@@ -2295,6 +2396,320 @@ img{
 
 
 
+/**** 订单页面 *******/
+
+
+.order-process {
+    margin-top:70px;
+    width: 500px;
+    overflow: hidden;
+    border-radius: .2857rem;
+    margin-left:120px;
+}
+
+.order-process .step:nth-child(1){
+    border-left:1px solid rgba(39,41,43,.15);
+}
+
+.order-process .step{
+    width:calc(33.33% - 2px);
+    height:50px;
+    float:left;
+    text-align: center;
+    line-height: 50px;
+    border-bottom: 1px solid rgba(39,41,43,.15);
+    border-right: 1px solid rgba(39,41,43,.15);
+    border-top:1px solid rgba(39,41,43,.15);
+    position:relative;
+
+}
+
+.active-step{
+    background: #989898;
+    color:#f8f8f8;
+}
+.active-arrow{
+    background-color:#989898 !important;
+}
+
+.arrow-next{
+    position: absolute;
+    top:25px;
+    right:0px;
+    z-index:1001;
+    height:20px;
+    width:20px;
+    background-color: #f8f8f8;
+    -webkit-transform: translateY(-50%) translateX(50%) rotate(-45deg);
+    -ms-transform: translateY(-50%) translateX(50%) rotate(-45deg);
+    transform: translateY(-50%) translateX(50%) rotate(-45deg);
+    border-bottom: 1px solid rgba(39,41,43,.15);
+    border-right: 1px solid rgba(39,41,43,.15);
+}
+
+
+.fill-order-detail{
+    width: 1000px;
+    overflow: hidden;
+    margin:20px auto;
+
+
+}
+
+.order-detail-form{
+    width:650px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.order-line-detail{
+    padding:20px;
+
+}
+
+.order-line-detail .header{
+
+    font-size: 20px;
+    color: #505050;
+    display: inline-block;
+    vertical-align: top;
+
+
+}
+
+.order-sub-line-detail{
+    margin: 0 0 20px 20px;
+}
+
+.sub-header{
+    display:inline-block;
+    vertical-align: middle;
+    font-size:14px;
+}
+
+.order-sub-line-detail .detail{
+    display:inline-block;
+    vertical-align: middle;
+    margin-left:30px;
+}
+
+.order-sub-line-detail .detail hr{
+    display: inline-block;
+    vertical-align: middle;
+    width:20px;
+    margin: 10px;
+}
+
+.order-checkInOut-date{
+
+}
+
+.order-checkInOut-date input{
+    width:180px;
+}
+
+.order-date-box{
+    margin:20px 0 0 40px;
+}
+
+.order-nor{
+    position: relative;
+}
+.order-nor input,.order-guest-info input, .contact-detail input{
+    height:35px;
+    border:1px solid #b0b0b0;
+    display: inline-block;
+
+    margin-right:10px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 35px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.085);
+    width:180px;
+}
+
+.order-nor ul{
+    display: none;
+    list-style: none;
+    padding:0;
+    width:180px;
+    border:1px solid #b0b0b0;
+    background-color: #ffffff;
+    position: absolute;
+
+    z-index:1001;
+}
+.order-nor ul li{
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+}
+.order-nor ul li:hover{
+    background-color: #c3c3c3;
+    cursor: pointer;
+}
+
+.order-guest-info{
+
+    width:480px;
+
+}
+
+.order-guest-info input{
+    margin:0 55px 10px 0;
+
+}
+
+.contact-detail {
+
+}
+.contact-detail input{
+    padding-left:10px;
+    text-align: left!important;
+}
+
+.room-detail{
+    width:300px;
+
+    vertical-align: top;
+    display: inline-block;
+    border:1px solid #b0b0b0;
+    box-sizing: border-box;
+}
+.room-detail img{
+    width:300px;
+    height:180px;
+}
+.hotel-basic-info
+{
+    padding:10px 20px 10px 10px;
+    margin-top:0!important;
+    border:1px solid transparent;
+}
+.hotel-basic-info .name{
+    width:100%;
+    text-align: left;
+    margin:0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.hotel-basic-info .address{
+    margin:5px 0 10px 0 ;
+    font-size: 13px;
+    text-align: left;
+}
+
+.room-basic-info
+{
+    margin: 0 10px 10px 10px;
+    padding:10px 0;
+
+    /*border-bottom: 1px solid #969696;*/
+
+    border-top:1px solid #969696;
+}
+.room-basic-info .name{
+    width:100%;
+    text-align: left;
+    margin:0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.basic-attribute-list{
+
+}
+.basic-attribute-list .attribute{
+    min-width:48%;
+    margin:10px 0 0 0;
+    font-size: 13px;
+    display: inline-block;
+
+}
+
+.offer-detail{
+    margin: 0 10px 10px 10px;
+    padding:10px 0;
+
+    /*border-bottom: 1px solid #969696;*/
+
+    border-top:1px solid #969696;
+}
+
+
+
+.offer-info{
+
+}
+
+.offer-info .room-night{
+    margin:5px;
+    font-size: 14px;
+    display: block;
+    text-align: right;
+}
+
+.offer-info .nop-offer{
+    margin:5px;
+    font-size: 14px;
+    display: block;
+    text-align: right;
+}
+
+
+
+.average-price{
+    margin:10px 5px;
+}
+
+.average-price .t{
+    display: inline-block;
+    font-size: 14px;
+    width:30%;
+}
+
+.average-price .p{
+    display: inline-block;
+    width:68%;
+    text-align: right;
+    font-size: 15px;
+}
+.average-price .p .m-s{
+    font-size:13px;
+}
+.average-price .p .total{
+    font-size: 16px;
+    color:#ff5f76;
+}
+
+.offer-price{
+    margin: 10px 5px;
+}
+
+.offer-price .t{
+    display: inline-block;
+    font-size: 14px;
+    width:30%;
+}
+.offer-price .p{
+    display: inline-block;
+    width:68%;
+    text-align: right;
+    font-size: 15px;
+}
+.offer-price .p .m-s{
+    font-size:13px;
+}
+.offer-price .p .total{
+    font-size: 24px;
+    color:#ff5f76;
+    font-weight: 600;
+}
+/********************/
+
+
+
 
 
 
@@ -2488,6 +2903,82 @@ img{
     background:#00aced;
     color:#f8f8f8;
 }
+
+
+/*日曆插件******/
+.calendar{
+    display: none;
+    width:350px;
+    position:absolute;
+    z-index:1001;
+    background-color: #fff;
+    border: 1px solid #d2d2d7;
+    padding:10px 0 ;
+
+}
+.calendar table{
+    width:100%;
+
+}
+
+.calendar table tr th{
+    font-weight: 500;
+    padding:10px 0;
+}
+.calendar table tr td{
+
+}
+
+.calendar table tr td .date{
+    height:32px;
+    width:32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 100%;
+    display: block;
+    cursor: pointer;
+    margin: 0 auto;
+
+}
+.calendar table tr td .date:hover{
+    background-color: #ffb774;
+}
+
+.calendar table tr td .status{
+    height:20px;
+    width:32px;
+    line-height: 20px;
+    text-align: center;
+    display: block;
+    font-size:10px;
+    margin: 0 auto;
+}
+
+
+.disable-day{
+
+    color:#a0a0a0;
+}
+.selected-day{
+    color:#f8f8f8;
+    background-color:#ff5f76;
+
+}
+
+
+
+.select-month{
+
+    overflow: hidden;
+    width:100%;
+    color:#ff5f76;
+    text-align: center;
+    line-height: 30px;
+}
+.select-month i{
+
+}
+
 /**********************/
 
 

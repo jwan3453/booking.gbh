@@ -230,15 +230,15 @@
             <div class="down">目前数量有限，但是我们会加快脚步，收集全国的精品酒店</div>
         </div>
 
-        <div class="parra-right">
-            <div class="thumb">
-                <img src="booking/img/ceo.png">
-            </div>
-            <div class="description">
-                <div class="up">CEO: Ben Foo</div>
-                <div class="down">一直都在寻找精品酒店的路上</div>
-            </div>
-        </div>
+        {{--<div class="parra-right">--}}
+            {{--<div class="thumb">--}}
+                {{--<img src="booking/img/ceo.png">--}}
+            {{--</div>--}}
+            {{--<div class="description">--}}
+                {{--<div class="up">CEO: Ben Foo</div>--}}
+                {{--<div class="down">一直都在寻找精品酒店的路上</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div>
 
 @stop
