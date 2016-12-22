@@ -7,7 +7,9 @@ return [
     'hotD' => '热门目的地',
     'category' => '精选分类',
     'login' => '登陆',
+    'logout'   => '退出',
     'register' => '注册',
+    'login&register' => '登录/注册',
     'article' => '精品文章',
 
     'search' => '搜索',
