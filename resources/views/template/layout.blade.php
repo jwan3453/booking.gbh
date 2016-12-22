@@ -23,7 +23,10 @@
     <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/divider.css') }}>
     <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/dropdown.css') }}>
     <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/flag.css') }}>
+
+
     <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/loader.css') }}>
+
     <link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/css3nav/styles.css') }}>
     {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/styles.min.css') }}>--}}
 
@@ -90,12 +93,25 @@
                         <span>{{ trans('home.aboutUs') }}</span>
                     </a>
 
+                    {{--<a href="/login">--}}
+                        {{--<span>{{ trans('home.login&register') }}</span>--}}
+                    {{--</a>--}}
+                    @if(Session::has('currentUser'))
+                        <a href="/logout">
+                            <span >{{ trans('home.logout') }}</span>
+                        </a>
+                        <a href="">
+                            <span >{{ Session::get('currentUser') }}</span>
+                        </a>
+                    @elseif(!session('currentUser'))
+                        <a href="/login">
+                            <span>{{ trans('home.login&register') }}</span>
+                        </a>
+                    @endif
 
                 </div>
 
             </div>
-
-
 
 
             <div class="nav-toggle">
@@ -250,7 +266,10 @@
                 }
             }, 50);
         })
+
     })
+
+
 
 
 </script>

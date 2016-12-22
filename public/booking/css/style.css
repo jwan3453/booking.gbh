@@ -6,7 +6,9 @@
 html, body {
     height: 100%;
 }
-
+ul,li{
+    list-style: none;
+}
 body {
     margin: 0;
     padding: 0;
@@ -4878,10 +4880,610 @@ img{
 }
 
 
-
-
-
-
-
-
 /********************/
+
+/****Login$register section****/
+
+#containerLogin{
+    width: 100%;
+    height: 700px;
+    background: url(/booking/img/banner_back.jpg) no-repeat;
+    background-size: cover;
+    position: relative;
+}
+/*****Login box*****/
+.login-box{
+    color: #fff;
+    width: 330px;
+    height:450px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    -moz-border-top-left-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+.login-box .top-logo{
+    position: absolute;
+    top:-60px;
+    left: 36%;
+    z-index: 21;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: url(/booking/icon/gbh_logo.png) no-repeat;
+    background-size: cover;
+}
+.login-box p{
+    text-align: center;
+    margin-top: 30px;
+}
+.input-box{
+    width: 280px;
+    height: 45px;
+    border: 1px solid #fff;
+    margin-left: 25px;
+    margin-top: 45px;
+}
+.input-box .user-icon{
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background:  url(/booking/icon/user.png) no-repeat;
+    background-size: cover;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+.input-box input{
+    display: block;
+    width: 230px;
+    height: 41px;
+    margin-left: 46px;
+    margin-top: -42px;
+    background:rgba(0,0,0,0);
+    border: 0;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.input-box input::selection{
+    background:rgba(0,0,0,0)!important;
+}
+.input-box .pwd-icon{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(/booking/icon/password.png) no-repeat;
+    background-size: cover;
+    margin-top: 9px;
+    margin-left: 8px;
+}
+.choice-box{
+    /*margin-top: 20px;*/
+    /*margin-left: 24px;*/
+    width: 280px;
+    height: 45px;
+    margin-left: 25px;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+/* 忘记密码提示框 */
+/*弹窗层样式插件*/
+.ui.modal{
+    width: 500px!important;
+    margin-left: -250px!important;
+    margin-top: -220px!important;
+}
+.ui.modal .header{
+    text-align: center!important;
+    background: rgba(0,0,0,1)!important;
+    color: #ddd!important;
+}
+.content{
+    width: 500px!important;
+    margin-left: 0px!important;
+    height: 330px!important;
+    background: #fff!important;
+}
+.ui.modal>.close{
+    top:1.0rem!important;
+    right: 1.0rem!important;
+    color: #ddd!important;
+}
+.send-message{
+    margin-left: 65px!important;
+}
+.mobile-verify{
+    display: none!important;
+
+}
+
+#byEmail{
+    background: #fff;
+    color: #000;
+}
+#tableChoice{
+    height: 50px;
+    margin: -10px auto;
+}
+#tableChoice ul{
+    margin-left: -40px;
+    margin-top: 10px;
+    width: 550px;
+    height: 50px;
+}
+#tableChoice li{
+    font-size: 18px;
+    width: 250px;
+    height: 50px;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    /*border-top-left-radius: 10px;*/
+    /*border-top-right-radius: 10px;*/
+    /*-moz-border-top-left-radius: 10px;*/
+    /*-moz-border-top-right-radius: 10px;*/
+    /*-webkit-border-top-left-radius: 10px;*/
+    /*-webkit-border-top-right-radius: 10px;*/
+    background: #909090;
+    color: #fff;
+}
+.choice-table{
+    background: #fff!important;
+    color: #000!important;
+}
+.table-null{
+    background: #909090!important;
+    color: #fff!important;
+}
+.choice-verify{
+    display: block!important;
+    margin-top: 10px!important;
+}
+.choice-null{
+    display: none!important;
+    margin-top: 10px!important;
+}
+/*弹窗层样式插件 end*/
+.content input{
+    border: 1px solid gainsboro;
+    outline: none;
+}
+.forgot-pwd{
+    float: right;
+    margin-top: -2px;
+    color: #fff;
+}
+.forgot-pwd a{
+    color: #fff;
+}
+.forgot-pwd a:hover{
+    color: #FFCA8B;
+}
+button{
+    outline: none;
+}
+input{
+    outline: none;
+}
+
+.send-message{
+    margin-left: 130px;
+    margin-top: 40px;
+    margin-bottom:50px ;
+}
+.send-message input{
+    width: 195px;
+    height: 45px;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+.by-mobile{
+    margin-top: 7px;
+}
+#sendCode span{
+    float: right;
+    display: block;
+    margin-right: 65px;
+    margin-top: 20px;
+    width: 110px;
+    height: 45px;
+    border: 1px solid darkgrey;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+}
+.changeBack{
+    float: right;
+    margin-right: 123px;
+    background: grey;
+    color: #fff;
+    width: 110px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer;
+}
+.write-code{
+    margin-top: 20px;
+}
+.send-btn{
+    width: 315px;
+    height: 45px;
+    background: #000;
+    margin-top: 20px;
+    text-align: center;
+}
+.send-btn .btn-pwd{
+    width: 315px;
+    border: 0;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+}
+
+
+
+/*end*/
+.btn-box{
+    margin-top: -20px;
+}
+.btn-box div{
+    display: block;
+    width: 282px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    margin-left: 25px;
+    margin-top: 20px;
+    border: 0;
+    outline: none;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    background: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    color: #000;
+}
+.btn-box a{
+    text-align: center;
+    line-height: 45px;
+    display: block;
+    width: 280px;
+    height: 45px;
+    margin-left: 25px;
+    margin-top: 20px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    color: #fff;
+}
+.btn-box a:hover{
+    text-decoration: none;
+    color: #FFCA8B;
+}
+
+/****底部*****/
+.copy-footer{
+    width: 400px;
+    margin-top: 100px;
+    margin-left: 35px;
+    font-size: 12px;
+}
+.copy-footer span{
+    display: block;
+}
+.copy-footer span:nth-child(2){
+    margin-left: 20px;
+}
+/****错误提示框****/
+.error-alert{
+    color: #cc181e;
+    position: absolute;
+    top:50px;
+    left: 28%;
+}
+
+/****Login end ****/
+
+/****Register section****/
+.register-box{
+    color: #fff;
+    width: 630px;
+    height:450px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    -moz-border-top-left-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+
+}
+.register-box .top-logo{
+    position: absolute;
+    top:-60px;
+    left: 43%;
+    z-index: 21;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: url(/booking/icon/gbh_logo.png) no-repeat;
+    background-size: cover;
+}
+.register-box p{
+    text-align: center;
+    margin-top: 30px;
+}
+.input-list{
+    float: left;
+    margin-top: 10px;
+    width: 240px;
+    height: 45px;
+    border: 1px solid #fff;
+    position: relative;
+}
+.input-list i.remove{
+    position: absolute;
+    top: 12px;
+    right: 0px;
+    color: indianred!important;
+    display: none;
+}
+.input-list i.checkmark{
+    position: absolute;
+    top: 12px;
+    right: 0px;
+    color: greenyellow!important;
+    display: none;
+}
+.input-list i.user{
+    position: absolute;
+    display: block;
+    font-size: 24px;
+    left: 9px;
+    top: 12px;
+
+}
+.input-list i.call{
+    position: absolute;
+    display: block;
+    font-size: 24px;
+    left: 9px;
+    top: 12px;
+}
+.input-list i.lock{
+    position: absolute;
+    display: block;
+    font-size: 24px;
+    left: 9px;
+    top: 12px;
+}
+.input-list i.mail{
+    position: absolute;
+    display: block;
+    font-size: 20px;
+    left: 9px;
+    top: 12px;
+}
+.input-list i.send{
+    position: absolute;
+    display: block;
+    font-size: 20px;
+    left: 9px;
+    top: 12px;
+}
+.input-list input{
+    position: absolute;
+    top:0px;
+    left: 45px;
+    width: 193px;
+    height: 42px;
+    outline: none;
+    border: 0;
+    background: rgba(0,0,0,0);
+    color: #fff;
+    font-size: 14px;
+}
+
+input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!important; }
+.identify-code span{
+    position: absolute;
+    top:10px;
+    left: 0px;
+}
+.input-last{
+    float: left;
+    margin-top: 10px;
+    width: 240px;
+    height: 45px;
+    text-align: center;
+    border: 1px solid #fff;
+    line-height: 45px;
+    cursor: pointer;
+}
+.input-check{
+    float: left;
+    margin-top: 10px;
+    width: 240px;
+    height: 45px;
+    text-align: center;
+    /*border: 1px solid #fff;*/
+    line-height: 45px;
+}
+.reg-btn{
+    float: left;
+    margin-top: 30px;
+    margin-left: -90px;
+    border-radius: 5px;
+    width: 240px;
+    height: 45px;
+    text-align: center;
+    background: #fff;
+    line-height: 45px;
+
+}
+.reg-btn .div-btn{
+    color: #000;
+    font-size: 16px;
+    border: 0;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.but-btn{
+    display: none;
+}
+.back-login{
+    display: block;
+    clear: both;
+    margin-left: 75%;
+    padding-top: 10px;
+    font-size: 14px;
+
+}
+.back-login a{
+    color: ghostwhite;
+}
+
+/****ajaxForm****/
+.alert-loading{
+    position: absolute;
+    width: 200px;
+    height: 62px;
+    top: 40%;
+    left: 35%;
+    background: #40c39a;
+    text-align: center;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
+    display: none;
+}
+.success-box{
+    display: none;
+    width: 300px;
+    margin: 100px auto;
+}
+.success-box h2,.success-box h3{
+    text-align: center;
+    color: #FFCA8B;
+}
+.success-box h3{
+    text-align: center;
+    color: #fff;
+}
+.alert-box{
+    position: fixed;
+    top:40%;
+    left:calc(50% - 100px);
+    color:white;
+    width:200px;
+    height:40px;
+    background-color:#ff5f76;
+    border-radius: 5px;
+    font-size:14px;
+    line-height: 40px;
+    text-align: center;
+    display: none;
+    z-index:1001;
+}
+
+.success-toast{
+    background-color:#40c39a;
+}
+
+.wrong-input{
+    border:1px solid #ff5f76!important;
+    z-index: 9999;
+}
+#loading{
+    display: none;
+}
+.code-wait{
+    color: goldenrod;
+    cursor: wait;
+    list-style: disabled;
+}
+.ui.loader:after {
+    position: absolute;
+    content: '';
+    top: -110%;
+    left: 200%;
+    width: 100%;
+    height: 100%;
+    -webkit-animation: loader 0.6s linear;
+    animation: loader 0.6s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    border-radius: 500rem;
+    border-color: #FFCA8B transparent transparent !important;  /*修改边环样式*/
+    border-style: solid;
+    border-width: 0.2em;
+    box-shadow: 0px 0px 0px 1px transparent;
+}
+.show-loader{
+    display: none;
+}
+/****Register end****/
+/****修改密码页面****/
+#changeHeader{
+    width: 800px;
+    height: 150px;
+    border: 1px solid #F5F5F5;
+}
+#changeContainer{
+    width: 800px;
+    height: 320px;
+    margin: 0 auto;
+    border: 1px solid #fff;
+}
+.change-box{
+    width: 500px;
+    height: 300px;
+    margin: 30px auto;
+}
+.input-pwd{
+    margin-top: 20px;
+    margin-left: 100px;
+}
+.input-pwd input{
+    width: 210px;
+    height: 35px;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.input-pwd button{
+    border: 0;
+    width: 322px;
+    height: 40px;
+    font-size: 14px;
+    color: #fff;
+    background: #000;
+    cursor: pointer;
+}

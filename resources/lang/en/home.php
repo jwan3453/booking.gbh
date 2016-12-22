@@ -7,7 +7,9 @@ return [
     'hotD' => 'Hot Destination',
     'category' => 'Category',
     'login' => 'Login',
+    'logout'   => 'logout',
     'register' => 'Register',
+    'login&register' => 'Login/Register',
     'article' => 'Articles',
     'aboutUs' => 'About us',
 

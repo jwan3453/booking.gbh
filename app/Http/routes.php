@@ -47,6 +47,7 @@ Route::get('/lang/{lang}','Common\CommonController@setLang');
 
 Route::get('/testDestination','Booking\BookingController@testDest');
 
+
 //更具时间搜索房间
 Route::post('/searchRoomByDate','Booking\BookingController@searchRoomByDate');
 
@@ -56,4 +57,34 @@ Route::post('/searchPriceByDate','Booking\OrderController@searchPriceByDate');
 
 //新订单
 Route::get('/newOrder/{hotelId}/{roomId}/{checkInDate}/{checkOutDate}','Booking\OrderController@newOrder');
+
+
+
+//登录
+Route::get('/login','Auth\LoginController@index');
+Route::post('/login','Auth\LoginController@index');
+Route::get('/auth/login','Auth\LoginController@index');
+//退出登录,清楚缓存
+Route::get('/logout','Auth\LoginController@logout');
+//注册
+Route::get('/register','Auth\LoginController@register');
+Route::any('/auth/register','Auth\LoginController@register');
+Route::post('/sendCode','Auth\LoginController@sendCode');
+Route::post('/checkUser','Auth\LoginController@checkUser');
+Route::post('/checkEmail','Auth\LoginController@checkEmail');
+
+//验证手机号
+Route::any('/checkMobile','Auth\LoginController@checkMobile');
+//验证码
+Route::post('/checkCode','Auth\LoginController@checkCode');
+//注册成功
+Route::any('/regSuccess','Auth\LoginController@regSuccess');
+Route::any('/userSession','Auth\LoginController@userSession');
+//发送邮箱
+Route::post('/auth/sendMessage','Auth\LoginController@sendMessage');
+//修改密码
+Route::any('/jumpAddress/{key}','Auth\LoginController@jumpAddress');
+Route::any('/changePasswordByMobile','Auth\LoginController@passwordByMobile');
+Route::post('/searchMobile','Auth\LoginController@searchMobile');
+Route::any('/changePasswordByEmail','Auth\LoginController@changePassword');
 
