@@ -49,7 +49,7 @@
             <div class="logo">
             </div>
 
-            <div class="switch-lang">
+            <div class="switch-lang" id="switchLang">
                 <div class="select-lang">
 
                     @if(session('lang')=='zh_cn')
@@ -82,15 +82,15 @@
 
                 <div>
                     <a  href="/">
-                        <span>{{ trans('home.home') }}</span>
+                        <span class="t">{{ trans('home.home') }}</span>
                     </a>
 
                     <a href="/destinationList">
-                        <span>{{ trans('home.hotD') }}</span>
+                        <span class="t">{{ trans('home.hotD') }}</span>
                     </a>
 
                     <a href="http://www.gbhchina.com/aboutUs">
-                        <span>{{ trans('home.aboutUs') }}</span>
+                        <span class="t">{{ trans('home.aboutUs') }}</span>
                     </a>
 
                     {{--<a href="/login">--}}
@@ -98,29 +98,70 @@
                     {{--</a>--}}
                     @if(Session::has('currentUser'))
                         <a href="/logout">
-                            <span >{{ trans('home.logout') }}</span>
+                            <span class="t">{{ trans('home.logout') }}</span>
                         </a>
                         <a href="">
-                            <span >{{ Session::get('currentUser') }}</span>
+                            <span class="t">{{ Session::get('currentUser') }}</span>
                         </a>
                     @elseif(!session('currentUser'))
-                        <a href="/login">
-                            <span>{{ trans('home.login&register') }}</span>
-                        </a>
+                        <div href="/login" id="account"   style="display: inline-block">
+                            <span class="t">{{ trans('home.login&register') }}</span>
+                            <div class="user-center-list" id="userCenterList">
+                                <div>
+                                    <a href="/user/usercenter">
+                                        <div class="item">
+
+                                            <span>用户中心</span>
+                                        </div></a>
+                                    <a href="/user/myorders">
+                                        <div class="item">
+
+                                            <span>我的订单</span>
+
+                                        </div>
+                                    </a>
+                                    <a href="/user/myaccount">
+                                        <div class="item">
+
+                                            <span>我的账户</span>
+
+                                        </div>
+                                    </a>
+                                    <a href="/user/mycollections">
+                                        <div class="item">
+
+                                            <span>我的收藏</span>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     @endif
 
                 </div>
 
+
+
             </div>
+
+
 
 
             <div class="nav-toggle">
                 <div class="icon"></div>
             </div>
 
+
+
+
+
+
+
+
         </div>
 
-
+        <div id="alertBox" class="alert-box"></div>
         @yield('content')
     </div>
 
@@ -199,20 +240,38 @@
 
 
         //语言选择
-        $('.switch-lang').hover(
+        $('#switchLang').hover(
 
             function(){
 
-                $('.lang-list').fadeIn();
+                $('.lang-list').show();
             },
             function(){
-                var event = window.event ||arguments.callee.caller.arguments[0];;
+                var event = window.event ||arguments.callee.caller.arguments[0];
+
                 if($('.lang-list').closest(event.srcElement).length <= 0)
                 {
-                    $('.lang-list').fadeOut();
+                    $('.lang-list').hide();
                 }
             }
          )
+
+
+        //用户中心
+        $('#account').hover(
+                function(){
+
+                    $('#userCenterList').show();
+                },
+                function(){
+                    var event = window.event ||arguments.callee.caller.arguments[0];
+                    if($('#userCenterList').closest(event.srcElement).length <= 0)
+                    {
+                        $('#userCenterList').hide();
+                    }
+                }
+
+        )
 
 
         $('.nav-toggle').click(function () {
@@ -269,6 +328,21 @@
 
     })
 
+    //信息提示框
+    function toastAlert(Msg,status)
+    {
+
+        if(status === 1)
+        {
+            $('#alertBox').removeClass('wrong-input').addClass('wrong-input');
+        }
+        $('#alertBox').text(Msg).fadeIn();
+
+        setTimeout(function () {
+            $('#alertBox').fadeOut();
+        }, 2000);
+
+    }
 
 
 

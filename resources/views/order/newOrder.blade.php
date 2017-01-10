@@ -14,13 +14,13 @@
     @include('partial.calender')
 
     <div class="order-process">
-        <div class="step">
-            1.填写订单
-            <div class="arrow-next"></div>
-        </div>
         <div class="step active-step">
-            2.订单支付
+            1.填写订单
             <div class="arrow-next active-arrow"></div>
+        </div>
+        <div class="step ">
+            2.订单支付
+            <div class="arrow-next "></div>
         </div>
 
         <div class="step">
@@ -28,51 +28,48 @@
         </div>
     </div>
 
-    <div class="fill-order-detail">
+    <div class="fill-order-detail c">
+            <form class="order-form" action="/createOrder" method="post" id="orderForm">
 
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="room"   value="{{$offerDetail['room']->id}}">
+                <input type="hidden" name="hotel" value="{{$offerDetail['hotel']->id}}">
 
-            <form class="order-detail-form">
                 <div class="order-line-detail">
                     <div class="header">预定信息</div>
 
                     <div style="margin-top:20px;">
-                        <div class="order-sub-line-detail">
+                        <div class="order-sub-line-detail" id="searchDateBox">
                             <div class="sub-header">入住日期</div>
                             <div class="detail order-checkInOut-date">
-                                <input class="check-in-date date-input" name="checkInDate" id="checkInDate" type="text" placeholder="入住日期"  readonly/>
+                                <input class="check-in-date date-input" name="checkInDate" id="checkInDate" type="text" placeholder="入住日期" value="{{$offerDetail['checkInDate']}}"  readonly/>
                                 <hr>
-                                <input class="check-out-date date-input" name="checkOutDate" id="checkOutDate" type="text" placeholder="离店日期" readonly/>
+                                <input class="check-out-date date-input" name="checkOutDate" id="checkOutDate" type="text" placeholder="离店日期" value="{{$offerDetail['checkOutDate']}}" readonly/>
                             </div>
                         </div>
 
                         <div class="order-sub-line-detail">
                             <div class="sub-header">房间数量</div>
                             <div class="detail order-nor "  >
-                                <input name="nor" id="nor" type="text" placeholder="1间"  readonly/>
+                                <input name="maxBookingNum" id="maxBookingNum" type="hidden" value="{{$offerDetail['maxBookingNum']}}">
+                                <input name="roomNum" id="roomNum" type="hidden" value="1">
+                                <input id="nor" type="text" placeholder="1间"  readonly/>
                                 <ul id="selectNor" class="select-nor">
-                                    <li>1 间</li>
-                                    <li>2 间</li>
-                                    <li>3 间</li>
-                                    <li>4 间</li>
-                                    <li>5 间</li>
-                                    <li>6 间</li>
-                                    <li>7 间</li>
-                                    <li>8 间</li>
-                                    <li>9 间</li>
-                                    <li>10 间</li>
+                                    @for($i=1; $i<=$offerDetail['maxBookingNum']; $i++)
+                                        <li>{{ $i}} 间</li>
+                                    @endfor
+
                                 </ul>
                             </div>
                         </div>
 
                         <div class="order-sub-line-detail">
-                            <div class="sub-header">住客姓名</div>
+                            <div class="sub-header guest-n-h">住客姓名</div>
                             <div class="detail order-guest-info "   id="orderGuestInfo">
                                 <input class="guest-info" name="guestInfo[]" type="text" placeholder="住客1"  />
-
-
-
-
+                                <div class="error-message-info order-input-error" id="emtGuestInfo">请输入住客信息 </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -85,16 +82,20 @@
 
                     <div style="margin-top:20px;">
                         <div class="order-sub-line-detail">
-                            <div class="sub-header">手机号码</div>
+                            <span class="r-marker">*</span>
+                            <div class="sub-header">   手机号码 </div>
                             <div class="detail contact-detail " >
                                 <input  name="contactPhone" id="contactPhone" type="text"  />
                             </div>
+                            <div class="error-message-info order-input-error" id="wrongPhoneNo">请输入正确的手机号 </div>
                         </div>
                         <div class="order-sub-line-detail">
-                            <div class="sub-header">联系邮箱</div>
+                            <span class="r-marker">*</span>
+                            <div class="sub-header">  联系邮箱</div>
                             <div class="detail contact-detail "  >
                                 <input  name="contactEmail" id="contactEmail" type="text"  />
                             </div>
+                            <div class="error-message-info order-input-error" id="wrongEmail">请输入正确的邮箱 </div>
                         </div>
 
                     </div>
@@ -102,20 +103,24 @@
                 </div>
 
 
+                <div class="submit-order" id="submitOrder">
+                    提交订单
+                </div>
+
             </form>
 
             <div class="room-detail">
-                <img src="{{$hotelRoomDetail['room']->imageLink}}">
+                <img src="{{$offerDetail['room']->imageLink}}">
                 <div class="hotel-basic-info">
                     <h3 class="name">
-                        {{$hotelRoomDetail['hotel']->name}}
+                        {{$offerDetail['hotel']->name}}
                     </h3>
 
                     <div class="address">
                         @if(session('lang') == 'en')
-                            {{$hotelRoomDetail['hotel']->address->detail_en}} {{$hotelRoomDetail['hotel']->city->city_name_en}} {{$hotelRoomDetail['hotel']->province->province_name_en}}{{$hotelRoomDetail['hotel']->province->name_en}}
+                            {{$offerDetail['hotel']->address->detail_en}} {{$offerDetail['hotel']->city->city_name_en}} {{$offerDetail['hotel']->province->province_name_en}}{{$offerDetail['hotel']->province->name_en}}
                         @else
-                            {{$hotelRoomDetail['hotel']->province->name}}{{$hotelRoomDetail['hotel']->province->province_name}}{{$hotelRoomDetail['hotel']->city->city_name}}{{$hotelRoomDetail['hotel']->district=''?$hotelRoomDetail['hotel']->district->district_name:'' }}{{$hotelRoomDetail['hotel']->address->detail}}
+                            {{$offerDetail['hotel']->province->name}}{{$offerDetail['hotel']->province->province_name}}{{$offerDetail['hotel']->city->city_name}}{{$offerDetail['hotel']->district=''?$offerDetail['hotel']->district->district_name:'' }}{{$offerDetail['hotel']->address->detail}}
 
                         @endif
                     </div>
@@ -123,19 +128,19 @@
 
                 <div class="room-basic-info">
 
-                    <h4 class="name"> {{$hotelRoomDetail['room']->room_name}}</h4>
+                    <h4 class="name"> {{$offerDetail['room']->room_name}}</h4>
                     <div  class="basic-attribute-list">
                         <div class="attribute">
                             <span class="attribute-name">早餐: </span>
                             <span>
-                                    {{$hotelRoomDetail['room']->num_of_breakfast}}份
+                                    {{$offerDetail['room']->num_of_breakfast}}份
                             </span>
                          </div>
 
                         <div class="attribute">
                             <span class="attribute-name">房型大小: </span>
                             <span>
-                                    {{$hotelRoomDetail['room']->acreage}} m²
+                                    {{$offerDetail['room']->acreage}} m²
                             </span>
                         </div>
 
@@ -144,9 +149,9 @@
                         <div class="attribute">
                             <span class="attribute-name">无线wifi:</span>
                             <span>
-                             @if($hotelRoomDetail['room']->wifi == 0)
+                             @if($offerDetail['room']->wifi == 0)
                                 {{trans('hotel.noWifi')}};
-                            @elseif($hotelRoomDetail['room']->wifi == 1)
+                            @elseif($offerDetail['room']->wifi == 1)
                                {{trans('hotel.wifiWithCharge')}}
                             @else
                                {{trans('hotel.freeWifi')}}
@@ -159,9 +164,9 @@
                         <div class="attribute">
                             <span class="attribute-name">加床: </span>
                             <span>
-                                @if($hotelRoomDetail['room']->is_extra_bed == 0)
+                                @if($offerDetail['room']->is_extra_bed == 0)
                                     {{trans('hotel.noExtraBed')}}
-                                @elseif($hotelRoomDetail['room']->is_extra_bed == 1)
+                                @elseif($offerDetail['room']->is_extra_bed == 1)
                                     {{trans('hotel.extraBedWithCharge')}}
                                 @else
                                    {{trans('hotel.freeExtraBed')}}
@@ -179,12 +184,12 @@
 
                     <div class="average-price">
                         <span class="t">均价</span>
-                        <div class="p"><span class="m-s">￥</span><span class="total">{{$hotelRoomDetail['averagePrice']}}</span></div>
+                        <div class="p"><span class="m-s">￥</span><span class="total" id="averagePrice">{{$offerDetail['averagePrice']}}</span></div>
                     </div>
 
 
                     <div class="offer-info">
-                        <span class="room-night"> {{$hotelRoomDetail['dateDiff']}} 晚</span>
+                        <span class="room-night"><span id="nornOffer"> {{$offerDetail['dateDiff']}}</span> 晚</span>
 
                         <span class="nop-offer"><span id="nopOffer">1</span> 间客房</span>
                     </div>
@@ -192,7 +197,7 @@
 
                     <div class="offer-price">
                         <span class="t">总计</span>
-                        <div class="p"><span class="m-s">￥</span><span class="total">{{$hotelRoomDetail['totalAmount']}}</span></div>
+                        <div class="p"><span class="m-s">￥</span><span class="total" id="totalAmount">{{$offerDetail['totalAmount']}}</span></div>
                     </div>
                 </div>
 
@@ -222,26 +227,30 @@
                 $('#selectNor').css({'margin':'0'}).show();
             })
 
-            $('.select-nor  li').click(function(){
+            //选择要预定的房间数量
+            $(document).on('click','.select-nor  li',function(){
 
                 $('#nor').val($(this).text());
-
-
 
                 //选择的间数
                 var nor = $(this).index()+1 ;
                 $('#nopOffer').text(nor);
+                $('#roomNum').val(nor);
 
                 //基本入住人数为两位
                 var startNop = 0;
                 $('#selectNor').hide();
                 $('#orderGuestInfo').empty();
 
+                //动态重构客人名单
                 for(var i=0 ; i< nor; i++)
                 {
                     $('#orderGuestInfo').append('<input class="guest-info" name="guestInfo[]" type="text" placeholder="住客'+(++startNop)+'"  />');
 
                 }
+                $('#orderGuestInfo').append('<div class="error-message-info order-input-error" id="emtGuestInfo" >请输入住客信息 </div>');
+                //更见房间数量重新加载
+                searchPriceByNewDate();
 
             })
 
@@ -254,10 +263,10 @@
                 var target = $(e.target);
                 var test = target.parents();
 //
-//                if((target.closest($('#calendar')).length == 0 &&target.closest($('#searchDateBox')).length == 0)   && target.parents().length !==0){
-//
-//                    $('#calendar').hide();
-//                }
+                if((target.closest($('#calendar')).length == 0 &&target.closest($('#searchDateBox')).length == 0)   && target.parents().length !==0){
+
+                   $('#calendar').hide();
+                }
 
 
                 if((target.closest($('#nor')).length == 0 &&target.closest($('#selectNor')).length == 0)   ){
@@ -267,41 +276,139 @@
 
             });
 
+
+
+            //提交订单
+            $('#submitOrder').click(function(){
+                var validForm = true;
+                validForm = checkOrderForm();
+                alert(validForm);
+                if(validForm)
+                {
+
+                }
+            })
+
         })
 
+        //搜索房价 房态
         function searchPriceByNewDate()
         {
             $('#calendar').hide();
-            alert('test');
-//            $.ajax({
-//                type: 'POST',
-//                url: '/searchPriceByDate',
-//                dataType: 'json',
-//                data: {},
-//                async:true,
-//                headers: {
-//                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            $.ajax({
+                type: 'POST',
+                url: '/searchPriceByDate',
+                dataType: 'json',
+                data: {hotel:'{{$offerDetail['hotel']->id}}',room:'{{$offerDetail['room']->id}}',checkInDate:$('#checkInDate').val(),
+                       checkOutDate:$('#checkOutDate').val(),numOfRoom:$('#nopOffer').text()},
+                async:true,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+//                beforeSend:function(){
+////                    $('#searchRoomLoader').transition('fade');
 //                },
-////                beforeSend:function(){
-//////                    $('#searchRoomLoader').transition('fade');
-////                },
-//                success : function(data){
-//                    if(data.statusCode === 1)
-//                        {
-//                            alert('success');
-//                    }
-//                    else{
-//
-//                    }
-//                   // $('#searchRoomLoader').transition('fade');
-//
-//                },
-//                error:function(){
-//                  //  $('#searchRoomLoader').transition('fade');
-//
-//                }
-//            })
+                success : function(data){
+                    if(data.statusCode === 1)
+                    {
 
+                            //更新房间均价 和 总价
+                            $('#averagePrice').text(parseInt(data.extra['averagePrice']));
+                            $('#totalAmount').text(parseInt(data.extra['totalAmount']));
+
+                            //更新可定房间数量list
+                            var nopList ='';
+
+                            for(var i=1; i<=parseInt(data.extra['maxBookingNum']); i++)
+                            {
+                                nopList += ' <li>'+i +'间</li>';
+                            }
+                            $('#selectNor').empty().append(nopList);
+                            $('#nornOffer').text(data.extra['dateDiff']);
+
+
+                        if(parseInt(data.extra['exceedNum'])  > 0 )
+                        {
+                            //如果需求房间数量大于可定房间数量
+                            //动态重构客人名单
+
+                            var guestListHtml = '';
+                            for(var i=1; i<=parseInt(data.extra['maxBookingNum']); i++)
+                            {
+                                guestListHtml += '<input class="guest-info" name="guestInfo[]" type="text" placeholder="住客'+i+'"  />';
+                            }
+                            $('#orderGuestInfo').empty().append(guestListHtml).append('<div class="error-message-info order-input-error" id="emtGuestInfo">请输入住客信息 </div>');
+
+                            //更新房间数 间夜数
+                            $('#nor').val(data.extra['maxBookingNum'] + '间');
+                            $('#nopOffer').text(data.extra['maxBookingNum']);
+                            $('#roomNum').val(data.extra['maxBookingNum']);
+
+                            //提示可定房间数量
+                            toastAlert('该时间段只有'+data.extra['maxBookingNum']+'间房可预定',2);
+                        }
+
+                    }
+                    else{
+
+                    }
+                   // $('#searchRoomLoader').transition('fade');
+
+                },
+                error:function(){
+                  //  $('#searchRoomLoader').transition('fade');
+
+                }
+            })
+
+        }
+
+
+        function checkOrderForm()
+        {
+            var validOrderForm = 1;
+            $('.guest-info').each(function(){
+                if($(this).val() === '')
+                {
+                    validOrderForm =0;
+                    $(this).addClass('wrong-input').siblings('.order-input-error').show();
+                }
+                else{
+                    $(this).removeClass('wrong-input')
+                }
+
+                if(validOrderForm)
+                {
+                    $('#emtGuestInfo').hide();
+                }
+
+                //检查手机号 邮箱
+                if($('#contactPhone').val() === '')
+                {
+                    validOrderForm =0;
+                    $('#wrongPhoneNo').css('display','inline-block');
+                }
+                else{
+                    $('#wrongPhoneNo').css('display','none');
+                }
+
+                if($('#contactEmail').val() === '')
+                {
+                    validOrderForm =0;
+                    $('#wrongEmail').css('display','inline-block');
+                }else{
+                    $('#wrongEmail').css('display','none');
+                }
+
+
+                if(validOrderForm)
+                {
+                    $('#orderForm').submit();
+                }
+
+                return validOrderForm;
+
+            })
         }
 
     </script>
