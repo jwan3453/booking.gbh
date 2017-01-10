@@ -27,10 +27,10 @@ $alipay_config['private_key']	= 'MIICWwIBAAKBgQCettLKqIKMAVsGqcVx7fy2qnH3o0/YDLh
 $alipay_config['alipay_public_key']= 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB';
 
 // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-$alipay_config['notify_url'] = "http://localhost/notify_alipay";
+$alipay_config['notify_url'] = "http://booking.gbhchina.com/notify_alipay";
 
 // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-$alipay_config['return_url'] = "http://localhost/return_alipay";
+$alipay_config['return_url'] = "http://booking.gbhchina.com/return_alipay";
 
 //签名方式
 $alipay_config['sign_type']    = strtoupper('RSA');
@@ -79,9 +79,9 @@ return [
 
     'alipay_public_key' => 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB',
 
-    'notify_url' => 'http://localhost/notify_alipay',
+    'notify_url' => 'http://booking.gbhchina.com/notify_alipay',
 
-    'return_url' => 'http://localhost/return_alipay',
+    'return_url' => 'http://booking.gbhchina.com/return_alipay',
 
     'sign_type' => strtoupper('RSA'),
 
