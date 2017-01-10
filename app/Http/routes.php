@@ -78,10 +78,10 @@ Route::get('payment/pay/alipay/{order_sn}','Booking\OrderController@alipay');
 Route::get('return_alipay','Booking\OrderController@alipayReturn');
 
 //支付宝返回链接 notify_url
-Route::get('notify_aiipay','Booking\OrderController@alipayNotify');
+Route::get('notify_alipay','Booking\OrderController@alipayNotify');
 
 
-Route::get('payment/testpay',function(){
+Route::post('payment/testpay',function(){
 
     return view('weixinpay.WxpayAPI_php_v3.example.native');
 });
