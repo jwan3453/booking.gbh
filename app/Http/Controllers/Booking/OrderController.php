@@ -161,7 +161,7 @@ class OrderController extends Controller
     }
 
 
-    //支付宝返回
+    //支付宝返回 return
     public function alipayReturn(Request $request)
     {
 
@@ -183,6 +183,14 @@ class OrderController extends Controller
         $sign = $request->input('sign');
         $sign_type = $request->input('sign_type');
 
-        dd($request->all());
+        $this->orderService->alipayReturn($request);
+
+    }
+
+
+    //支付宝返回 notify
+    public  function alipayNotify(Request $request)
+    {
+        $this->orderService->alipayNotify($request);
     }
 }
