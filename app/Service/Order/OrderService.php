@@ -482,21 +482,21 @@ class OrderService {
 
         $alipayNotify = new \App\Tool\Pay\Alipay\alipay\lib\AlipayNotify(Config::get('alipay.aliconfig'));
 
-        $testOrder->order_status_remark = 'post request success';
+        $testOrder->order_status_remark = '1';
         $testOrder->save();
 
         $verify_result = $alipayNotify->verifyNotify();
 
 
 
-        $testOrder->order_status_remark = 'post request  verify success';
+        $testOrder->order_status_remark = '2';
         $testOrder->save();
 
 
         if($verify_result) {//验证成功
 
 
-            $testOrder->order_status_remark = 'post request  verify 2 success';
+            $testOrder->order_status_remark = '3';
             $testOrder->save();
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -522,11 +522,17 @@ class OrderService {
             if($orderDetail  == null)
             {
                 //log();订单无法找到
+                $testOrder->order_status_remark = '4';
+                $testOrder->save();
                 echo "fail";
             }
             else{
 
                 if($_POST['trade_status'] == 'TRADE_FINISHED') {
+
+                    $testOrder->order_status_remark = '5';
+                    $testOrder->save();
+
                     //判断该笔订单是否在商户网站中已经做过处理
                     //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                     //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -542,25 +548,42 @@ class OrderService {
                     //如果订单状态没有被改变
                     if ($orderDetail->order_status == 0)
                     {
+
+                        $testOrder->order_status_remark = '6';
+                        $testOrder->save();
                         $orderDetail->pay_type = 1; //支付宝支付
                         if ($orderDetail->total_amount == $_POST['total_fee'] && Config::get('alipay.seller_id') == $_POST['seller_id']) {
 
+                            $testOrder->order_status_remark = '7';
+                            $testOrder->save();
                             //修改订单状态
                             $orderDetail->order_status = 1;
                             $orderDetail->order_status_remark = '支付宝:支付成功';
                             $orderDetail->save();
+
+                            $testOrder->order_status_remark = '8';
+                            $testOrder->save();
+
                         } else {
+
+                            $testOrder->order_status_remark = '9';
+                            $testOrder->save();
 
                             //todo 记录订单信息不一致无法支付
                             $orderDetail->pay_status = 2;//支付失败
                             $orderDetail->order_status_remark = '支付宝:记录订单信息不一致无法支付';
                             $orderDetail->save();
+
+                            $testOrder->order_status_remark = '10';
+                            $testOrder->save();
                         }
                     }
 
 
                 }
                 else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+                    $testOrder->order_status_remark = '11';
+                    $testOrder->save();
                     //判断该笔订单是否在商户网站中已经做过处理
                     //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                     //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -575,25 +598,39 @@ class OrderService {
 
                     if ($orderDetail->order_status == 0)
                     {
+                        $testOrder->order_status_remark = '12';
+                        $testOrder->save();
                         $orderDetail->pay_type = 1; //支付宝支付
                         if ($orderDetail->total_amount == $_POST['total_fee'] && Config::get('alipay.seller_id') == $_POST['seller_id']) {
 
+
+                            $testOrder->order_status_remark = '13';
+                            $testOrder->save();
                             //修改订单状态
                             $orderDetail->order_status = 1;
-                            $orderDetail->order_remark = '支付宝:支付成功';
+                            $orderDetail->order_status_remark = '支付宝:支付成功';
                             $orderDetail->save();
+
+                            $testOrder->order_status_remark = '14';
+                            $testOrder->save();
                         } else {
 
+                            $testOrder->order_status_remark = '15';
+                            $testOrder->save();
                             //todo 记录订单信息不一致无法支付
                             $orderDetail->pay_status = 2;//支付失败
-                            $orderDetail->order_remark = '支付宝:记录订单信息不一致无法支付';
+                            $orderDetail->order_status_remark = '支付宝:记录订单信息不一致无法支付';
                             $orderDetail->save();
+
+                            $testOrder->order_status_remark = '16';
+                            $testOrder->save();
                         }
                     }
                 }
 
-                //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-
+                //——请根据您的业务逻辑来编写程序（以上代码仅作参考）—s—
+                $testOrder->order_status_remark = '17';
+                $testOrder->save();
                 echo "success";		//请不要修改或删除
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -601,6 +638,8 @@ class OrderService {
             }
         }
         else {
+            $testOrder->order_status_remark = '18';
+            $testOrder->save();
             //验证失败
             echo "fail";
 
