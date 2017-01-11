@@ -558,7 +558,7 @@ class OrderService {
                             $testOrder->save();
                             //修改订单状态
                             $orderDetail->order_status = 1;
-                            $orderDetail->order_status_remark = '支付宝:支付成功';
+                            $orderDetail->order_status_remark = '支付宝-支付成功';
                             $orderDetail->save();
 
                             $testOrder->order_status_remark = '8';
@@ -571,7 +571,7 @@ class OrderService {
 
                             //todo 记录订单信息不一致无法支付
                             $orderDetail->pay_status = 2;//支付失败
-                            $orderDetail->order_status_remark = '支付宝:记录订单信息不一致无法支付';
+                            $orderDetail->order_status_remark = '支付宝-记录订单信息不一致无法支付';
                             $orderDetail->save();
 
                             $testOrder->order_status_remark = '10';
@@ -608,7 +608,7 @@ class OrderService {
                             $testOrder->save();
                             //修改订单状态
                             $orderDetail->order_status = 1;
-                            $orderDetail->order_status_remark = '支付宝:支付成功';
+                            $orderDetail->order_status_remark = '支付宝-支付成功';
                             $orderDetail->save();
 
                             $testOrder->order_status_remark = '14';
@@ -619,7 +619,7 @@ class OrderService {
                             $testOrder->save();
                             //todo 记录订单信息不一致无法支付
                             $orderDetail->pay_status = 2;//支付失败
-                            $orderDetail->order_status_remark = '支付宝:记录订单信息不一致无法支付';
+                            $orderDetail->order_status_remark = '支付宝-记录订单信息不一致无法支付';
                             $orderDetail->save();
 
                             $testOrder->order_status_remark = '16';
