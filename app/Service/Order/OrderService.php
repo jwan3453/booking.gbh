@@ -551,7 +551,7 @@ class OrderService {
 
                         $testOrder->order_status_remark = '6';
                         $testOrder->save();
-                        $orderDetail->pay_type = 1; //支付宝支付
+                        $orderDetail->payment_type = 1; //支付宝支付
                         if ($orderDetail->total_amount == $_POST['total_fee'] && Config::get('alipay.seller_id') == $_POST['seller_id']) {
 
                             $testOrder->order_status_remark = '7';
@@ -600,7 +600,7 @@ class OrderService {
                     {
                         $testOrder->order_status_remark = '12';
                         $testOrder->save();
-                        $orderDetail->pay_type = 1; //支付宝支付
+                        $orderDetail->payment_type = 1; //支付宝支付
                         if ($orderDetail->total_amount == $_POST['total_fee'] && Config::get('alipay.seller_id') == $_POST['seller_id']) {
 
 
