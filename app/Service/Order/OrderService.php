@@ -476,6 +476,9 @@ class OrderService {
     public function alipayNotify(Request $request)
     {
         //计算得出通知验证结果
+
+
+
         $alipayNotify = new \App\Tool\Pay\Alipay\alipay\lib\AlipayNotify(Config::get('alipay.aliconfig'));
 
         $verify_result = $alipayNotify->verifyNotify();
@@ -499,7 +502,7 @@ class OrderService {
             $trade_status = $_POST['trade_status'];
 
 
-            $orderDetail  = Orders::where('order_sn',$out_trade_no)->first;
+            $orderDetail  = Orders::where('order_sn',$out_trade_no)->first();
 
             if($orderDetail  == null)
             {
