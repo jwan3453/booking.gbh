@@ -477,13 +477,28 @@ class OrderService {
     {
         //计算得出通知验证结果
 
+        $testOrder = Orders::where('id',1)->first();
 
 
         $alipayNotify = new \App\Tool\Pay\Alipay\alipay\lib\AlipayNotify(Config::get('alipay.aliconfig'));
 
+        $testOrder->order_status_remark = 'post request success';
+        $testOrder->save();
+
         $verify_result = $alipayNotify->verifyNotify();
 
+
+
+        $testOrder->order_status_remark = 'post request  verify success';
+        $testOrder->save();
+
+
         if($verify_result) {//验证成功
+
+
+            $testOrder->order_status_remark = 'post request  verify 2 success';
+            $testOrder->save();
+
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //请在这里加上商户的业务逻辑程序代
 
@@ -532,13 +547,13 @@ class OrderService {
 
                             //修改订单状态
                             $orderDetail->order_status = 1;
-                            $orderDetail->order_remark = '支付宝:支付成功';
+                            $orderDetail->order_status_remark = '支付宝:支付成功';
                             $orderDetail->save();
                         } else {
 
                             //todo 记录订单信息不一致无法支付
                             $orderDetail->pay_status = 2;//支付失败
-                            $orderDetail->order_remark = '支付宝:记录订单信息不一致无法支付';
+                            $orderDetail->order_status_remark = '支付宝:记录订单信息不一致无法支付';
                             $orderDetail->save();
                         }
                     }
