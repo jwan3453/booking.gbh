@@ -24,6 +24,7 @@ use App\Models\HotelCateringService;
 use App\Models\HotelRecreationService;
 use App\Models\RoomPrice;
 use App\Models\RoomStatus;
+use App\Models\UserCollection;
 use Illuminate\Support\Facades\DB;
 
 
@@ -298,6 +299,11 @@ class BookingService{
         $hotel->roomsInJson = $hotel->rooms->toJson();
 
 
+        //酒店是否被用户搜藏
+        $hotel->collection = 0;
+        $collection = UserCollection::where(['user_id'=>1,'hotel_id'=>$hotel->id])->first();
+        if($collection!= null)
+            $hotel->collection = 1;
         return $hotel;
     }
 
@@ -496,6 +502,15 @@ class BookingService{
         $roomStatusByDate['avlRoomList'] = $avlRoomList;
         //获得无空房的房型ID
         $roomStatusByDate['nonAvlRoomId'] = $nonAvlRoomId;
+
+        //酒店房态尚未发布
+        if(count($roomStatus) == 0)
+        {
+            $roomStatusByDate['nonPublished'] = true;
+        }
+        else{
+            $roomStatusByDate['nonPublished'] = false;
+        }
 
 
         return $roomStatusByDate;

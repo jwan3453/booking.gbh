@@ -18,7 +18,7 @@ body {
     display: table;
     font-weight: 100;
     font-family: 'Microsoft YaHei';
-    background-color: #f5f5f5;
+    background-color: #ececec;
 }
 canvas{
     position: fixed;
@@ -88,11 +88,12 @@ img{
     color:white;
     width:120px;
     cursor: pointer;
+    border-radius: 2px;
 }
 
 
 .long-btn{
-    width:376px;
+    width:378px;
 }
 
 .none-space{
@@ -1065,13 +1066,13 @@ img{
 
 .search-date-box-wrap{
     width:260px;
-    height:130px;
+    height:auto;
 
     position: absolute;
     right:0;
     top:0;
     background-color:#ffffff;
-
+    padding-bottom: 10px;
     border-radius: 3px;
 }
 
@@ -1145,6 +1146,29 @@ img{
     width:23px!important;
     height:23px!important;
     margin:3px 0 0 50px!important;
+}
+
+.hotel-collection {
+    text-align: center;
+}
+
+.hotel-collection i{
+
+    cursor: pointer;
+}
+
+.hotel-collection .remove{
+    color:#ff5f76;
+}
+.hotel-collection .add{
+    color:#505050;
+
+}
+
+.hotel-collection span{
+    display: block;
+    font-size: 13px;
+    margin: 3px 0;
 }
 
 .hotel-detail {
@@ -1388,6 +1412,23 @@ img{
 
 
 
+.no-room-aval{
+    text-align: center;
+    width:100%;
+    padding:30px 0;
+    font-size: 16px;
+    display: none;
+}
+.no-room-aval .span{
+    display: inline-block;
+
+}
+
+.refine-date , .research-hotel{
+    color:#ff5f76!important;
+    cursor: pointer;
+
+}
 
 .hotel-images{
 
@@ -2473,7 +2514,7 @@ img{
     margin-top:70px;
     width: 500px;
     overflow: hidden;
-    border-radius: .2857rem;
+    border-radius: 1px;
     margin-left:120px;
 }
 
@@ -3015,7 +3056,7 @@ img{
 
 }
 
-.pay-status-mask{
+.screen-mask{
     background-color: rgba(7, 7, 15, 0.8);
     width: 100%;
     height: 100%;
@@ -3084,7 +3125,7 @@ img{
     margin-left:100px;
 }
 
-.pay-confirm-btns .knowledge{
+.pay-confirm-btns .acknowledge{
 
 }
 
@@ -3120,6 +3161,88 @@ img{
 }
 
 /*******************/
+
+
+/*******支付成功页面*******/
+.success-pay{
+    text-align: right;
+    padding:0px 110px 10px 0;
+    width: calc( 100% - 110px);
+    margin-top:40px;
+}
+
+.success-pay span{
+    display: block;
+    font-size: 14px;
+    margin:10px 0;
+}
+
+.success-note{
+
+    font-size: 18px!important;
+}
+.success-pay a{
+    width:120px!important;
+    font-size: 14px!important;
+    color: #747474;
+    display: block;
+    float: right;
+}
+
+
+/************************/
+
+
+/******支付返回页面*******/
+
+.pay-return-result{
+
+    width:100%;
+    margin:150px 0 50px 0 ;
+
+
+
+}
+
+.pay-return-result .pay-result{
+    padding:10px 0 ;
+    background-color: #ecebf0;
+    color:#505050;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.pay-return-result .pay-result span{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pay-return-result .pay-result .icon{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.order-brief{
+    margin:20px auto ;
+    font-size: 15px;
+    width:300px;
+
+}
+.order-brief .line-detail{
+    margin:10px 0;
+}
+.order-brief .line-detail span{
+    display: inline-block;
+}
+.order-brief .line-detail .t{
+    width:120px;
+    text-align: right;
+    margin-right: 15px;
+}
+
+/***********************/
+
 
 
 /*******微信支付页面******/
@@ -3174,9 +3297,11 @@ img{
 /********用户中心页面****/
 
 .user-center{
-    width:100%;
-    margin:100px 0 0 0;
+    width: calc(100% - 20px);
+    margin:80px 0 0 0;
     overflow: hidden;
+    background-color: #ffffff;
+    padding:10px ;
 }
 
 .user-center-left{
@@ -3225,6 +3350,16 @@ img{
     font-size: 15px;
 
 }
+
+
+.user-center-nav a:hover{
+
+    background-color: #5b5b5e;
+    color:#f8f8f8!important;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
 .select-user-nav{
 
     background-color: #d3d3d6;
@@ -3409,6 +3544,142 @@ img{
 
 /**********************/
 
+
+/*******我的搜藏********/
+
+.collection-list{
+
+}
+.collection-list .h{
+margin:30px 0 0 45px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.c-hotel-box{
+    width: 300px;
+    position: relative;
+    float: left;
+    /* border: 1px solid #ddd; */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: #f8f8f8;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: linear;
+    border-radius: 2px;
+    margin-left:45px;
+    height:auto;
+    border: 1px solid #e6e6e9
+}
+.c-hotel-box i{
+    color:#ff5f76;
+    position: absolute;
+    top:10px;
+    right:10px;
+}
+.c-hotel-box img{
+    width:100%;
+    height:170px;
+
+
+}
+
+
+
+.c-hotel-info{
+
+    width:calc(100% - 20px);
+    height:50px;
+    font-size:18px;
+    font-weight: 500;
+    padding:10px ;
+    color:#505050;
+    background-color: #ffffff;
+
+
+}
+
+.c-hotel-info .general-info{
+    display: inline-block;
+    height:50px;
+    width:160px;
+}
+
+.c-hotel-info .name{
+    width:230px;
+    display: block;
+    font-size: 17px;
+    margin-bottom: 5px;
+    font-weight: 600;
+
+}
+
+.c-hotel-info .location{
+    width:150px;
+    display: block;
+    font-size: 12px;
+    padding: 0 0 0 0;
+    color: #9d9da3;
+}
+.c-hotel-info .location i{
+    padding: 0!important;
+}
+
+.c-hotel-info .price{
+
+    display: inline-block;
+    float:right;
+    color:  #505050;
+    font-weight: 600;
+    line-height: 70px;
+    height:50px;
+}
+
+.c-hotel-info .price .q{
+    font-size: 14px;
+}
+
+/**********************/
+
+
+
+/**********我的账户******/
+
+.account-detail{
+}
+
+.account-detail .h{
+    margin:30px 0 40px 45px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.account-detail .d{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.account-item{
+    margin:10px 0 0 55px;
+    font-size: 14px;
+}
+.account-item span{
+    display: inline-block;
+    width:80px;
+}
+
+.year-summary{
+    margin:40px 0 0 55px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.year-summary .statistic{
+    color:#ff5f76;
+}
+.ys-line{
+    margin-left:105px;
+    margin:10px 0 10px 105px;
+}
+/***********************/
+
 /******我的资料*********/
 .profile-detail
 {
@@ -3421,15 +3692,37 @@ img{
     margin:20px 0 10px 30px ;
 }
 
+.profile-line-detail span{
+    font-size: 12px!important;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.profile-line-detail .edit{
+    font-size: 14px;!important;
+}
 
 .profile-line-detail label{
-    width:100px;
+    width:70px;
     display: inline-block;
     vertical-align: middle;
     text-align: right;
     margin-right:20px;
     font-size: 14px;
 }
+
+
+.profile-line-detail img{
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    width:120px;
+    height:120px;
+    border-radius: 100%;
+    border:2px solid #505050;
+}
+
 
 .profile-line-detail input{
     height: 40px;
@@ -3441,6 +3734,12 @@ img{
     line-height: inherit;
     display: inline-block;
     vertical-align: middle;
+
+}
+
+.profile-line-detail input[type=file]{
+    display: none;
+
 }
 
 .profile-line-detail select{
@@ -3455,9 +3754,70 @@ img{
 .profile-line-detail textarea{
     display: inline-block;
     vertical-align: top;
-    width:370px;
+    width:360px;
+
     height:200px;
     border: 1px solid #d9d9de;
+    padding:10px;
+    font-size:14px;
+    font-family: inherit;
+}
+
+.active-input{
+    border: 1px solid #8d8d92 !important;
+}
+
+.profile-line-detail .edit-profile{
+    margin-left:160px;
+    cursor:pointer;
+}
+
+
+.image-crop-box{
+    border:1px solid #bbbbbb;
+    width:420px;
+
+    position: fixed;
+    left: calc(50% - 210px  );
+    top:100px;
+    display: none;
+    z-index:1002;
+    text-align: center;
+    background-color: #f3f3f3;
+    padding-bottom: 10px;
+
+}
+
+.image-crop-box .h{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #09adcc;
+    padding:10px 0 ;
+    color: #ffffff;
+
+}
+
+.image-crop-box i{
+    position: absolute;
+    top:10px;
+    right:5px;
+    color: #ffffff;
+    cursor:pointer;
+}
+
+.crop-content{
+    text-align: center;
+    position: relative;
+    padding:10px;
+    max-height:400px;
+    overflow-y: scroll;
+
+}
+.crop-content img{
+    width:400px;
+    height:auto;
+
 }
 
 /**********************/
@@ -4157,6 +4517,28 @@ img{
     margin-left:30px;
     margin-top:5px;
 }
+
+.pay-success{
+    width: 50px;
+    height: 50px;
+    background-image: url('/booking/icon/pay_success.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    margin-left:30px;
+    margin-top:5px;
+}
+.pay-fail{
+    width: 50px;
+    height: 50px;
+    background-image: url('/booking/icon/pay_fail.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    margin-left:30px;
+    margin-top:5px;
+}
+
 
 /********************/
 
@@ -6364,7 +6746,7 @@ input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!import
 }
 .alert-box{
     position: fixed;
-    top:40%;
+    top:10px;
     left:calc(50% - 100px);
     color:white;
     width:200px;

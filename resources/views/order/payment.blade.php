@@ -132,7 +132,7 @@
     </div>
 
 
-    <div class="pay-status-mask">
+    <div class="screen-mask">
     </div>
 
 
@@ -146,7 +146,7 @@
                     <div class="regular-btn outline-btn">支付遇到问题</div>
                 </a>
 
-                <a class="success ">
+                <a class="success " id="successPay">
                     <div class="regular-btn green-btn">支付成功</div>
                 </a>
 
@@ -155,11 +155,11 @@
             <div class="pay-question-list" >
                 <div class="t">支付遇到问题?</div>
                 <div  class="s">
-                    1.支付失败,<span id="repay">重新发起支付</span>
+                    1.支付失败,<span class="repay">重新发起支付</span>
                 </div>
 
                 <div class="s">
-                    2.支付成功,查看<span id="checkAccount">我的订单</span>查看订单状态
+                    2.支付成功,查看<span class="checkAccount">我的订单</span>查看订单状态
                 </div>
             </div>
 
@@ -176,7 +176,7 @@
             <div class="pay-confirm-btns">
 
 
-                <a class="knowledge ">
+                <a class="acknowledge " id="acknowledge">
                     <div class="regular-btn red-btn auto-margin">哦!</div>
                 </a>
 
@@ -186,11 +186,11 @@
             <div class="pay-question-list" >
                 <div class="t">支付遇到问题?</div>
                 <div  class="s">
-                    1.支付失败,<span id="repay">重新发起支付</span>
+                    1.支付失败,<span class="repay">重新发起支付</span>
                 </div>
 
                 <div class="s">
-                    2.支付成功,查看<span id="checkAccount">我的订单</span>查看订单状态
+                    2.支付成功,查看<span class="checkAccount">我的订单</span>查看订单状态
                 </div>
             </div>
 
@@ -227,18 +227,62 @@
             })
 
             $('#confirmPayBtn').click(function(){
-                $('.pay-status-mask').show();
+                $('.screen-mask').show();
                 $('#payConfirmPopUp').show();
             })
 
             $('#failPay').click(function(){
-                $('.pay-status-mask').hide();
+                $('.screen-mask').hide();
                 $('#payConfirmPopUp').hide();
             })
         })
 
 
+        $('#successPay').click(function(){
+            $.ajax({
+                type: 'POST',
+                url: '/checkpayment',
+                dataType: 'json',
+                data: {orderSn:'{{$orderDetail->order_sn}}'},
+                async:false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
 
+                success : function(data){
+                    if(data.statusCode === 1)
+                    {
+                        location.href='/payment/success/' + '{{$orderDetail->order_sn}}';
+                    }
+                    else if(data.statusCode === 2)
+                    {
+                        $('#payConfirmPopUp').hide();
+                        $('#failPayPop').show();
+                    }
+
+                },
+                error:function(){
+                    //ajax 出错
+                    $('#payConfirmPopUp').hide();
+                    $('#failPayPop').show();
+                }
+            })
+        })
+
+        $('#acknowledge').click(function(){
+            $('.screen-mask').hide();
+            $('#failPayPop').hide();
+        })
+
+        $('.repay').click(function(){
+            $('#failPayPop').hide();
+            $('.screen-mask').hide();
+            $('#payConfirmPopUp').hide();
+        })
+
+        $('.checkAccount').click(function(){
+            location.href='/user/myorders/all';
+        })
     </script>
 
 @stop

@@ -10,7 +10,7 @@
     <meta name="keywords" content="GBH，gbhchina，,全球精品酒店，精品酒店预定,globalBotiqueHotel，精品酒店">
     <meta name="description" content="全球精品酒店，全球精品酒店平台。在gbh，寻找中国乃至世界上独一无二的精品酒店">
     <meta name="_token" content="{{ csrf_token() }}"/>
-    <link rel="shortcut icon" type="image/x-icon" href="http://og9duuhyy.bkt.clouddn.com/logo/gbhchina_log.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://og9duuhyy.bkt.clouddn.com/logo/gbhchina_logo.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 
@@ -31,6 +31,8 @@
     {{--<link  rel="stylesheet" type="text/css"  href ={{ asset('booking/css/styles.min.css') }}>--}}
 
     <script src={{ asset('js/jquery-2.1.4.min.js') }}></script>
+
+    <script src={{ asset('js/jquery.form.js') }}></script>
     {{--<script src={{ asset('semantic/transition.min.js') }}></script>--}}
     {{--<script src={{ asset('semantic/popup.min.js') }}></script>--}}
     {{--<script src={{ asset('semantic/dropdown.min.js') }}></script>--}}
@@ -108,11 +110,6 @@
                             <span class="t">{{ trans('home.login&register') }}</span>
                             <div class="user-center-list" id="userCenterList">
                                 <div>
-                                    <a href="/user/usercenter">
-                                        <div class="item">
-
-                                            <span>用户中心</span>
-                                        </div></a>
                                     <a href="/user/myorders">
                                         <div class="item">
 
@@ -120,6 +117,7 @@
 
                                         </div>
                                     </a>
+
                                     <a href="/user/myaccount">
                                         <div class="item">
 
@@ -134,30 +132,22 @@
 
                                         </div>
                                     </a>
+                                    <a href="/user/myprofile">
+                                        <div class="item">
+
+                                            <span>我的资料</span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     @endif
 
                 </div>
-
-
-
             </div>
-
-
-
-
             <div class="nav-toggle">
                 <div class="icon"></div>
             </div>
-
-
-
-
-
-
-
 
         </div>
 
@@ -334,7 +324,10 @@
 
         if(status === 1)
         {
-            $('#alertBox').removeClass('wrong-input').addClass('wrong-input');
+            $('#alertBox').removeClass('wrong-input').addClass('success-toast');
+        }
+        else{
+            $('#alertBox').removeClass('success-toast').addClass('wrong-input');
         }
         $('#alertBox').text(Msg).fadeIn();
 

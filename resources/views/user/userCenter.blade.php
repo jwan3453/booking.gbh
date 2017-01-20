@@ -9,7 +9,9 @@
 
 
 @section('user-center-right')
-    <div>test
+    <div class="account-detail">
+        <div class="h">我的账户详情</div>
+
     </div>
 @stop
 

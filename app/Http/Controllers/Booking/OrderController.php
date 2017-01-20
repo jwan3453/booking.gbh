@@ -139,9 +139,25 @@ class OrderController extends Controller
     {
 
         $orderDetail = $this->orderService->getOrderDetail($orderSn);
-
+        //已支付 跳转到已经支付页面
+        if($orderDetail->order_status == 1 &&  $orderDetail->pay_status == 1 )
+        {
+            return redirect('payment/success/'.$orderDetail->order_sn);
+        }
+        //支付订单页面
         return view('order.payment')->with('orderDetail', $orderDetail);
     }
+
+
+    //支付订单
+    public function successPayment($orderSn)
+    {
+
+        $orderDetail = $this->orderService->getOrderDetail($orderSn);
+
+        return view('order.successPayment')->with('orderDetail', $orderDetail);
+    }
+
 
 
     //微信支付 入口
@@ -165,26 +181,32 @@ class OrderController extends Controller
     public function alipayReturn(Request $request)
     {
 
-        $body = $request->input('body');
-        $buyer_email = $request->input('buyer_email');
-        $buyer_id = $request->input('buyer_id');
-        $exterface = $request->input('exterface');
-        $is_success = $request->input('is_success');
-        $notify_id = $request->input('notify_id');
-        $notify_time = $request->input('notify_time');
-        $notify_type = $request->input('notify_type');
-        $out_trade_no = $request->input('out_trade_no');
-        $payment_type = $request->input('payment_type');
-        $seller_id = $request->input('seller_id');
-        $subject = $request->input('subject');
-        $total_fee = $request->input('total_fee');
-        $trade_no = $request->input('trade_no');
-        $trade_status = $request->input('trade_status');
-        $sign = $request->input('sign');
-        $sign_type = $request->input('sign_type');
+//        $body = $request->input('body');
+//        $buyer_email = $request->input('buyer_email');
+//        $buyer_id = $request->input('buyer_id');
+//        $exterface = $request->input('exterface');
+//        $is_success = $request->input('is_success');
+//        $notify_id = $request->input('notify_id');
+//        $notify_time = $request->input('notify_time');
+//        $notify_type = $request->input('notify_type');
+//        $out_trade_no = $request->input('out_trade_no');
+//        $payment_type = $request->input('payment_type');
+//        $seller_id = $request->input('seller_id');
+//        $subject = $request->input('subject');
+//        $total_fee = $request->input('total_fee');
+//        $trade_no = $request->input('trade_no');
+//        $trade_status = $request->input('trade_status');
+//        $sign = $request->input('sign');
+//        $sign_type = $request->input('sign_type');
 
-        $this->orderService->alipayReturn($request);
+        $orderInfo['subject'] =   $request->input('subject');
+        $orderInfo['out_trade_no'] =   $request->input('out_trade_no');
+        $orderInfo['total_fee'] =   $request->input('total_fee');
+        $orderInfo['notify_time'] =   $request->input('notify_time');
+        $orderInfo['pay_type'] = 1;
 
+        $result = $this->orderService->alipayReturn($request);
+        return view('order.aliReturn')->with('result',$result)->with('orderInfo',$orderInfo);
     }
 
 
@@ -193,4 +215,19 @@ class OrderController extends Controller
     {
         $this->orderService->alipayNotify($request);
     }
+
+    //检查支付状态
+    public function checkPayment(Request $request)
+    {
+        $jsonResult = new MessageResult();
+        $searchResult = $this->orderService->checkPayment($request);
+
+        $jsonResult->statusCode = $searchResult;
+        $jsonResult->StatusMsg = '';
+
+        return response($jsonResult->toJson());
+
+    }
+
+
 }

@@ -56,6 +56,8 @@ Route::post('/searchRoomByDate','Booking\BookingController@searchRoomByDate');
 Route::post('/searchPriceByDate','Booking\OrderController@searchPriceByDate');
 
 
+
+
 /**********************订单**************************/
 
 //新订单
@@ -66,6 +68,11 @@ Route::post('/createOrder','Booking\OrderController@createOrder');
 
 //支付订单
 Route::get('/payment/pay/{orderSn}','Booking\OrderController@payOrder');
+
+
+//支付成功
+Route::get('/payment/success/{orderSn}','Booking\OrderController@successPayment');
+
 
 //微信支付
 Route::get('payment/pay/wechatpay/{order_sn}','Booking\OrderController@wechatpay');
@@ -81,10 +88,14 @@ Route::get('return_alipay','Booking\OrderController@alipayReturn');
 Route::post('notify_alipay','Booking\OrderController@alipayNotify');
 
 
-Route::get('payment/testpay',function(){
 
-    return view('weixinpay.WxpayAPI_php_v3.example.native');
-});
+
+
+//查看订单是否支付成功
+Route::post('/checkpayment','Booking\OrderController@checkPayment');
+
+
+
 
 /**************************************************/
 
@@ -92,7 +103,12 @@ Route::get('payment/testpay',function(){
 
 /**********************用户中心**************************/
 
-//用户中心
+
+//用户账户
+Route::get('user/myaccount','Booking\UserController@myaccount');
+
+
+//用户资料
 Route::get('/user/myprofile','Booking\UserController@myProfile');
 
 //订单
@@ -125,6 +141,28 @@ Route::get('/testalipay',function(){
     return view('alipay.index');
 
 });
+
+
+//上传头像
+Route::post('/uploadAvatar','Common\CommonController@uploadAvatar');
+
+//更新头像裁剪坐标
+Route::post('/avatar/corp','Common\CommonController@cropAvatar');
+
+//保存用户资料
+Route::post('/saveprofile','Booking\UserController@saveProfile');
+
+
+//我的收藏
+Route::get('/user/mycollections','Booking\UserController@myCollections');
+
+//添加到收藏
+Route::post('/addtocollection', 'Booking\UserController@addToCollection');
+
+//删除收藏
+Route::post('/removefromcollection', 'Booking\UserController@removeFromCollection');
+
+
 
 /**************************************************/
 

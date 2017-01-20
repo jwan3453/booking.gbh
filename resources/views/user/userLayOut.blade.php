@@ -17,11 +17,30 @@
                 </div>
 
                <nav class="user-center-nav">
-                   <a href="/user/myorders" class="select-user-nav">我的订单</a>
-                   <a href="/user/myaccounts">我的账户</a>
-                   <a href="/user/mycollections">我的收藏</a>
-                   <a href="/user/message">我的信息</a>
-                   <a href="/user/myprofile">我的资料</a>
+                    @if($nav == 'order')
+                        <a href="/user/myorders" class="select-user-nav">我的订单</a>
+                    @else
+                        <a href="/user/myorders">我的订单</a>
+                    @endif
+
+                    @if($nav == 'account')
+                            <a href="/user/myaccount" class="select-user-nav">我的账户</a>
+                    @else
+                            <a href="/user/myaccount">我的账户</a>
+                    @endif
+
+                    @if($nav == 'collection')
+                            <a href="/user/mycollections" class="select-user-nav">我的收藏</a>
+                    @else
+                            <a href="/user/mycollections">我的收藏</a>
+                    @endif
+
+                    @if($nav == 'profile')
+                            <a href="/user/myprofile" class="select-user-nav">我的资料</a>
+                    @else
+                            <a href="/user/myprofile">我的资料</a>
+                    @endif
+
                </nav>
            </div>
 

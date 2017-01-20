@@ -126,6 +126,7 @@ class BookingController extends Controller
     {
 
         $hotelDetail =  $this->bookingService->getHotelDetail($code);
+
         return view('booking.hotel')->with('hotelDetail',$hotelDetail);
     }
 

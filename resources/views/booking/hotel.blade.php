@@ -91,6 +91,19 @@
                     <div class="ui active loader search-room-loader" id="searchRoomLoader"></div>
                 </div>
 
+
+                <div class="hotel-collection">
+                    <div>
+                        @if($hotelDetail->collection == 0)
+                            <i class="icon empty heart big add" id="addCollection"></i>
+                            <span>收藏</span>
+                         @else
+                            <i class="icon empty heart big remove" id="addCollection"></i>
+                            <span>取消收藏</span>
+                        @endif
+                    </div>
+                </div>
+
             </form>
 
             <div class="hotel-desc hotel-line-detail ">
@@ -448,7 +461,7 @@
 
 
                         <div class="booking">
-                            <a href="/newOrder"><div class="short-btn red-btn auto-margin">{{trans('hotel.bookNow')}}</div></a>
+                            <div href="/newOrder/{{$hotelDetail->id}}/{{$room->id}}/" class="short-btn red-btn auto-margin">{{trans('hotel.bookNow')}}</div>
                         </div>
 
 
@@ -456,7 +469,15 @@
                     <?php $roomIndex++;?>
                 @endforeach
 
+
+                <div class="no-room-aval" id="noRoomAval">
+
+
+                </div>
+
             </div>
+
+
 
 
 
@@ -1042,6 +1063,73 @@
             })
 
 
+            //收藏酒店
+            var collection = '{{$hotelDetail->collection}}';
+            $('#addCollection').click(function(){
+
+
+            if(parseInt(collection) ==0)
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/addtocollection',
+                    dataType: 'json',
+                    data:{hotel:'{{$hotelDetail->code}}'},
+                    async:false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+
+                    success : function(data){
+                        if(data.statusCode === 1)
+                        {
+                            toastAlert('收藏成功',data.statusCode);
+                            collection = 1;
+                            $('#addCollection').removeClass('add').addClass('remove').siblings('span').text('取消收藏');
+
+                        }
+                        else{
+                            toastAlert('收藏失败',data.statusCode);
+                        }
+
+                    },
+                    error:function(){
+                    }
+                })
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: '/removefromcollection',
+                    dataType: 'json',
+                    data:{hotel:'{{$hotelDetail->code}}'},
+                    async:false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+
+                    success : function(data){
+                        if(data.statusCode === 1)
+                        {
+                            toastAlert('取消成功',data.statusCode);
+                            collection = 0;
+
+                            $('#addCollection').removeClass('remove').addClass('add').siblings('span').text('收藏');;
+                        }
+                        else{
+                            toastAlert('取消失败',data.statusCode);
+                        }
+
+                    },
+                    error:function(){
+                    }
+                })
+            }
+
+
+
+            })
+
+
             //选择日期
             $('#checkInDate').showCalendar($('#checkOutDate'));
 
@@ -1055,7 +1143,8 @@
                 var target = $(e.target);
                 var test = target.parents();
 
-                if((target.closest($('#calendar')).length == 0 &&target.closest($('#searchDateBox')).length == 0)   && target.parents().length !==0){
+                if((target.closest($('#calendar')).length == 0 &&target.closest($('#searchDateBox')).length == 0) &&target.closest($('.refine-date')).length == 0 && target.parents().length !==0){
+
 
                     $('#calendar').hide();
                 }
@@ -1118,6 +1207,29 @@
                             }
 
 
+                            if(roomStatus['avlRoomList'].length == 0)
+                            {
+
+                                var html = '';
+                                if(roomStatus['nonPublished'] == false)
+                                {
+                                    html = '<span class="reason">所选时间没有空余房型,</span>'+
+                                            '<span>您可以<span>更改 <span class="refine-date">入住/离店</span> 时间</span>, 或者重新<a href="/" class="research-hotel">搜索酒店</a></span>';
+                                    $('#noRoomAval').empty().append(html).show();
+
+                                }
+                                else{
+                                    html = '<span class="reason">酒店房价尚未公布,</span>'+
+                                            '<span>您可以<span>更改 <span class="refine-date">入住/离店</span> 时间</span>, 或者重新<a href="/" class="research-hotel">搜索酒店</a></span>';
+                                    $('#noRoomAval').empty().append(html).show();;
+
+                                }
+                            }
+                            else{
+                                $('#noRoomAval').hide();
+                            }
+
+
                         }
                         else{
 
@@ -1131,6 +1243,20 @@
                     }
                 })
             })
+
+            //点击重新搜索日期
+            $(document).on('click','.refine-date', function() {
+                $('#checkInDate').click();
+            });
+
+            //
+            $('.booking').click(function(){
+
+                var href  = $(this).find('div').attr('href');
+                location.href = href+$('#checkInDate').val()+'/'+$('#checkInDate').val();
+            })
+
+
 
 
 //            var p=0,t=0;

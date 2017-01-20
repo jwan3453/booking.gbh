@@ -268,10 +268,17 @@
 
             $(this).click(function(){
 
+                var top = $(this).offset().top+ $(this).height()+3;
+                var left = $(this).offset().left - (350 - $(this).width());
                 $('#calendar').fadeIn().css({
-                    top:$(this).offset().top+ $(this).height()+3,
-                    left:$(this).offset().left - (350 - $(this).width() )
+                    top:top,
+                    left:left
                 });
+
+
+
+
+
 
                 //跳到入住日历
                 if(selectedFromDay !== 0 )
