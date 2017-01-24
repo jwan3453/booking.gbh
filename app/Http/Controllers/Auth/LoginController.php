@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -35,12 +36,11 @@ class LoginController extends Controller
             $username = $request->input('username');
             $password = $request->input('password');
 
-
             $userRes = $this->authService->checkLogin($username,$password);
 
-            if($userRes ==2){
+            if($userRes->statusCode == 2){
                 //验证成功,存入session
-                $value = $this->authService->loginSession($username);
+                 $this->authService->loginSession($username);
 
                 //判断是否选择记住用户名
                 if($request->input('remember')){
@@ -48,14 +48,16 @@ class LoginController extends Controller
                     $usernameKey = base64_encode($username);
                     setcookie("username", $usernameKey, time()+3600*24);
                 }else{
-                    setcookie("username", $username, time()-3600);  //清除COOKIE
+                    if(isset($_COOKIE['username'])){
+                        setcookie("username", $username, time()-3600);  //清除COOKIE
+                    }
                 }
 
-                return redirect('/');
+                return response( $userRes->toJson());
+//                return redirect('/')->with($value);
             }
             else{
-                return $userRes;
-//                return back()->withInput()->withErrors('用户名或密码错误');
+                return response( $userRes->toJson());
             }
 
         }else{

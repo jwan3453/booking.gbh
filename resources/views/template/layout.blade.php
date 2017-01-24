@@ -94,20 +94,10 @@
                     <a href="http://www.gbhchina.com/aboutUs">
                         <span class="t">{{ trans('home.aboutUs') }}</span>
                     </a>
-
-                    {{--<a href="/login">--}}
-                        {{--<span>{{ trans('home.login&register') }}</span>--}}
-                    {{--</a>--}}
+                    {{session('currentUser')}}
                     @if(Session::has('currentUser'))
-                        <a href="/logout">
-                            <span class="t">{{ trans('home.logout') }}</span>
-                        </a>
-                        <a href="">
-                            <span class="t">{{ Session::get('currentUser') }}</span>
-                        </a>
-                    @elseif(!session('currentUser'))
-                        <div href="/login" id="account"   style="display: inline-block">
-                            <span class="t">{{ trans('home.login&register') }}</span>
+                        <div href="/logout" id="account"   style="display: inline-block">
+                            <span class="t">{{ session('currentUser') }}</span>
                             <div class="user-center-list" id="userCenterList">
                                 <div>
                                     <a href="/user/myorders">
@@ -141,6 +131,10 @@
                                 </div>
                             </div>
                         </div>
+                    @elseif(!session('currentUser'))
+                        <a href="/login">
+                            <span class="t">{{ trans('home.login&register') }}</span>
+                        </a>
                     @endif
 
                 </div>

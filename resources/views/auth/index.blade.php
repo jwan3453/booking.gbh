@@ -17,9 +17,13 @@
     <link rel="stylesheet" type="text/css" href={{ asset('booking/css/style.css') }}>
     <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/icon.css') }}>
     <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/loader.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/modal.min.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{ asset('semantic/transition.min.css') }}>
 
 
     <script src={{ asset('js/jquery-2.1.4.min.js') }}></script>
+    <script src={{ asset('semantic/dimmer.min.js') }}></script>
+    <script src={{ asset('semantic/transition.min.js') }}></script>
     <script src={{ asset('semantic/modal.min.js') }}></script>
     <script src={{ asset('js/jquery.form.js') }}></script>
     @yield('resources')
@@ -64,15 +68,15 @@
 
                 <div>
                     <a  href="/">
-                        <span>{{ trans('home.home') }}</span>
+                        <span class="t">{{ trans('home.home') }}</span>
                     </a>
 
                     <a href="/destinationList">
-                        <span>{{ trans('home.hotD') }}</span>
+                        <span class="t">{{ trans('home.hotD') }}</span>
                     </a>
 
                     <a href="http://www.gbhchina.com/aboutUs">
-                        <span>{{ trans('home.aboutUs') }}</span>
+                        <span class="t">{{ trans('home.aboutUs') }}</span>
                     </a>
 
                 </div>

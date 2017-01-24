@@ -168,7 +168,7 @@ Route::post('/removefromcollection', 'Booking\UserController@removeFromCollectio
 
 
 //登录
-Route::get('/login','Auth\LoginController@index');
+Route::get('/login', 'Auth\LoginController@index');
 Route::post('/login','Auth\LoginController@index');
 Route::get('/auth/login','Auth\LoginController@index');
 //退出登录,清楚缓存
