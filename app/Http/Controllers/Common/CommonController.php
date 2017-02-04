@@ -28,7 +28,7 @@ class CommonController extends Controller
     {
 
         session(['lang'=>$lang]);
-
+//        dd(session('lang'));
         return Redirect::back();
 
     }

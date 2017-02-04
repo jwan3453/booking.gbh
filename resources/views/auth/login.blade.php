@@ -2,8 +2,8 @@
 @extends('auth.index')
 
 @section('resources')
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.6/semantic.min.css"/>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.6/semantic.min.js"></script>
+    {{--<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.6/semantic.min.css"/>--}}
+    {{--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.6/semantic.min.js"></script>--}}
 @stop
 
 @section('content')
@@ -16,8 +16,6 @@
             <form method="post" action="#">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 @if(count($errors) > 0)
-                    {{--<p class="error-alert">用户名或密码不正确</p>--}}
-                    {{--<input type="hidden" id="error" value="{{$error}}">--}}
                 @endif
                 @if(Cookie::has('username'))
                     <div class="input-box">
@@ -32,7 +30,7 @@
                 @endif
 
 
-                <div class="input-box">
+                <div class="input-box first-input-box">
                     <span class="pwd-icon"></span>
                     <input type="password" name="password" id="password" autocomplete="off" placeholder="请输入您的密码">
                 </div>
@@ -70,13 +68,13 @@
             </ul>
         </div>
         <div class="content email-verify">
-            <div class="send-message">
+            <div class="send-message by-email">
                 <form method="post" action="">
 
-                    {{--<input type="hidden" name="_method" value="PUT">--}}
+                    <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="text" name="log-user" id="logUser" placeholder="请输入您的用户名" style="width: 315px; margin-top: -20px;">
-                    <input type="text" name="email" id="email" placeholder="请输入您的邮箱" style="width: 315px;">
+                    <input type="text" name="log-user" id="logUser" placeholder="请输入您的用户名" style="width: 302px; margin-top: -20px;">
+                    <input type="text" name="email" id="email" placeholder="请输入您的邮箱" style="width: 302px;">
 
                     <div class="send-btn"><div id="emailBtn" class="btn-pwd">确认发送</div></div>
                 </form>
@@ -86,13 +84,13 @@
         <div class="content mobile-verify">
             <div class="send-message by-mobile">
                 <form method="post" action="">
-                    {{--<input type="hidden" name="_method" value="PUT">--}}
+                    <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div id="sendCode">
                         <input type="text" name="mobile" id="mobile" placeholder="请输入手机号">
                         <span class="sms-code" id="smsCode">发送验证码</span>
                     </div>
-                    <input type="text" name="code" id="code" placeholder="请输入验证码" class="write-code" style="width: 315px;">
+                    <input type="text" name="code" id="code" placeholder="请输入验证码" class="write-code" style="width: 302px;">
 
                     <div class="send-btn"><div id="mobileBtn" class="btn-pwd">确认发送</div></div>
                 </form>
@@ -100,6 +98,7 @@
 
         </div>
     </div>
+
 
 
 @stop
@@ -129,41 +128,32 @@
                 async:false,
                 url:'/login',
                 data:{username:username,password:password},
+                dataType:'json',
                 headers:{
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 },
                 success:function(data){
-                    if(data == 1){
-                        toastAlert('用户名不存在',1);
+                    if(data.statusCode == 1){
+                        toastAlert(data.statusMsg,1);
                         return false;
 
                     }
-                    if(data == 3){
-                        toastAlert('密码不正确',1);
+                    if(data.statusCode == 3){
+                        toastAlert(data.statusMsg,1);
                         return false;
                     }
-                    window.location.href = '/';
+                    if(data.statusCode == 2){
+                        window.location.href = '/';
+                    }
+
                 }
             });
-
-
 
         });
 
         //弹窗按钮
         $("#forgot").click(function(){
-
-            $('.basic.test.modal')
-                    .modal('setting', 'closable', true)
-                    .modal('show')
-            ;
-
-            $('.ui.modal')
-                    .modal({
-                        blurring: true
-                    })
-                    .modal('show')
-            ;
+            $('.ui.modal').modal('show');
         });
 
         //方式切换
@@ -174,6 +164,7 @@
             $(".email-verify").removeClass('choice-verify').addClass('choice-null');
 
         });
+
         $("#byEmail").click(function(){
             $(this).removeClass('table-null').addClass('choice-table');
             $("#bymobile").removeClass('choice-table').addClass('table-null');

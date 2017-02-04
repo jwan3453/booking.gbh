@@ -7,6 +7,7 @@
  */
 namespace App\Service\Auth;
 
+use Illuminate\Support\Facades\Session;
 use PDO;
 use Faker\Provider\Uuid;
 use App\User;
@@ -37,22 +38,31 @@ class AuthService{
 
         $where = ['username' => $username];
         $the_data = DB::table('users')->where($where)->first();
+
+        $result = new MessageResult();
         if (count($the_data) < 1) {
-            return 1;  //用户名不存在
+            $result->statusCode = 1;
+            $result->statusMsg  = '用户名不存在';
         }
         if (isset($password) && Hash::check($password, $the_data->password)) {
-//            $ret = $the_data->toArray();
-//            unset($ret['password']);
-//            return $ret;
-            return 2;
+
+            $result->statusCode = 2;
+
         }else{
-            return 3;  //密码不正确
+            $result->statusCode = 3;
+            $result->statusMsg  = '密码不正确';
         }
+
+        return $result;
     }
     //存入Session
-    public function loginSession($admin = '') {
-        $session = session(['currentUser' => $admin]);
-        return $session;
+    public function loginSession($username = '') {
+
+
+        session(['currentUser' => $username]);
+//        dd(session::get('currentUser'));
+        //return session('currentUser');
+
     }
     //修改密码的session
     public function changeSession($admin = ''){
@@ -85,7 +95,6 @@ class AuthService{
         $copy_email = DB::table('users')->where('email','=',$user['email'])->get();
         $copy_phone = DB::table('users')->where('phone','=',$user['phone'])->get();
 
-        //结果状态,打包成一组JSON值
         $res = new MessageResult();
         $valid = true;
         if($copy_username){

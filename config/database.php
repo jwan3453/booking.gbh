@@ -62,7 +62,7 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
-//            'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
+            'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
         ],
 
         'pgsql' => [
@@ -117,8 +117,9 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host'     => '127.0.0.1',
-            'port'     => 6379,
+            'host'     => 'localhost',
+            'password' => 'Admin2016',
+            'port'     => 80,
             'database' => 0,
         ],
 

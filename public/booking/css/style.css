@@ -4396,14 +4396,11 @@ margin:30px 0 0 45px;
     background-image: url('/booking/icon/user.png');
     background-repeat: no-repeat;
     background-size: 100%;
-
     overflow: hidden;
-
     background-position: center;
     margin:10px ;
     display: inline-block;
     vertical-align: middle;
-
 }
 
 .tooltip{
@@ -6280,19 +6277,20 @@ margin:30px 0 0 45px;
 }
 .input-box .user-icon{
     display: inline-block;
-    width: 35px;
-    height: 35px;
-    background:  url(/booking/icon/user.png) no-repeat;
+    width: 30px;
+    height: 30px;
+    background:url(/booking/icon/userforlogin.png) no-repeat;
     background-size: cover;
-    margin-top: 4px;
-    margin-left: 5px;
+    margin-top: 6px;
+    margin-left: 7px;
 }
+
 .input-box input{
     display: block;
-    width: 230px;
+    width: 222px;
     height: 41px;
     margin-left: 46px;
-    margin-top: -42px;
+    margin-top: -45px;
     background:rgba(0,0,0,0);
     border: 0;
     outline: none;
@@ -6300,6 +6298,11 @@ margin:30px 0 0 45px;
     font-size: 14px;
     padding-left: 10px;
 }
+
+.first-input-box input{
+    margin-top: -40px;
+}
+
 .input-box input::selection{
     background:rgba(0,0,0,0)!important;
 }
@@ -6335,9 +6338,9 @@ margin:30px 0 0 45px;
     color: #ddd!important;
 }
 .content{
-    width: 500px!important;
+    width: 450px!important;
     margin-left: 0px!important;
-    height: 330px!important;
+    height: 300px!important;
     background: #fff!important;
 }
 .ui.modal>.close{
@@ -6362,7 +6365,6 @@ margin:30px 0 0 45px;
     margin: -10px auto;
 }
 #tableChoice ul{
-    margin-left: -40px;
     margin-top: 10px;
     width: 550px;
     height: 50px;
@@ -6375,12 +6377,6 @@ margin:30px 0 0 45px;
     text-align: center;
     line-height: 50px;
     cursor: pointer;
-    /*border-top-left-radius: 10px;*/
-    /*border-top-right-radius: 10px;*/
-    /*-moz-border-top-left-radius: 10px;*/
-    /*-moz-border-top-right-radius: 10px;*/
-    /*-webkit-border-top-left-radius: 10px;*/
-    /*-webkit-border-top-right-radius: 10px;*/
     background: #909090;
     color: #fff;
 }
@@ -6394,11 +6390,9 @@ margin:30px 0 0 45px;
 }
 .choice-verify{
     display: block!important;
-    margin-top: 10px!important;
 }
 .choice-null{
     display: none!important;
-    margin-top: 10px!important;
 }
 /*弹窗层样式插件 end*/
 .content input{
@@ -6429,18 +6423,24 @@ input{
     margin-bottom:50px ;
 }
 .send-message input{
-    width: 195px;
+    width: 180px;
     height: 45px;
     margin-top: 20px;
     padding-left: 10px;
 }
+
 .by-mobile{
     margin-top: 7px;
 }
+
+.by-email{
+    margin-top: 38px;
+}
+
 #sendCode span{
     float: right;
     display: block;
-    margin-right: 65px;
+    margin-right: 70px;
     margin-top: 20px;
     width: 110px;
     height: 45px;
@@ -6484,6 +6484,9 @@ input{
 
 
 /*end*/
+
+
+
 .btn-box{
     margin-top: -20px;
 }

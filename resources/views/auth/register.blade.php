@@ -17,7 +17,7 @@
                 @if(count($errors) > 0)
                     <p class="error-alert">邮箱或手机号已注册过</p>
                 @endif
-                <div >
+                <div style="margin-left: 35px;">
                     <ul>
                         <li class="input-list">
                             <i class="user icon"></i>
