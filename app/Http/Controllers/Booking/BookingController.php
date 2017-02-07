@@ -10,6 +10,8 @@ use App\Service\Booking\BookingService;
 use App\Tool\MessageResult;
 
 use App;
+use App\User;
+use App\Models\UserImage;
 
 class BookingController extends Controller
 {
@@ -47,6 +49,7 @@ class BookingController extends Controller
         $selectedHotels = $this->bookingService->getSelectedHotels();
         $categories = $this->bookingService->getCategories();
         $hotDestination = $this->bookingService->getHotelDestination();
+
 
         return view('booking.home')->with('isMobile',$isMobile)->with('selectedHotels',$selectedHotels)->with('categories',$categories)->with('hotDestination',$hotDestination);
     }

@@ -58,10 +58,7 @@ class AuthService{
     //存入Session
     public function loginSession($username = '') {
 
-
         session(['currentUser' => $username]);
-//        dd(session::get('currentUser'));
-        //return session('currentUser');
 
     }
     //修改密码的session

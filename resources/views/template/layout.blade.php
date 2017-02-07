@@ -94,10 +94,11 @@
                     <a href="http://www.gbhchina.com/aboutUs">
                         <span class="t">{{ trans('home.aboutUs') }}</span>
                     </a>
-                    {{session('currentUser')}}
                     @if(Session::has('currentUser'))
-                        <div href="/logout" id="account"   style="display: inline-block">
-                            <span class="t">{{ session('currentUser') }}</span>
+                        <div href="/logout" id="account" class="user-info-list"   style="display: inline-block;">
+                            <span class="current-user">{{ session('currentUser') }}</span>
+                            <img src="{{$userImage==null?'/booking/img/defaultImage.png': $userImage->link.$userImage->coords}}" class="user-image-show">
+                            <div class="list-arrow-tip"></div>
                             <div class="user-center-list" id="userCenterList">
                                 <div>
                                     <a href="/user/myorders">
@@ -126,6 +127,12 @@
                                         <div class="item">
 
                                             <span>我的资料</span>
+                                        </div>
+                                    </a>
+                                    <a href="/logout">
+                                        <div class="item">
+
+                                            <span>退出</span>
                                         </div>
                                     </a>
                                 </div>
@@ -246,12 +253,14 @@
                 function(){
 
                     $('#userCenterList').show();
+                    $('.list-arrow-tip').show();
                 },
                 function(){
                     var event = window.event ||arguments.callee.caller.arguments[0];
                     if($('#userCenterList').closest(event.srcElement).length <= 0)
                     {
                         $('#userCenterList').hide();
+                        $('.list-arrow-tip').hide();
                     }
                 }
 

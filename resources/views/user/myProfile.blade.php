@@ -16,7 +16,7 @@
         <form  method="POST" action="/uploadAvatar" accept-charset="UTF-8" id="upload" enctype="multipart/form-data">
             <div class="profile-line-detail">
                 <label>用户头像:</label>
-                <img src = '{{$userDetail['avatar']==null?'': $userDetail['avatar']->link.$userDetail['avatar']->coords}}' id="avatarImage">
+                <img src = '{{$userDetail['avatar']==null?'/booking/img/defaultImage.png': $userDetail['avatar']->link.$userDetail['avatar']->coords}}' id="avatarImage">
                 <span class="edit-profile" id="editProfile">点击修改资料</span><i class="icon edit "></i>
                 <input type="file" id="avatarFile" name="avatarFile">
                 <input type="hidden" name="imageType" value="1">
@@ -27,11 +27,11 @@
         <form  id="profileForm" method="post" action="/saveprofile">
             <div class="profile-line-detail">
                 <label>用户名:</label>
-                <input type="text" value="{{$userDetail['detail']==null?'': $userDetail['detail']->user_name}}" id="userName" name="userName">
+                <input type="text" value="{{$userDetail['stable']==null?'': $userDetail['stable']->username}}" id="userName" name="userName">
             </div>
             <div class="profile-line-detail">
                 <label>邮箱:</label>
-                <input type="text" value="{{$userDetail['detail']==null?'': $userDetail['detail']->email}}" id="email" name="email">
+                <input type="text" value="{{$userDetail['stable']==null?'': $userDetail['stable']->email}}" id="email" name="email">
             </div>
             <div class="profile-line-detail">
                 <label>生日:</label>
@@ -40,7 +40,7 @@
                         @if($userDetail['detail']!=null && $userDetail['detail']->birth_year == $y)
                             <option selected value="{{$y}}">{{$y}} 年</option>
                         @else
-                            <option  value="{{$y}}">{{$y}} 日</option>
+                            <option  value="{{$y}}">{{$y}} 年</option>
                         @endif
                     @endforeach
 
@@ -51,7 +51,7 @@
                         @if($userDetail['detail']!=null && $userDetail['detail']->birth_month == $m)
                             <option selected value="{{$m}}">{{$m}} 月</option>
                         @else
-                            <option  value="{{$y}}">{{$y}} 日</option>
+                            <option  value="{{$m}}">{{$m}} 月</option>
                         @endif
                     @endforeach
                 </select>
@@ -142,7 +142,7 @@
                 {
                     editMode = false;
 
-                    $('input').attr("readonly","readonly").removeClass('active-input');
+//                    $('input').attr("readonly","readonly").removeClass('active-input');
                     $('textarea').attr("readonly","readonly").removeClass('active-input');
                     $('select').attr('disabled','disabled');
                     $('#editProfile').text('点击修改资料');
@@ -151,7 +151,7 @@
                 else
                 {
                     editMode = true;
-                    $('input').removeAttr("readonly","readonly").addClass('active-input');
+//                    $('input').removeAttr("readonly","readonly").addClass('active-input');
                     $('textarea').removeAttr("readonly","readonly").addClass('active-input');
                     $('select').removeAttr('disabled','disabled');
                     $('#editProfile').text('取消修改');

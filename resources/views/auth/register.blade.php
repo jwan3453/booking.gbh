@@ -17,7 +17,7 @@
                 @if(count($errors) > 0)
                     <p class="error-alert">邮箱或手机号已注册过</p>
                 @endif
-                <div style="margin-left: 35px;">
+                <div class="input-collections">
                     <ul>
                         <li class="input-list">
                             <i class="user icon"></i>
@@ -25,52 +25,42 @@
                             <i class="remove icon"></i>
                             <i class="checkmark icon"></i>
                         </li>
-                        <li class="input-list" style="margin-left: 70px;">
+                        <li class="input-list input-left-style">
                             <i class="mail icon"></i>
                             <input type="text" name="user[email]" autocomplete="off" placeholder="请输入您的邮箱地址" id="email">
                             <i class="remove icon"></i>
                             <i class="checkmark icon"></i>
                         </li>
-                        <li class="input-list" style="margin-top: 15px;">
+                        <li class="input-list input-top-style">
                             <i class="lock icon"></i>
                             <input type="password" name="user[password]" autocomplete="off" placeholder="请设置您的密码" id="password">
                             <i class="remove icon"></i>
                             <i class="checkmark icon"></i>
                         </li>
-                        <li class="input-list" style="margin-left: 70px;margin-top: 15px;">
+                        <li class="input-list input-left-style">
                             <i class="lock icon"></i>
                             <input type="password" placeholder="请再次输入您的密码" id="pwd" >
                             <i class="remove icon"></i>
                             <i class="checkmark icon"></i>
                         </li>
-                        <li class="input-list" style="margin-top: 15px;">
+                        <li class="input-list input-top-style input-list-mobile">
                             <i class="call icon"></i>
                             <input type="text" name="user[phone]" autocomplete="off" placeholder="请输入11位手机号" id="phone">
                             <i class="remove icon"></i>
                             <i class="checkmark icon"></i>
-
+                            <div id="sendCode" class="send-code-box">验证</div>
                         </li>
-                        <li class="input-list identify-code" style="margin-left: 70px;margin-top: 15px;">
+                        <li class="input-list identify-code input-left-style input-top-style">
                             <i class="send icon"></i>
                             <input type="text" placeholder="请输入收到的验证码" autocomplete="off" id="code">
                             <i class="remove icon"></i>
                             <i class="checkmark icon"></i>
                         </li>
-                        <li class="input-last" style="margin-top: 30px; ">
-                            <div id="sendCode" style="margin-top: 0px;">发送验证码</div>
-                        </li>
-                        <li class="input-check" style="margin-top: 30px;margin-left: 70px;">
-                            <label><input type="checkbox" checked>请确保以上信息真实有效</label>
-                        </li>
-                        <li class="reg-btn pre-btn" id="register">
+                        <li class="reg-btn register-prev" id="register">
                             <div  id="regBtn" class="div-btn">注册</div>
                         </li>
-                        {{--<li class="reg-btn but-btn" id="register" >--}}
-                            {{--<div class="div-btn">正在提交</div>--}}
-                            {{--<div class="ui active inline loader"></div>--}}
-                        {{--</li>--}}
-                        <li class="reg-btn" id="loading">
-                            <div>正在提交</div>
+                        <li class="reg-btn register-now loading">
+                            <div class="div-btn">正在提交</div>
                             <div class="ui active inline loader"></div>
                         </li>
                     </ul>
@@ -98,6 +88,8 @@
 @section('script')
     <script>
         $(function(){
+
+
             $(".checkmark").hide();
             $(".remove").hide();
 
@@ -203,10 +195,18 @@
                                             },
                                             success:function(data){
                                                 if(data==1){
-                                                    $("#regBtn").html('正在提交<div class="ui active inline loader"></div>');
+//                                                    $("#regBtn").html('正在提交<div class="ui active inline loader"></div>');
 
-                                                    //AJAXFORM表单提交
-                                                    $("#regForm").ajaxSubmit(options);
+                                                    $('.register-prev').css('display','none');
+                                                    $('.register-now').removeClass('loading');
+
+                                                    function jumLogin(){
+                                                        //AJAXFORM表单提交
+                                                        $("#regForm").ajaxSubmit(options);
+                                                    }
+
+                                                    setTimeout(jumLogin,2000);
+
                                                 }else{
                                                     toastAlert('错误:验证码有误',1);
                                                     return false;
@@ -402,6 +402,7 @@
 
             }else{
                 $("#regForm").fadeOut();
+                $('.back-login').fadeOut();
                 $(".success-box").fadeIn();
 
                 //注册成功,跳转页面.
@@ -410,7 +411,7 @@
                     window.location.href = '/regSuccess';
                 }
 
-                setTimeout(jumLogin,2000);
+                setTimeout(jumLogin,3000);
             }
 
 
