@@ -262,17 +262,51 @@ img{
     transition:background-color 0.5s ease;
 }
 
+.current-user{
+    cursor: pointer;
+    color: #fff;
+    margin-left: 10px;
+    width: 50px;
+    font-size: 12px;
+    padding-right: 5px;
+}
+
+.user-info-list:hover{
+    cursor: pointer;
+    height: 60px;
+    background-color: #FFCA8B;
+}
+
+.user-image-show{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
 
 .user-center-list {
-    width: 90px;
+    width: 120px;
     display: none;
     color: white;
     background-color: rgba(9,9,26,0.9);
-
     position:fixed;
-    top:59px;
-    right:20px;
+    top:71px;
+    right:10px;
 }
+
+.list-arrow-tip{
+    display: none;
+    margin-left: 60px;
+    width: 0px;
+    height: 0px;
+    border-left:12px solid transparent;
+    border-right:12px solid transparent;
+    border-bottom:12px solid rgba(9,9,26,0.9);
+}
+
 .user-center-list .item{
     width:100%;
     text-align: center;
@@ -290,9 +324,6 @@ img{
     background-color: #FFCA8B;
     transition:background-color 0.5s ease;
 }
-
-
-
 
 .site-menu-nav{
     float:right;
@@ -3755,7 +3786,7 @@ margin:30px 0 0 45px;
     display: inline-block;
     vertical-align: top;
     width:360px;
-
+    outline: none;
     height:200px;
     border: 1px solid #d9d9de;
     padding:10px;
@@ -6275,7 +6306,7 @@ margin:30px 0 0 45px;
     margin-left: 25px;
     margin-top: 45px;
 }
-.input-box .user-icon{
+.input-box .user-icon-login{
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -6290,7 +6321,7 @@ margin:30px 0 0 45px;
     width: 222px;
     height: 41px;
     margin-left: 46px;
-    margin-top: -45px;
+    margin-top: -37px;
     background:rgba(0,0,0,0);
     border: 0;
     outline: none;
@@ -6585,14 +6616,25 @@ input{
     text-align: center;
     margin-top: 30px;
 }
+
+.input-collections{
+    margin-left: 35px;
+    margin-top: 40px;
+}
+
+.input-left-style{
+    margin-left: 55px;
+}
+
 .input-list{
     float: left;
     margin-top: 10px;
-    width: 240px;
+    width: 250px;
     height: 45px;
     border: 1px solid #fff;
     position: relative;
 }
+
 .input-list i.remove{
     position: absolute;
     top: 12px;
@@ -6653,7 +6695,7 @@ input{
     border: 0;
     background: rgba(0,0,0,0);
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!important; }
@@ -6662,16 +6704,7 @@ input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!import
     top:10px;
     left: 0px;
 }
-.input-last{
-    float: left;
-    margin-top: 10px;
-    width: 240px;
-    height: 45px;
-    text-align: center;
-    border: 1px solid #fff;
-    line-height: 45px;
-    cursor: pointer;
-}
+
 .input-check{
     float: left;
     margin-top: 10px;
@@ -6681,10 +6714,37 @@ input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!import
     /*border: 1px solid #fff;*/
     line-height: 45px;
 }
+
+.send-code-box{
+    margin-top: 0px;
+    float: right;
+    width: 85px;
+    height: 42px;
+    background: rgba(255,255,255,0.6);
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.true-info{
+    margin-top: 30px;
+    margin-left: 70px;
+}
+
+.input-list-mobile{
+    width: 250px;
+    height: 42px;
+}
+
+.input-list-mobile input{
+    width: 96px;
+}
+
 .reg-btn{
     float: left;
-    margin-top: 30px;
-    margin-left: -90px;
+    margin-top: 60px;
+    margin-left: 160px;
     border-radius: 5px;
     width: 240px;
     height: 45px;
@@ -6771,14 +6831,21 @@ input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!import
     border:1px solid #ff5f76!important;
     z-index: 9999;
 }
-#loading{
+
+.loading{
     display: none;
 }
+
 .code-wait{
     color: goldenrod;
     cursor: wait;
     list-style: disabled;
 }
+
+.reg-btn .loader{
+    margin-top: -100px!important;
+}
+
 .ui.loader:after {
     position: absolute;
     content: '';

@@ -25,6 +25,8 @@ use App\Models\HotelRecreationService;
 use App\Models\RoomPrice;
 use App\Models\RoomStatus;
 use App\Models\UserCollection;
+use App\User;
+use App\Models\UserImage;
 use Illuminate\Support\Facades\DB;
 
 
@@ -39,6 +41,17 @@ use App\Http\Requests;
 class BookingService{
 
 
+    //获取用户信息
+    public function getUserInfo($currentUser)
+    {
+        return User::where('username',$currentUser)->first();
+    }
+
+    //获取用户头像
+    public function getUserImage($userId)
+    {
+        return UserImage::where(['user_id' => $userId,'type' => 1])->first();
+    }
 
     //获取推荐的酒店
     public function getSelectedHotels()

@@ -28,7 +28,6 @@ class CommonController extends Controller
     {
 
         session(['lang'=>$lang]);
-//        dd(session('lang'));
         return Redirect::back();
 
     }
@@ -44,7 +43,7 @@ class CommonController extends Controller
     //更新头像裁剪坐标
     public function cropAvatar(Request $request)
     {
-        $jsonResult =    $this->imageService->cropAvatar($request);
+        $jsonResult   =    $this->imageService->cropAvatar($request);
         return redirect('/user/myprofile');
     }
 

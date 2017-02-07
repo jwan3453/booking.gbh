@@ -95,28 +95,39 @@ class UserController extends Controller
     //新订单
     public function myProfile()
     {
-        $userDetail = $this->userService->getUserDetail();
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
 
-        $year = [];
-        $month = [];
-        $day = [];
-        for($i=1940; $i < 2018; $i++)
-        {
-            $year[] = $i;
+            $userDetail = $this->userService->getUserDetail($UserInfo->id);
+
+            $year = [];
+            $month = [];
+            $day = [];
+            for($i=1940; $i < 2018; $i++)
+            {
+                $year[] = $i;
+            }
+
+            for($j=1; $j < 13; $j++)
+            {
+                $month[] =  $j;
+            }
+
+            for($k=1; $k < 32; $k++)
+            {
+                $day[] =$k;
+            }
+            $nav = 'profile';
+
+            return view('user.myprofile')->with('userDetail',$userDetail)->with('year',$year)->with('month',$month)->with('day',$day)->with('nav',$nav);
+
+        }else{
+            return view('errors.404');
         }
 
-        for($j=1; $j < 13; $j++)
-        {
-            $month[] =  $j;
-        }
-
-        for($k=1; $k < 32; $k++)
-        {
-            $day[] =$k;
-        }
-        $nav = 'profile';
-
-        return view('user.myprofile')->with('userDetail',$userDetail)->with('year',$year)->with('month',$month)->with('day',$day)->with('nav',$nav);
 
     }
 
@@ -134,9 +145,20 @@ class UserController extends Controller
     public function myOrders()
     {
 
-        $nav = 'order';
-        $allOrders =  $this->userService->getAllOrders();
-        return view('user.myOrders.all')->with('allOrders',$allOrders)->with('nav',$nav);
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'order';
+            $allOrders =  $this->userService->getAllOrders($UserInfo->id);
+            return view('user.myOrders.all')->with('allOrders',$allOrders)->with('nav',$nav);
+
+        }else{
+            return view('errors.404');
+        }
+
 
     }
 
@@ -168,9 +190,20 @@ class UserController extends Controller
 
 
     public function myCollections(){
-        $nav = 'collection';
-        $collections = $this->userService->getUserCollections();
-        return view('user.myCollections')->with('collections',$collections)->with('nav',$nav);
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'collection';
+            $collections = $this->userService->getUserCollections($UserInfo->id);
+            return view('user.myCollections')->with('collections',$collections)->with('nav',$nav);
+
+        }else{
+            return view('errors.404');
+        }
 
     }
 
@@ -210,10 +243,21 @@ class UserController extends Controller
 
     public  function myaccount()
     {
-        $nav = 'account';
-        $jsonResult = new MessageResult();
-        $accountDetail = $this->userService->getAccountDetail();
-        return view('user.myAccount')->with('accountDetail',$accountDetail)->with('nav',$nav);
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'account';
+            $jsonResult = new MessageResult();
+            $accountDetail = $this->userService->getAccountDetail($UserInfo->id);
+            return view('user.myAccount')->with('accountDetail',$accountDetail)->with('nav',$nav);
+
+        }else{
+            return view('errors.404');
+        }
     }
 
 }

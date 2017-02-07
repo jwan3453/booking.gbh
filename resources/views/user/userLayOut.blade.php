@@ -12,8 +12,8 @@
                 <div class="user-icon">
                 </div>
                 <div class="user-info">
-                    <span class="user-name">jwan3453</span>
-                    <span class="phone">18250863109</span>
+                    <span class="user-name">{{$userInfo->username}}</span>
+                    <span class="phone">{{$userInfo->phone}}</span>
                 </div>
 
                <nav class="user-center-nav">

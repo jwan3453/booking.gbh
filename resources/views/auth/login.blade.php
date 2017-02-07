@@ -19,12 +19,12 @@
                 @endif
                 @if(Cookie::has('username'))
                     <div class="input-box">
-                        <span class="user-icon"></span>
+                        <span class="user-icon-login"></span>
                         <input type="text" name="username" id="username" autocomplete="off" placeholder="请输入您的用户名" value="{{$username}}">
                     </div>
                 @elseif(!Cookie::has('username'))
                     <div class="input-box">
-                        <span class="user-icon"></span>
+                        <span class="user-icon-login"></span>
                         <input type="text" name="username" id="username" autocomplete="off" placeholder="请输入您的用户名">
                     </div>
                 @endif
