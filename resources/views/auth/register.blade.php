@@ -22,39 +22,33 @@
                         <li class="input-list">
                             <i class="user icon"></i>
                             <input type="text" name="user[username]" autocomplete="off" placeholder="请设置用户名" id="username">
-                            <i class="remove icon"></i>
-                            <i class="checkmark icon"></i>
+                            <i class="remove icon username-error-icon"></i>
                         </li>
                         <li class="input-list input-left-style">
                             <i class="mail icon"></i>
                             <input type="text" name="user[email]" autocomplete="off" placeholder="请输入您的邮箱地址" id="email">
-                            <i class="remove icon"></i>
-                            <i class="checkmark icon"></i>
+                            <i class="remove icon email-error-icon"></i>
                         </li>
                         <li class="input-list input-top-style">
                             <i class="lock icon"></i>
                             <input type="password" name="user[password]" autocomplete="off" placeholder="请设置您的密码" id="password">
-                            <i class="remove icon"></i>
-                            <i class="checkmark icon"></i>
+                            <i class="remove icon password-error-icon"></i>
                         </li>
                         <li class="input-list input-left-style">
                             <i class="lock icon"></i>
                             <input type="password" placeholder="请再次输入您的密码" id="pwd" >
-                            <i class="remove icon"></i>
-                            <i class="checkmark icon"></i>
+                            <i class="remove icon pwd-error-icon"></i>
                         </li>
                         <li class="input-list input-top-style input-list-mobile">
                             <i class="call icon"></i>
                             <input type="text" name="user[phone]" autocomplete="off" placeholder="请输入11位手机号" id="phone">
-                            <i class="remove icon"></i>
-                            <i class="checkmark icon"></i>
+                            <i class="remove icon mobile-error-icon"></i>
                             <div id="sendCode" class="send-code-box">验证</div>
                         </li>
                         <li class="input-list identify-code input-left-style input-top-style">
                             <i class="send icon"></i>
                             <input type="text" placeholder="请输入收到的验证码" autocomplete="off" id="code">
-                            <i class="remove icon"></i>
-                            <i class="checkmark icon"></i>
+                            <i class="remove icon code-error-icon"></i>
                         </li>
                         <li class="reg-btn register-prev" id="register">
                             <div  id="regBtn" class="div-btn">注册</div>
@@ -90,40 +84,50 @@
         $(function(){
 
 
-            $(".checkmark").hide();
-            $(".remove").hide();
-
             $("#regBtn").click(function(){
+
+                $('.username-error-icon').hide();
+                $('.email-error-icon').hide();
+                $('.mobile-error-icon').hide();
+                $('.pwd-error-icon').hide();
+                $('.password-error-icon').hide();
 
 
                 var username = $("#username").val();
                 var password = $("#password").val();
-                var pwd = $("#pwd").val();
-                var email = $("#email").val();
-                var phone = $("#phone").val();
-                var code = $("#code").val();
+                var pwd      = $("#pwd").val();
+                var email    = $("#email").val();
+                var phone    = $("#phone").val();
+                var code     = $("#code").val();
+
                 if(username == ""){
                     toastAlert('请输入用户名',1);
+                    $('.username-error-icon').show();
                     return false;
                 }
                 if(password == ""){
                     toastAlert('请输入密码',1);
+                    $('.password-error-icon').show();
                     return false;
                 }
                 if(pwd == ""){
                     toastAlert('请再次输入密码',1);
+                    $('.pwd-error-icon').show();
                     return false;
                 }
                 if(email == ""){
                     toastAlert('请输入邮箱',1);
+                    $('.email-error-icon').show();
                     return false;
                 }
                 if(phone == ""){
                     toastAlert('请输入手机号',1);
+                    $('.mobile-error-icon').show();
                     return false;
                 }
                 if(code == ""){
                     toastAlert('请输入验证码',1);
+                    $('.code-error-icon').show();
                     return false;
                 }
 
@@ -136,23 +140,28 @@
 
                 if(!pregUser.test(username)){
                     toastAlert('用户名长度不够或包含非法字符',1);
+                    $('.username-error-icon').show();
                     $("#username").focus();
                     return false;
                 }
 
                 if(!pregEmail.test(email)){
                     toastAlert('邮箱格式不正确',1);
+                    $('.email-error-icon').show();
                     return false;
                 }
                 if(!pregPhone.test(phone)){
                     toastAlert('手机号码格式不正确',1);
+                    $('.mobile-error-icon').show();
                     return false;
                 }
 
                 if(password != pwd){
                     toastAlert('两次密码输入不一样,请检查',1);
+                    $('.pwd-error-icon').show();
                     return false;
                 }
+
 
 
                 //用户验证
@@ -168,6 +177,7 @@
                     success:function(data){
                         if(data==2){
 
+                            $('.username-error-icon').hide();
 
                             //邮箱验证
                             $.ajax({
@@ -182,6 +192,7 @@
                                 success:function(data){
                                     if(data == 2){
 
+                                        $('.email-error-icon').hide();
 
                                         //验证码
                                         $.ajax({
@@ -197,6 +208,8 @@
                                                 if(data==1){
 //                                                    $("#regBtn").html('正在提交<div class="ui active inline loader"></div>');
 
+                                                    $('.code-error-icon').hide();
+
                                                     $('.register-prev').css('display','none');
                                                     $('.register-now').removeClass('loading');
 
@@ -209,23 +222,27 @@
 
                                                 }else{
                                                     toastAlert('错误:验证码有误',1);
+                                                    $('.code-error-icon').show();
                                                     return false;
                                                 }
 
                                             },
                                             error:function(){
                                                 toastAlert('错误:验证码有误',1);
+                                                $('.code-error-icon').show();
                                                 return false;
                                             }
                                         });
                                     }else {
                                         toastAlert('邮箱已注册',1);
+                                        $('.email-error-icon').show();
                                         return false;
                                     }
                                 }
                             });
                         }else {
                             toastAlert('用户名已注册',1);
+                            $('.username-error-icon').show();
                             return false;
                         }
                     }
@@ -271,6 +288,9 @@
                                 success:function(data){
                                     if(data==1){
 
+                                        $('.mobile-success-icon').show();
+                                        $('.mobile-error-icon').hide();
+
                                         //验证码发送成功
                                         settime(sendBtn);
                                     }else{
@@ -279,20 +299,23 @@
                                 },
                                 error:function(){
                                     toastAlert('错误:手机号无效',1);
+                                    $('.mobile-success-icon').hide();
+                                    $('.mobile-error-icon').show();
+                                    return false;
                                 }
                             });
                         }else{
                             toastAlert('错误:手机号已经注册过',1);
-                            $(".remove").show();
-                            $(".checkmark").hide();
+                            $('.mobile-success-icon').hide();
+                            $('.mobile-error-icon').show();
                             return false;
                         }
 
                     },
                     error:function(){
                         toastAlert('错误',1);
-                        $(".remove").show();
-                        $(".checkmark").hide();
+                        $('.mobile-success-icon').hide();
+                        $('.mobile-error-icon').show();
                         return false;
                     }
                 });
@@ -381,22 +404,19 @@
 
                 if(res.statusCode === 1){
                     toastAlert('注册失败:该用户名已经注册过',1);
-                    $("#loading").hide();
-                    $("#register").show();
+                    $('.username-error-icon').show();
                     return false;
                 }
 
                 if(res.statusCode === 2){
                     toastAlert('注册失败:该邮箱已经注册过',1);
-                    $("#loading").hide();
-                    $("#register").show();
+                    $('.email-error-icon').show();
                     return false;
                 }
 
                 if(res.statusCode === 3){
                     toastAlert('注册失败:该手机号已经注册过',1);
-                    $("#loading").hide();
-                    $("#register").show();
+                    $('.mobile-error-icon').show();
                     return false;
                 }
 
