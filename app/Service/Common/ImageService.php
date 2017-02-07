@@ -1,6 +1,7 @@
 <?php
 namespace App\Service\Common;
 use App\Http\Requests;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Models\UserImage;
@@ -44,11 +45,14 @@ class ImageService
         $imageType = $request->input('imageType');
         // $type = 0;//1 用户头像 2为评论图片
 
+        //当前用户
+        $currentUser = session('currentUser');
+        $UserInfo    = User::where('id',$currentUser)->first();
 
         if($imageType ==1)
         {
             $file = $request->file('avatarFile');
-            $userId = 1;//todo 获取userid
+            $userId = $UserInfo->id;//todo 获取userid
             $isNew = false;
             $filename ='avatar/'.$userId.'/'.uniqid().'.'.$file->guessExtension();
             list($result,$error) = $uploadMgr->putFile($token, $filename, $file);

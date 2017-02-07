@@ -6635,6 +6635,14 @@ input{
     position: relative;
 }
 
+.mobile-error-icon{
+    padding-right: 85px;
+}
+
+.mobile-success-icon{
+    padding-right: 85px;
+}
+
 .input-list i.remove{
     position: absolute;
     top: 12px;
@@ -6642,6 +6650,7 @@ input{
     color: indianred!important;
     display: none;
 }
+
 .input-list i.checkmark{
     position: absolute;
     top: 12px;
