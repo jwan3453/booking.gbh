@@ -23,32 +23,38 @@
                             <i class="user icon"></i>
                             <input type="text" name="user[username]" autocomplete="off" placeholder="请设置用户名" id="username">
                             <i class="remove icon username-error-icon"></i>
+                            <i class="checkmark icon username-success-icon"></i>
                         </li>
                         <li class="input-list input-left-style">
                             <i class="mail icon"></i>
                             <input type="text" name="user[email]" autocomplete="off" placeholder="请输入您的邮箱地址" id="email">
                             <i class="remove icon email-error-icon"></i>
+                            <i class="checkmark icon email-success-icon"></i>
                         </li>
                         <li class="input-list input-top-style">
                             <i class="lock icon"></i>
                             <input type="password" name="user[password]" autocomplete="off" placeholder="请设置您的密码" id="password">
                             <i class="remove icon password-error-icon"></i>
+                            <i class="checkmark icon password-success-icon"></i>
                         </li>
                         <li class="input-list input-left-style">
                             <i class="lock icon"></i>
                             <input type="password" placeholder="请再次输入您的密码" id="pwd" >
                             <i class="remove icon pwd-error-icon"></i>
+                            <i class="checkmark icon pwd-success-icon"></i>
                         </li>
                         <li class="input-list input-top-style input-list-mobile">
                             <i class="call icon"></i>
                             <input type="text" name="user[phone]" autocomplete="off" placeholder="请输入11位手机号" id="phone">
                             <i class="remove icon mobile-error-icon"></i>
+                            <i class="checkmark icon mobile-success-icon"></i>
                             <div id="sendCode" class="send-code-box">验证</div>
                         </li>
                         <li class="input-list identify-code input-left-style input-top-style">
                             <i class="send icon"></i>
                             <input type="text" placeholder="请输入收到的验证码" autocomplete="off" id="code">
                             <i class="remove icon code-error-icon"></i>
+                            <i class="checkmark icon code-success-icon"></i>
                         </li>
                         <li class="reg-btn register-prev" id="register">
                             <div  id="regBtn" class="div-btn">注册</div>
@@ -81,16 +87,244 @@
 
 @section('script')
     <script>
+
         $(function(){
 
+            $('.username-error-icon').hide();
+            $('.email-error-icon').hide();
+            $('.mobile-error-icon').hide();
+            $('.pwd-error-icon').hide();
+            $('.password-error-icon').hide();
+
+            $('.username-success-icon').hide();
+            $('.email-success-icon').hide();
+            $('.mobile-success-icon').hide();
+            $('.pwd-success-icon').hide();
+            $('.password-success-icon').hide();
+
+            //用户验证
+            $("#username").change(function(){
+
+                var pregUser = /[A-Za-z0-9_-]{6,}/;
+
+                if($(this).val() == ""){
+                    $('.username-error-icon').show();
+                    $('.username-success-icon').hide();
+                    toastAlert('用户名不能为空',1);
+                    return false;
+                }
+
+                if($(this).val().length > 12 || $(this).val().length < 6){
+                    $('.username-error-icon').show();
+                    $('.username-success-icon').hide();
+                    toastAlert('用户名长度不够',1);
+                    return false;
+                }
+
+                if(!pregUser.test($(this).val())){
+                    $('.username-error-icon').show();
+                    $('.username-success-icon').hide();
+                    toastAlert('用户名包含非法字符',1);
+                    return false;
+                }
+
+                $.ajax({
+                    type:'POST',
+                    async:false,
+                    url:'/userSession',
+                    data:{username:$("#username").val()},
+                    dataType:'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success:function(data){
+                        if(data == 2){
+                            $('.username-error-icon').hide();
+                            $('.username-success-icon').show();
+                        }else{
+                            $('.username-error-icon').show();
+                            $('.username-success-icon').hide();
+                            toastAlert('用户名已注册',1);
+                        }
+                    }
+                });
+
+            });
+
+            //邮箱验证
+            $("#email").change(function(){
+
+                var pregEmail = /\w[-\.\w+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z0-9]{2,14}/;
+
+                if($(this).val() == ""){
+                    $('.email-error-icon').show();
+                    $('.email-success-icon').hide();
+                    toastAlert('邮箱不能为空',1);
+                    return false;
+                }
+
+                if(!pregEmail.test($(this).val())){
+                    $('.email-error-icon').show();
+                    $('.email-success-icon').hide();
+                    toastAlert('邮箱格式不正确',1);
+                    return false;
+                }
+
+                $.ajax({
+                    type:'POST',
+                    async:false,
+                    url:'/checkEmail',
+                    data:{email:$("#email").val()},
+                    dataType:'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success:function(data){
+                        if(data == 2){
+
+                            $('.email-error-icon').hide();
+                            $('.email-success-icon').show();
+
+                        }else {
+                            toastAlert('邮箱已注册',1);
+                            $('.email-error-icon').show();
+                            $('.email-success-icon').hide();
+                            return false;
+                        }
+                    }
+                });
+
+            });
+
+            //密码验证
+            $('#password').change(function(){
+
+                if($(this).val() == ""){
+                    $('.password-error-icon').show();
+                    $('.password-success-icon').hide();
+                    toastAlert('密码不能为空',1);
+                    return false;
+                }
+                else if($(this).val().length < 6){
+                    $('.password-error-icon').show();
+                    $('.password-success-icon').hide();
+                    toastAlert('密码长度不能少于6位',1);
+                    return false;
+                }
+
+                $('.password-error-icon').hide();
+                $('.password-success-icon').show();
+
+
+            });
+            $("#pwd").change(function(){
+
+                if($(this).val() != $("#password").val()){
+                    $('.pwd-error-icon').show();
+                    $('.pwd-success-icon').hide();
+                    toastAlert('两次密码不一致请检查',1);
+                    return false;
+                }
+
+                $('.pwd-error-icon').hide();
+                $('.pwd-success-icon').show();
+
+
+            });
+
+            //手机号验证
+            $("#phone").change(function(){
+
+                var pregPhone = /13[0-9]{9}|14[0-9]{9}|15[0-9]{9}|17[0-9]{9}|18[0-9]{9}/;
+                if($(this).val() == ""){
+                    $('.mobile-error-icon').show();
+                    $('.mobile-success-icon').hide();
+                    toastAlert('手机号不能为空',1);
+                    return false;
+                }
+
+                if(!pregPhone.test($(this).val())){
+                    $('.mobile-error-icon').show();
+                    $('.mobile-success-icon').hide();
+                    toastAlert('手机号码格式不正确',1);
+                    return false;
+                }
+
+                $.ajax({
+                    type:'POST',
+                    async:false,
+                    url:'/checkMobile',
+                    data:{mobile: $.trim($('#phone').val()),type:1},
+                    dataType:'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success:function(data){
+
+                        if(data==2){
+
+                            $('.mobile-success-icon').show();
+                            $('.mobile-error-icon').hide();
+
+                        }else{
+                            toastAlert('手机号已经注册过',1);
+                            $('.mobile-success-icon').hide();
+                            $('.mobile-error-icon').show();
+                            return false;
+                        }
+
+                    },
+                    error:function(){
+                        toastAlert('错误',1);
+                        $('.mobile-success-icon').hide();
+                        $('.mobile-error-icon').show();
+                        return false;
+                    }
+                });
+            });
+
+            //验证码
+            $("#code").change(function(){
+
+                if($(this).val() == ''){
+                    $('.code-error-icon').show();
+                    $('.code-success-icon').hide();
+                    toastAlert('验证码不能为空',1);
+                    return false;
+                }
+
+                $.ajax({
+                    type:'POST',
+                    async:false,
+                    url:'/checkCode',
+                    data:{mobile:$("#phone").val(),code:$("#code").val()},
+                    dataType:'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success:function(data){
+                        if(data==1){
+
+                            $('.code-error-icon').hide();
+                            $('.code-success-icon').show();
+
+                        }else{
+                            $('.code-error-icon').show();
+                            $('.code-success-icon').hide();
+                            toastAlert('错误:验证码有误',1);
+                            return false;
+                        }
+
+                    },
+                    error:function(){
+                        toastAlert('错误',1);
+                        return false;
+                    }
+                });
+
+            });
 
             $("#regBtn").click(function(){
-
-                $('.username-error-icon').hide();
-                $('.email-error-icon').hide();
-                $('.mobile-error-icon').hide();
-                $('.pwd-error-icon').hide();
-                $('.password-error-icon').hide();
 
 
                 var username = $("#username").val();
@@ -161,7 +395,6 @@
                     $('.pwd-error-icon').show();
                     return false;
                 }
-
 
 
                 //用户验证
@@ -426,12 +659,24 @@
                 $(".success-box").fadeIn();
 
                 //注册成功,跳转页面.
-                var username = $("#username").val();
-                function jumLogin(){
-                    window.location.href = '/regSuccess';
-                }
+                $.ajax({
+                    type:'POST',
+                    async:false,
+                    url:'/registersuccess',
+                    data:{username:$("#username").val()},
+                    dataType:'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success:function(data){
+                        function jumLogin(){
+                            window.location.href = '/regSuccess';
+                        }
 
-                setTimeout(jumLogin,3000);
+                        setTimeout(jumLogin,3000);
+                    }
+                });
+
             }
 
 
