@@ -125,7 +125,7 @@ class UserController extends Controller
             return view('user.myprofile')->with('userDetail',$userDetail)->with('year',$year)->with('month',$month)->with('day',$day)->with('nav',$nav);
 
         }else{
-            return view('errors.404');
+            return view('auth.login');
         }
 
 
@@ -152,38 +152,111 @@ class UserController extends Controller
             $UserInfo = $this->userService->getUserId($currentUser);
 
             $nav = 'order';
-            $allOrders =  $this->userService->getAllOrders($UserInfo->id);
-            return view('user.myOrders.all')->with('allOrders',$allOrders)->with('nav',$nav);
+            $orders =  $this->userService->getAllOrders($UserInfo->id);
+
+            return view('user.myOrders.all')->with('orders',$orders)->with('nav',$nav);
 
         }else{
-            return view('errors.404');
+            return view('auth.login');
         }
 
 
     }
 
     public function unpaidOrders(){
-        return view('user.myOrders.unpaid')->with('nav','order');;
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'order';
+            $orders =  $this->userService->getUnpaidOrders($UserInfo->id);
+
+            return view('user.myOrders.unpaid')->with('orders',$orders)->with('nav',$nav);
+
+        }else{
+            return view('auth.login');
+        }
+
     }
 
 
     public function uncheckinOrders(){
-        return view('user.myOrders.uncheckin')->with('nav','order');;
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'order';
+            $orders =  $this->userService->getUncheckinOrders($UserInfo->id);
+
+            return view('user.myOrders.uncheckin')->with('orders',$orders)->with('nav',$nav);
+
+        }else{
+            return view('auth.login');
+        }
     }
 
 
     public function unconfirmedOrders(){
-        return view('user.myOrders.uncheckin')->with('nav','order');;
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'order';
+            $orders =  $this->userService->getUnconfirmedOrders($UserInfo->id);
+
+            return view('user.myOrders.uncheckin')->with('orders',$orders)->with('nav',$nav);
+
+        }else{
+            return view('auth.login');
+        }
     }
 
     public function canceledOrders(){
-        return view('user.myOrders.canceled')->with('nav','order');;
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'order';
+            $orders =  $this->userService->getcanceledOrders($UserInfo->id);
+
+            return view('user.myOrders.canceled')->with('orders',$orders)->with('nav',$nav);
+
+        }else{
+            return view('auth.login');
+        }
     }
 
 
     public function orderDetail($orderSn){
-        $orderDetail =  $this->orderService->getOrderDetail($orderSn);
-        return view('user.myOrders.orderDetail')->with('orderDetail',$orderDetail);
+
+
+        //是否登录
+        $currentUser = session('currentUser');
+        if($currentUser){
+            //获取用户ID
+            $UserInfo = $this->userService->getUserId($currentUser);
+
+            $nav = 'order';
+            $orderDetail =  $this->orderService->getOrderDetail($orderSn);
+
+            return view('user.myOrders.orderDetail')->with('orderDetail',$orderDetail)->with('nav',$nav);
+
+        }else{
+            return view('auth.login');
+        }
+
     }
 
 
@@ -199,10 +272,11 @@ class UserController extends Controller
 
             $nav = 'collection';
             $collections = $this->userService->getUserCollections($UserInfo->id);
+
             return view('user.myCollections')->with('collections',$collections)->with('nav',$nav);
 
         }else{
-            return view('errors.404');
+            return view('auth.login');
         }
 
     }
@@ -256,7 +330,7 @@ class UserController extends Controller
             return view('user.myAccount')->with('accountDetail',$accountDetail)->with('nav',$nav);
 
         }else{
-            return view('errors.404');
+            return view('auth.login');
         }
     }
 

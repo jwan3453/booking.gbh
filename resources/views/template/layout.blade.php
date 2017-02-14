@@ -95,7 +95,7 @@
                         <span class="t">{{ trans('home.aboutUs') }}</span>
                     </a>
                     @if(Session::has('currentUser'))
-                        <div href="/logout" id="account" class="user-info-list"   style="display: inline-block;">
+                        <div href="/logout" id="account" class="user-info-list"   style="display: inline-block;min-width:120px;">
                             <span class="current-user">{{ session('currentUser') }}</span>
                             <img src="{{$userImage==null?'/booking/img/defaultImage.png': $userImage->link.$userImage->coords}}" class="user-image-show">
                             <div class="list-arrow-tip"></div>
@@ -139,7 +139,7 @@
                             </div>
                         </div>
                     @elseif(!session('currentUser'))
-                        <a href="/login">
+                        <a href="/login" >
                             <span class="t">{{ trans('home.login&register') }}</span>
                         </a>
                     @endif

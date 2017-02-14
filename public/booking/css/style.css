@@ -299,7 +299,7 @@ img{
 
 .list-arrow-tip{
     display: none;
-    margin-left: 60px;
+    margin-left: 70px;
     width: 0px;
     height: 0px;
     border-left:12px solid transparent;
@@ -3571,6 +3571,13 @@ img{
     font-size:13px;
 }
 
+.no-orders{
+
+    line-height: 55px;
+    width:150px;
+    font-size: 14px;
+    margin:20px auto;
+}
 
 
 /**********************/
@@ -4433,6 +4440,21 @@ margin:30px 0 0 45px;
     display: inline-block;
     vertical-align: middle;
 }
+
+
+.no-records-icon{
+    width: 30px;
+    height: 30px;
+    background-image: url('/booking/icon/no_records.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    overflow: hidden;
+    background-position: center;
+    margin:10px ;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 
 .tooltip{
     clear: both;

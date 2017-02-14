@@ -39,12 +39,13 @@ class AuthService{
         $where = ['username' => $username];
         $the_data = DB::table('users')->where($where)->first();
 
+
         $result = new MessageResult();
         if (count($the_data) < 1) {
             $result->statusCode = 1;
             $result->statusMsg  = '用户名不存在';
         }
-        if (isset($password) && Hash::check($password, $the_data->password)) {
+        else if (isset($password) && Hash::check($password, $the_data->password)) {
 
             $result->statusCode = 2;
 

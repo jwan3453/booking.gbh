@@ -29,39 +29,45 @@
     </ul>
 
 
-    @foreach($allOrders as $order)
-        <ul class="order-info-line">
 
-            <li><img src="{{$order->detail->roomDetail->imageLink}}">
-            <li>
-                <span class="h-name">{{$order->detail->hotelDetail->name}}</span>
-                <span class="r-name">{{$order->detail->roomDetail->room_name}}</span>
-            </li>
+    @if(count($orders) > 0)
 
-            <li>
-                <span class="r">{{ date("Y-m-d", strtotime($order->detail->check_in_date))}}  </span>
-                <span class="l">{{ date("Y-m-d", strtotime($order->detail->check_out_date))}}  </span>
-            </li>
+        @foreach($orders as $order)
+            <ul class="order-info-line">
 
-            <li><span>{{$order->detail->num_of_room}}间</span></li>
+                <li><img src="{{$order->detail->roomDetail->imageLink}}">
+                <li>
+                    <span class="h-name">{{$order->detail->hotelDetail->name}}</span>
+                    <span class="r-name">{{$order->detail->roomDetail->room_name}}</span>
+                </li>
 
-            <li><span ><span class="m-s">￥</span>{{$order->detail->total_amount}}</span></li>
+                <li>
+                    <span class="r">{{ date("Y-m-d", strtotime($order->detail->check_in_date))}}  </span>
+                    <span class="l">{{ date("Y-m-d", strtotime($order->detail->check_out_date))}}  </span>
+                </li>
 
-            <li>
-                已支付
-            </li>
+                <li><span>{{$order->detail->num_of_room}}间</span></li>
 
-            <li>
-                <a class="b-anchor" href="/user/myorders/orderdetail/{{$order->detail->order_sn}}">订单详情</a>
-            </li>
+                <li><span ><span class="m-s">￥</span>{{$order->detail->total_amount}}</span></li>
 
-            <li>
-                <span>订单号:</span>
-                <span>{{$order->detail->order_sn}}</span>
-            </li>
-        </ul>
-    @endforeach
+                <li>
+                    已支付
+                </li>
 
+                <li>
+                    <a class="b-anchor" href="/user/myorders/orderdetail/{{$order->detail->order_sn}}">订单详情</a>
+                </li>
+
+                <li>
+                    <span>订单号:</span>
+                    <span>{{$order->detail->order_sn}}</span>
+                </li>
+            </ul>
+        @endforeach
+    @else
+
+        <div class="no-orders"><div class="no-records-icon" ></div><span>没有订单</span></div>
+    @endif
 
 
 @stop

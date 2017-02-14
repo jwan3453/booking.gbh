@@ -47,7 +47,8 @@ class ImageService
 
         //当前用户
         $currentUser = session('currentUser');
-        $UserInfo    = User::where('id',$currentUser)->first();
+
+        $UserInfo    = User::where('username',$currentUser)->first();
 
         if($imageType ==1)
         {

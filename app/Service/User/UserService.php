@@ -57,6 +57,7 @@ class UserService {
         return $userDetail;
     }
 
+    //获取所有订单
     public function getAllOrders($userId)
     {
         $orders =  Orders::where('user_id',$userId)->select('order_sn')->get();
@@ -68,6 +69,58 @@ class UserService {
         }
         return $orders;
     }
+
+    //获取未支付订单
+    public function getUnpaidOrders($userId)
+    {
+        $orders =  Orders::where(['user_id'=>$userId,'pay_status'=>0])->select('order_sn')->get();
+
+        foreach($orders as $order)
+        {
+            $order->detail = $this->orderService->getOrderDetail($order->order_sn);
+
+        }
+        return $orders;
+    }
+    //获取未入住订单
+    public function getUncheckinOrders($userId)
+    {
+        $orders =  Orders::where(['user_id'=>$userId,'pay_status'=>1,'order_status'=>3])->select('order_sn')->get();
+
+        foreach($orders as $order)
+        {
+            $order->detail = $this->orderService->getOrderDetail($order->order_sn);
+
+        }
+        return $orders;
+    }
+    //获取未确认订单
+    public function getUnconfirmedOrders($userId)
+    {
+        $orders =  Orders::where(['user_id'=>$userId,'pay_status'=>1,'order_status'=>4])->select('order_sn')->get();
+
+        foreach($orders as $order)
+        {
+            $order->detail = $this->orderService->getOrderDetail($order->order_sn);
+
+        }
+        return $orders;
+    }
+    //获取已取消订单
+    public function getCanceledOrders($userId)
+    {
+        $orders =  Orders::where(['user_id'=>$userId,'order_status'=>2])->select('order_sn')->get();
+
+        foreach($orders as $order)
+        {
+            $order->detail = $this->orderService->getOrderDetail($order->order_sn);
+
+        }
+        return $orders;
+    }
+
+
+
 
     //保存资料
     public function saveProfile(Request $request)
