@@ -6330,12 +6330,12 @@ margin:30px 0 0 45px;
 }
 .input-box .user-icon-login{
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background:url(/booking/icon/userforlogin.png) no-repeat;
     background-size: cover;
-    margin-top: 6px;
-    margin-left: 7px;
+    margin-top: 11px;
+    margin-left: 11px;
 }
 
 .input-box input{
@@ -6353,7 +6353,7 @@ margin:30px 0 0 45px;
 }
 
 .first-input-box input{
-    margin-top: -40px;
+    margin-top: -37px;
 }
 
 .input-box input::selection{
@@ -6361,12 +6361,12 @@ margin:30px 0 0 45px;
 }
 .input-box .pwd-icon{
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background: url(/booking/icon/password.png) no-repeat;
     background-size: cover;
-    margin-top: 9px;
-    margin-left: 8px;
+    margin-top: 11px;
+    margin-left: 11px;
 }
 .choice-box{
     /*margin-top: 20px;*/
@@ -6720,8 +6720,8 @@ input{
     position: absolute;
     top:0px;
     left: 45px;
-    width: 193px;
-    height: 42px;
+    width: 203px;
+    height: 44px;
     outline: none;
     border: 0;
     background: rgba(0,0,0,0);
@@ -6794,6 +6794,10 @@ input:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px transparent inset!import
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+}
+
+.reg-btn .div-btn:hover{
+    color: #FFCA8B;
 }
 .but-btn{
     display: none;

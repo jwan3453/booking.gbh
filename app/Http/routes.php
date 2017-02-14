@@ -187,6 +187,7 @@ Route::post('/checkCode','Auth\LoginController@checkCode');
 //注册成功
 Route::any('/regSuccess','Auth\LoginController@regSuccess');
 Route::any('/userSession','Auth\LoginController@userSession');
+Route::post('/registersuccess','Auth\LoginController@registerSuccess');
 //发送邮箱
 Route::post('/auth/sendMessage','Auth\LoginController@sendMessage');
 //修改密码

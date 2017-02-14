@@ -79,6 +79,10 @@ class LoginController extends Controller
         return redirect('/');
     }
     //注册成功
+    public function registerSuccess(){
+        $username = $_POST['username'];
+        $this->authService->loginSession($username);
+    }
     public function regSuccess(){
         return redirect('/');
     }
@@ -201,9 +205,6 @@ class LoginController extends Controller
         if($user == 1){
             return 1;
         }else{
-            //验证后存值给Session
-            $username = $_POST['username'];
-            $this->authService->loginSession($username);
             return 2;
         }
 
