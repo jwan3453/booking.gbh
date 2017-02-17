@@ -384,8 +384,8 @@ class BookingService{
             $hotel['list'] =DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
                 ->join('address','hotel.address_id','=','address.id')
                 ->join('international_city','address.city_code','=','international_city.code')
-                ->join('country','address.province_code','=','country.code')
                 ->join('room','room.hotel_id','=','hotel.id')
+                ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
                 ->groupBy('hotel.id')
                 ->selectRaw('hotel.*,international_city.city_name,international_city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->get();
         }

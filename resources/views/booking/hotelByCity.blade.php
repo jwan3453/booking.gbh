@@ -58,9 +58,15 @@
                     </span>
                     <span class="address"><i class="icon marker"></i>
                         @if(session('lang') == 'en')
-                            {{$hotel->detail_en}} {{$hotel->city_name_en}} {{$hotel->province_name_en}}
+                            {{$hotel->detail_en}} {{$hotel->city_name_en}}
+                            @if(isset($hotel->province_name_en))
+                                {{$hotel->province_name_en}}
+                            @endif
                         @else
-                            {{$hotel->province_name}}{{$hotel->city_name}}{{$hotel->detail}}
+                            @if(isset($hotel->province_name))
+                                {{$hotel->province_name}}
+                            @endif
+                            {{$hotel->city_name}}{{$hotel->detail}}
                         @endif
                     </span>
                     <div class="regular-btn red-btn auto-margin">{{ trans('hotelByCity.view') }}</div>
