@@ -157,8 +157,8 @@
 
             @for($i = 0; $i<4; $i++)
 
-
-                <a  href="/hotelByCity/{{$hotDestination[$i]->code}}">
+                @if(iconv_strlen($hotDestination[$i]->code) < 6)
+                <a  href="/hotelByCity/int/{{$hotDestination[$i]->code}}">
                     <div class="dest-box-t ">
                         <div class="cover-image">
                             <img src="{{$hotDestination[$i]->cover_image}}"/>
@@ -178,7 +178,28 @@
 
                     </div>
                 </a>
+                @else
+                    <a  href="/hotelByCity/ds/{{$hotDestination[$i]->code}}">
+                        <div class="dest-box-t ">
+                            <div class="cover-image">
+                                <img src="{{$hotDestination[$i]->cover_image}}"/>
+                            </div>
 
+                            <div class="dest-box-mask trans_slow">
+                            <span>
+                                @if(session('lang') == 'en')
+                                    {{$hotDestination[$i]->city_name_en}}
+                                @else
+
+                                    {{$hotDestination[$i]->city_name}}
+                                @endif
+                            </span>
+                                <div class="fly-icon auto-margin i-icon" ></div>
+                            </div>
+
+                        </div>
+                    </a>
+                @endif
             @endfor
 
 
@@ -190,8 +211,8 @@
             @for($i = 4; $i<count($hotDestination); $i++)
 
 
-
-                <a  href="/hotelByCity/{{$hotDestination[$i]->code}}">
+                @if(iconv_strlen($hotDestination[$i]->code) < 6)
+                <a  href="/hotelByCity/int/{{$hotDestination[$i]->code}}">
                     <div class="dest-box-f ">
                         <div class="cover-image">
                             <img src="{{$hotDestination[$i]->cover_image}}"/>
@@ -211,7 +232,28 @@
 
                     </div>
                 </a>
+                @else
+                    <a  href="/hotelByCity/ds/{{$hotDestination[$i]->code}}">
+                        <div class="dest-box-f ">
+                            <div class="cover-image">
+                                <img src="{{$hotDestination[$i]->cover_image}}"/>
+                            </div>
 
+                            <div class="dest-box-mask trans_slow">
+                            <span>
+                                @if(session('lang') == 'en')
+                                    {{$hotDestination[$i]->city_name_en}}
+                                @else
+
+                                    {{$hotDestination[$i]->city_name}}
+                                @endif
+                            </span>
+                                <div class="fly-icon auto-margin i-icon" ></div>
+                            </div>
+
+                        </div>
+                    </a>
+                @endif
             @endfor
 
 
