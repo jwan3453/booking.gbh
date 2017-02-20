@@ -519,7 +519,7 @@
                                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                                 },
                                 success:function(data){
-                                    if(data==1){
+                                    if(data == 1){
 
                                         $('.mobile-success-icon').show();
                                         $('.mobile-error-icon').hide();
