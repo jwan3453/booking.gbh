@@ -122,7 +122,7 @@ class UserController extends Controller
             }
             $nav = 'profile';
 
-            return view('user.myprofile')->with('userDetail',$userDetail)->with('year',$year)->with('month',$month)->with('day',$day)->with('nav',$nav);
+            return view('user.myProfile')->with('userDetail',$userDetail)->with('year',$year)->with('month',$month)->with('day',$day)->with('nav',$nav);
 
         }else{
             return view('auth.login');
