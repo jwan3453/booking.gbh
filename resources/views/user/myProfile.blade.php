@@ -3,9 +3,9 @@
 
 @section('resources')
 
-    <link  rel="stylesheet" type="text/css"  href ={{asset('/js/jcrop/css/Jquery.Jcrop.min.css') }}>
+    <link  rel="stylesheet" type="text/css"  href ={{asset('/js/jcrop/css/jquery.Jcrop.min.css') }}>
 
-    <script src={{ asset('/js/jcrop/js/Jquery.Jcrop.min.js') }}></script>
+    <script src={{ asset('/js/jcrop/js/jquery.Jcrop.min.js') }}></script>
 @stop
 
 
