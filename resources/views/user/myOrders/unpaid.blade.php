@@ -1,5 +1,5 @@
 
-@extends('userLayout.blade.php')
+@extends('user.userLayout')
 
 @section('resources')
 
