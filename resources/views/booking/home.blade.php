@@ -75,10 +75,12 @@
             @foreach($selectedHotels as $hotel)
             <a  href="/hotel/{{$hotel->code}}">
                 <div class="hotel-box ">
-                    <div class="cover-image">
+                    <div class="cover-image ">
                         <img src="{{$hotel->link}}">
                     </div>
 
+                    <div class="mask">
+                    </div>
                     <div class="h-hotel-info">
                         <div class="general-info">
                             <span class="name">
@@ -1035,6 +1037,17 @@
                     $(this).find('.i-icon').stop().animate({top: 100},400,function(){
                         $(this).fadeOut(100);
                     });
+            })
+
+
+            $('.hotel-box').hover(function(){
+
+
+                $(this).find('img').addClass('blur');
+
+                },function(){
+
+                $(this).find('img').removeClass('blur');
             })
 
         })

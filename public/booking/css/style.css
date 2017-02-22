@@ -646,16 +646,26 @@ img{
     -moz-transition:all 1s ease;
     -o-transition:all1 1s ease;
     transition:all 1s ease;
-
+    border-radius: 3px;
 
 }
 
-.hotel-box:hover{
-    -moz-box-shadow: 7px 7px 7px #909090;/*firefox*/
-    -webkit-box-shadow: 7px 7px 7px #909090;/*safari或chrome*/
-    box-shadow:7px 7px 7px #909090;/*opera或ie9*/
+.hotel-box .mask{
+    width:100%;
+    height:100%;
+    position: absolute;
 
-    transform:translateY(-20px);
+    top:0;
+    background-color: rgba(9,9,26,0.3);
+}
+
+
+.hotel-box:hover{
+    -moz-box-shadow:7px 7px 7px 7px #909090;/*firefox*/
+    -webkit-box-shadow: 7px 7px 7px 7px #909090;/*safari或chrome*/
+    box-shadow: 7px 7px 7px #909090;/*opera或ie9*/
+
+
     -webkit-transition-duration: 0.3s;
     -webkit-transition-timing-function: linear;
 
