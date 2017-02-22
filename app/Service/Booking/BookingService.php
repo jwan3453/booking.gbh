@@ -75,10 +75,23 @@ class BookingService{
     //获取热门目的地
     public function getHotelDestination()
     {
+        //国外
+        $internationalCity = DB::table('destination')
+            ->Join('international_city','destination.city_code','=','international_city.code')
+            ->where('international_city.is_hot',1)
+            ->select('destination.cover_image','international_city.code','international_city.city_name','international_city.city_name_en')
+            ->get();
+        //国内
+        $cityList = DB::table('destination')
+            ->Join('city','destination.city_code','=','city.code')
+            ->where('city.is_hot',1)
+            ->select('destination.cover_image','city.code','city.city_name','city.city_name_en')
+            ->take(7)
+            ->get();
 
-        $cityList = DB::table('destination')->Join('city','destination.city_code','=','city.code')->where('city.is_hot',1)->select('destination.cover_image','city.code','city.city_name','city.city_name_en')->take(7)->get();
+        $allCityList = array_merge($internationalCity,$cityList);
 
-        return  $cityList;
+        return  $allCityList;
     }
 
 
@@ -371,10 +384,10 @@ class BookingService{
             $hotel['list'] =DB::table('hotel')->join('hotel_image','hotel.id','=','hotel_image.hotel_id')
                 ->join('address','hotel.address_id','=','address.id')
                 ->join('international_city','address.city_code','=','international_city.code')
-                ->join('country','address.province_code','=','country.code')
                 ->join('room','room.hotel_id','=','hotel.id')
+                ->where(['address.city_code'=>$code,'hotel_image.is_cover'=>2])
                 ->groupBy('hotel.id')
-                ->selectRaw('hotel.*,province.province_name,province.province_name_en,city.city_name,city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->get();
+                ->selectRaw('hotel.*,international_city.city_name,international_city.city_name_en,address.detail,address.detail_en,hotel_image.link, min(room.rack_rate) as priceFrom')->get();
         }
         return $hotel;
     }
@@ -394,8 +407,9 @@ class BookingService{
         $adg = [110000,120000,310000,500000,810000,820000];
         $provinceList = DB::table('province')->where('status',1)->whereNotIn('code',$adg)->select('code','province_name','province_name_en')->get();
 
+        $municipalities = [110100,120100,310100,500100];
         $adgList=DB::table('city')->join('destination','city.code','=','destination.city_code')
-            ->select('city.code','city.city_name','city.city_name_en','destination.num_of_hotel','destination.description','destination.description_en','destination.cover_image')->where('city.status',1)->whereIn('city.province_code',$adg)->get();
+            ->select('city.code','city.city_name','city.city_name_en','destination.num_of_hotel','destination.description','destination.description_en','destination.cover_image')->where('city.status',1)->whereIn('city.province_code',$adg)->where('city.code',$municipalities)->get();
 
 
         foreach($provinceList as $province)

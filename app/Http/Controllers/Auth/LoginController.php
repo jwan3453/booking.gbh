@@ -82,6 +82,7 @@ class LoginController extends Controller
     public function registerSuccess(){
         $username = $_POST['username'];
         $this->authService->loginSession($username);
+        return 1;
     }
     public function regSuccess(){
         return redirect('/');

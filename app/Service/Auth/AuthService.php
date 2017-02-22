@@ -151,8 +151,8 @@ class AuthService{
         $mobile = $_POST['mobile'];
 
         $config = [
-            'app_key'    => '23569007',
-            'app_secret' => '0fee6fdb714063b8bb5a5de4f248e08a',
+            'app_key'    => '23644303',
+            'app_secret' => 'ece27eb39a7a4b5d2a4d681e27867bfd',
         ];
 
         $client = new Client(new App($config));
@@ -165,11 +165,12 @@ class AuthService{
             ->setSmsParam([
                 'number' => $number
             ])
-            ->setSmsFreeSignName('精品酒店')
-            ->setSmsTemplateCode('SMS_34375253');
+            ->setSmsFreeSignName('精品酒店')         //签名名称
+            ->setSmsTemplateCode('SMS_47875171');  //模板ID
 
         $resp = $client->execute($req);
         if($resp) {
+            //发送成功
             DB::insert('insert into SMS_Log (SMS_code,SMS_mobile) values (?,?)',array($number,$mobile));
             return 1;
         }

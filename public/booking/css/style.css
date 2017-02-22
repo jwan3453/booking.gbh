@@ -2231,8 +2231,25 @@ img{
 
 .text-detail .view{
     margin:0 auto;
+    display: inline-block;
+
 }
 
+.text-detail .view:hover{
+
+    border:1px solid green;
+}
+
+.no-hotel-list{
+    width: 200px;
+    height: 50px;
+    margin: 10px auto;
+}
+
+.no-hotel-list h2{
+    text-align: center;
+    line-height: 50px;
+}
 /**********************/
 
 

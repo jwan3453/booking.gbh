@@ -27,10 +27,12 @@
                 <span class="p"></span>
                 <span>{{trans('destination.domestic')}}</span>
             </div>
+            @if($destinationList['adgList'])
             <div class="area"  id="10000">
                 <div class="p"></div>
                 <span>{{ trans('destination.municipality') }}</span>
             </div>
+            @endif
             @foreach($destinationList['provinceList'] as $province )
                 <div class="area" id="{{$province->code}}">
                     <div class="p"></div>
@@ -84,7 +86,7 @@
             {{--</div>--}}
         {{--</div>--}}
 
-
+        @if($destinationList['adgList'])
         <div class="area-section">
             <div class="ui horizontal divider  area-name" id="area_10000">
                 {{ trans('destination.municipality') }}
@@ -127,7 +129,7 @@
 
             </div>
         </div>
-
+        @endif
 
 
         @foreach($destinationList['provinceList'] as $province )

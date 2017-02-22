@@ -27,6 +27,7 @@
         </div>
 
         <div class="cate-hotel-list auto-margin">
+            @if($hotel['list'])
             @foreach($hotel['list'] as $hotel)
                 <div class="cate-hotel-detail">
                     <div class="cover-image">
@@ -42,7 +43,8 @@
                         </div>
                     </div>
 
-                    <div class="text-detail trans_fast">
+                    <a href="/hotel/{{$hotel->code}}">
+                        <div class="text-detail trans_fast">
 
                     <span class="feature">
 
@@ -56,15 +58,27 @@
                     </span>
                     <span class="address"><i class="icon marker"></i>
                         @if(session('lang') == 'en')
-                            {{$hotel->detail_en}} {{$hotel->city_name_en}} {{$hotel->province_name_en}}
+                            {{$hotel->detail_en}} {{$hotel->city_name_en}}
+                            @if(isset($hotel->province_name_en))
+                                {{$hotel->province_name_en}}
+                            @endif
                         @else
-                            {{$hotel->province_name}}{{$hotel->city_name}}{{$hotel->detail}}
+                            @if(isset($hotel->province_name))
+                                {{$hotel->province_name}}
+                            @endif
+                            {{$hotel->city_name}}{{$hotel->detail}}
                         @endif
                     </span>
-                        <a href="/hotel/{{$hotel->code}}"><div class="regular-btn red-btn auto-margin">{{ trans('hotelByCity.view') }}</div></a>
+                    <div class="regular-btn red-btn auto-margin">{{ trans('hotelByCity.view') }}</div>
                     </div>
+                    </a>
                 </div>
             @endforeach
+            @else
+                <div class="no-hotel-list">
+                    <h2>该地区暂无酒店</h2>
+                </div>
+            @endif
         </div>
 
 
