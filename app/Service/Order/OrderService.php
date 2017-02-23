@@ -8,6 +8,7 @@ use App\Models\Room;
 use App\Models\Address;
 use App\Models\HotelImage;
 use App\Models\Orders;
+use App\User;
 use App\Service\Booking\BookingService;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Config;
@@ -22,6 +23,7 @@ use App\Tool\Pay\Wechatpay\WxPayApi;
 
 use App\Tool\Pay\Alipay\alipay;
 use App\Tool\Pay\Alipay\alipay\lib;
+use App\Service\User\UserService;
 ;
 /**
  *
@@ -46,7 +48,9 @@ class OrderService {
 
         //获取房间基本信息
         $roomDetail = Room::where(['id'=>$roomId])->firstOrFail();
-        $roomDetail->imageLink=HotelImage::where(['section_id'=> $roomDetail->id,'hotel_id' => $hotelId,'type'=>2])->first()->link;
+        $HotelImage = HotelImage::where(['section_id'=> $roomDetail->id,'hotel_id' => $hotelId,'type'=>2])->first();
+        $roomDetail->imageLink= $HotelImage == null ? '':$HotelImage->link;
+
 
         //获取房间均价
         $result = $this->getOfferPrice($hotelId,$roomId, $checkInDate, $checkOutDate);
@@ -177,6 +181,10 @@ class OrderService {
     {
 
 
+        //当前用户
+        $currentUser = session('currentUser');
+        $UserInfo = $this->getUserId($currentUser);
+
         $hotelId = $request->input('hotel');
         $roomId = $request->input('room');
 
@@ -204,7 +212,7 @@ class OrderService {
         $newOrder->hotel_id = $hotelId;
         $newOrder->room_id = $roomId;
 
-        $newOrder->user_id = '';
+        $newOrder->user_id = $UserInfo->id;
         $newOrder->num_of_room = $roomNum;
 
         $guestList= '';
@@ -263,7 +271,9 @@ class OrderService {
 
             //获取房间基本信息
             $roomDetail = Room::where(['id'=>$order->room_id])->firstOrFail();
-            $roomDetail->imageLink=HotelImage::where(['section_id'=> $roomDetail->id,'hotel_id' => $order->hotel_id,'type'=>2])->first()->link;
+            //$roomDetail->imageLink=HotelImage::where(['section_id'=> $roomDetail->id,'hotel_id' => $order->hotel_id,'type'=>2])->first()->link;
+            $HotelImage = HotelImage::where(['section_id'=> $roomDetail->id,'hotel_id' => $order->hotel_id,'type'=>2])->first();
+            $roomDetail->imageLink= $HotelImage == null ? '':$HotelImage->link;
 
 
             $order->hotelDetail = $hotelDetail;
@@ -650,6 +660,12 @@ class OrderService {
 
     }
 
+    //获取用户id
+    public function getUserId($currentUser){
+
+        return User::where('username',$currentUser)->first();
+
+    }
 
 
 }

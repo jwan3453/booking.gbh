@@ -282,7 +282,6 @@
             $('#submitOrder').click(function(){
                 var validForm = true;
                 validForm = checkOrderForm();
-                alert(validForm);
                 if(validForm)
                 {
 

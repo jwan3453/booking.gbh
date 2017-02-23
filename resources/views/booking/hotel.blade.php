@@ -1253,7 +1253,7 @@
             $('.booking').click(function(){
 
                 var href  = $(this).find('div').attr('href');
-                location.href = href+$('#checkInDate').val()+'/'+$('#checkInDate').val();
+                location.href = href+$('#checkInDate').val()+'/'+$('#checkOutDate').val();
             })
 
 
