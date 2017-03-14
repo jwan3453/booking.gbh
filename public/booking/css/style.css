@@ -6354,6 +6354,7 @@ margin:30px 0 0 45px;
     border: 1px solid #fff;
     margin-left: 25px;
     margin-top: 45px;
+
 }
 .input-box .user-icon-login{
     display: inline-block;
@@ -6370,17 +6371,18 @@ margin:30px 0 0 45px;
     width: 222px;
     height: 41px;
     margin-left: 46px;
-    margin-top: -37px;
+    margin-top: -40px;
     background:rgba(0,0,0,0);
     border: 0;
     outline: none;
     color: #fff;
     font-size: 14px;
     padding-left: 10px;
+
 }
 
 .first-input-box input{
-    margin-top: -37px;
+    margin-top: -40px;
 }
 
 .input-box input::selection{
